@@ -10,6 +10,11 @@
  * @function creaTimer - Creazione di un Timer (Snack-4)
  * @function stampaOgniSecondo - Stampo in Loop (Snack-5)
  * @function CountAuto - Contatore AutoMatico (Snack-6)
+ * @function eseguiEferma - Alternaza di SetTimeout e SetInterval (Snack-7)
+ * @function ContoAllaRovescia - Conto all Rovescia (Snack-8)
+ * @function sequenzaOperazioni - Gestione delle Operazioni in Funzione (Snack-9)
+ * @function creaThrottler - Creazione di uno Throttler (Snack-10)
+ * 
  */
 
 
