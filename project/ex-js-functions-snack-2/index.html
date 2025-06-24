@@ -31,19 +31,26 @@
   <section>
     <h2>Snack 2 - Quadrato di un numero</h2>
     <pre>
-
+    const quad_fun = (num) => console.log( num * num );
+    quad_fun(12);
     </pre>
   </section>
 
   <section>
     <h2>Snack 3 - eseguiOperazione</h2>
     <pre>
+    const add = (a, b) => a + b;
+    const mod = (a, b) => a * b;
 
+    const eseguiOperazione = (num1, num2, op) => { console.log(op(num1, num2)) };
+
+    eseguiOperazione(12, 13, add);
     </pre>
   </section>
 
   <section>
     <h2>Snack 4 - creaTimer</h2>
+    <p id="count-par">Count: 0</p>
     <button id="timer-btn">Avvia Timer</button>
   </section>
 
@@ -64,7 +71,7 @@
 
   <section>
     <h2>Snack 8 - contoAllaRovescia</h2>
-    <button id="count-btn">Avvia conto alla rovescia</button>
+    <button id="rv-btn">Avvia conto alla rovescia</button>
   </section>
 
   <section>
