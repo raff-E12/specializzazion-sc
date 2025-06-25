@@ -1,11 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Cloning Snacks</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+  <h1>🍔 Code Cloning Snacks</h1>
+  
+  <section>
+    <h2>🏆 Code Question 1</h2>
+    <pre><code>
+    const hamburger = { name: "Cheese Burger", weight: 250 };
+    const secondBurger = hamburger;
+    secondBurger.name = 'Double Cheese Burger';
+    secondBurger.weight = 500;
+
+    console.log(hamburger.name); // 'Double Cheese Burger'
+    console.log(secondBurger.name); // 'Double Cheese Burger'
+  </code></pre>
+    <div class="note">
+        <b>Oggetti in Memoria:</b> 1 ,<b>Output:</b> 'Double Cheese Burger','Double Cheese Burger'
+    </div>
+  </section>
+
+  <section>
+    <h2>🏆 Code Question 2</h2>
+    <pre><code>
+    const hamburger = { 
+        name: "Cheese Burger", 
+        weight: 250,
+        ingredients: ["Cheese", "Meat", "Bread", "Tomato"]
+    };
+
+    const secondBurger = {...hamburger};
+    secondBurger.ingredients[0] = "Salad";
+
+    console.log(hamburger.ingredients[0]); // ?
+    console.log(secondBurger.ingredients[0]); // ?
+    </code></pre>
+    <div class="note">
+        <b>Oggetti in Memoria:</b> 9, <b>Output:</b> 'Salad','Salad'
+    </div>
+  </section>
+
+  <section>
+    <h2>🏆 Code Question 3</h2>
+    <pre><code>
+    const hamburger = { 
+        name: "Cheese Burger", 
+        weight: 250,
+        maker: {
+            name: "Anonymous Chef",
+            restaurant: {
+                name: "Hyur's Burgers",
+                address: "Main Street, 123",
+                isOpen: true,
+            },
+            age: 29
+        }
+    };
+
+    const secondBurger = structuredClone(hamburger);
+    const thirdBurger = structuredClone(hamburger);
+    </code></pre>
+    <div class="note">
+        Sono stati creati 9 oggetti.
+    </div>
+  </section>
+
+  <section>
+    <h2>🏆 Code Question 4</h2>
+    <pre><code>
+    const chef = {
+        name: "Chef Hyur",
+        age: 29,
+        makeBurger: (num = 1) => {
+            console.log(`Ecco ${num} hamburger per te!`);
+        },
+    }
+
+    const restaurant = {
+        name: "Hyur's Burgers",
+        address: {
+            street: 'Main Street',
+            number: 123,
+        },
+        openingDate: new Date(2025, 3, 11),
+        isOpen: false,
+    };
+    </code></pre>
+    <div class="note">
+     Per l'oggetto <b>chef</b> va bene lo spread racchiuso in un oggetto, invece per l'oggetto <b>restaurant</b> va bene il
+     metodo "structuredClone" detto in meniera direzionata.
+    </div>
+  </section>
+
+  <section>
+    <h2>🎯 Code Question 5 (Bonus)</h2>
+    <pre><code>
+    const hamburger = { 
+        name: "Cheese Burger", 
+        weight: 250,
+        maker: {
+            name: "Anonymous Chef",
+            restaurant: {
+                name: "Hyur's Burgers",
+                address: "Main Street, 123",
+                isOpen: true,
+            },
+            age: 29
+        }
+    };
+
+    const newRestaurant = {...hamburger.maker.restaurant};
+    newRestaurant.name = "Hyur's II";
+    newRestaurant.address = "Second Street, 12";
+    const secondBurger = {...hamburger};
+    secondBurger.maker.restaurant = newRestaurant;
+    secondBurger.maker.name = "Chef Hyur";
+
+    console.log(hamburger.maker.name); // ?
+    console.log(secondBurger.maker.name); // ?
+    console.log(hamburger.maker.restaurant.name); // ?
+    console.log(secondBurger.maker.restaurant.name); // ?
+    </code></pre>
+    <div class="note">
+        <b>Oggetti Creati:</b> 5, <b>Output:</b> Chef Hyur, Hyur's II
+    </div>
+  </section>
+
+  <section>
+    <h2>🎯 Code Question 6 (Bonus)</h2>
+    <pre><code>
+    const chef = {
+        name: "Chef Hyur",
+        age: 29,
+        makeBurger: (num = 1) => {
+            console.log(`Ecco ${num} hamburger per te!`);
+        },
+        restaurant: {
+            name: "Hyur's Burgers",
+            welcomeClient: () => {
+                console.log("Benvenuto!");
+            },
+            address: {
+                street: 'Main Street',
+                number: 123,
+                showAddress: () => {
+                    console.log("Main Street 123");
+                }
+            },
+            isOpen: true,
+        }
+    }
+    </code></pre>
+    <div class="note">
+        La copia migliore è utilizzare lo <b>spreed</b>, che ogni sezione del oggetto diventa facile prenderla in considerazione, però bisogna
+        tenere conto, che copia dell'oggetto, se contiene oggetti deve essere separato dall'originale per sezione che tratta e di cosa contiene
+        al suo interno.
+    </div>
+  </section>
+
+  <section>
+    <h2>🎯 Deep Copy con metodi (Snack)</h2>
+    <pre><code>
+    function DeepCopyOBJ(obj) {
+        if (typeof obj !== "object") { // Funzione Ricorsiva "Se non è un oggetto"
+            return obj;
+        }
+        if (Array.isArray(obj)) {  // conflitto array con il type of "object"
+            return obj.map(DeepCopyOBJ)
+        }
+        const copy = {};
+        for (const key in obj) { // Iterazione con le diverse chiavi degli oggetti
+            const value = obj[key];
+            if (typeof value !== "object") { // Riconoscimento ricorsivo sugli oggetti
+                copy[key] = value;
+            } else {
+                copy[key] = DeepCopyOBJ(value);
+            }
+        }
+        return copy;
+    }
+    </code></pre>
+    <div class="note">
+        <b>Concetto:</b> la ricorsione si applica su ogni oggetto per verificare se è un oggetto.
+    </div>
+  </section>
+
+  <footer>
+    🍔 Sviluppato con passione – Snack JS per imparare clonazione in modo visuale.
+  </footer>
+
+  <script src="./js/snacks.js"></script>
 </body>
 </html>
