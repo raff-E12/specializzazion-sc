@@ -14,7 +14,6 @@
  * @function ContoAllaRovescia - Conto all Rovescia (Snack-8)
  * @function sequenzaOperazioni - Gestione delle Operazioni in Funzione (Snack-9)
  * @function creaThrottler - Creazione di uno Throttler (Snack-10)
- * 
  */
 
 
