@@ -3,14 +3,19 @@
 // Creare con le Promises il Gioco del Lancio dei Dadi.
 
 function lanciaDado() {
-    const num = Math.floor(Math.random() * 6);
+    const interruption = Math.random() < 0.2;
     console.log("Processo in esecuzione...")
     const process = new Promise((resolve, reject) => {
        setTimeout(() => {
-          if (num > 0) {
-             resolve("Hai Vinto!!");
+          if (interruption) {
+             reject("Il Dado è Incastrato!!, Riprova.");
           } else {
-             reject("Hai Perso!!");
+             const num = Math.floor(Math.random() * 6);
+             if (num > 0) {
+                resolve("Hai Vinto");
+             } else {
+                reject("Hai Perso!!");
+             }
           }
        }, 3000)
     })
