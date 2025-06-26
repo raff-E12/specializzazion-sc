@@ -30,6 +30,7 @@ function getPost(id) {
 
 const await_fetch = getPostTitle(4).then(result => {
     let id = result.id;
+    console.log(result)
     getPost(id).then(result => console.log(result)).
     catch(error => console.error(error)); 
 }).catch(error => console.error(error));
