@@ -7,7 +7,16 @@ function getPostTitle(id) {
   const fetching_data = new Promise((resolve, reject) => {
        setTimeout(() => {
         fetch(fetch_url).then(response => response.json())
-        .then(data => resolve(data))
+        .then(posts => {
+          const id = posts.id;
+          let combination = {};
+          fetch(`https://dummyjson.com/users/${id}`).then(response => response.json())
+          .then(users => { 
+             combination = {...posts, users: {...users}};
+             resolve(combination);
+          })
+          .catch(error => reject(error))
+        })
         .catch(error => reject(error))
        }, 1900);
   })
@@ -15,22 +24,4 @@ function getPostTitle(id) {
   return fetching_data
 }
 
-function getPost(id) {
-  const fetch_url = `https://dummyjson.com/users/${id}`;
-  const fetching_data = new Promise((resolve, reject) => {
-       setTimeout(() => {
-         fetch(fetch_url).then(response => response.json())
-        .then(data => resolve(data))
-        .catch(error => reject(error))
-       }, 1900);
-  })
-
-  return fetching_data
-}
-
-const await_fetch = getPostTitle(4).then(result => {
-    let id = result.id;
-    console.log(result)
-    getPost(id).then(result => console.log(result)).
-    catch(error => console.error(error)); 
-}).catch(error => console.error(error));
+const await_fetch = getPostTitle(4).then(result => console.log(result)).catch(error => console.error(error));
