@@ -37,32 +37,74 @@
         const weather = "http://localhost:3333/weathers"
         const airport = "http://localhost:3333/airports";
         let query = "london";
-        let country = {};
+
+        let info = {
+            city: null,
+            country: null,
+            temperature: null,
+            weather: null,
+            airport: null
+        };
 
         const destinations_res = getInfo(destinations, query);
         const weather_res = getInfo(weather, query);
         const airport_res = getInfo(airport, query);
 
         const req_list = [destinations_res, weather_res, airport_res];
-        const requests = await Promise.all(req_list);
+        const requests = await Promise.allSettled(req_list);
+
+        const res_destinations = requests[0];
+        const res_weather = requests[1];
+        const res_airport = requests[2];
+
+        if (res_destinations.status === "rejected") {
+            info.city = null;
+            info.country = null
+        } else {
+            info.city =  res_destinations.value.length !== 0 ? res_destinations.value[0].name : null;
+            info.country =  res_destinations.value.length !== 0 ? res_destinations.value[0].country : null;
+        }
         
-        country = {
-            city: requests[0][0].name,
-            country: requests[0][0].country,
-            temperature: requests[1][0].temperature,
-            weather: requests[1][0].weather_description,
-            airport: requests[2][0].name
+        if (res_weather.status === "rejected") {
+            info.temperature = null;
+            info.weather = null;
+        } else {
+            info.temperature = res_weather.value.length !== 0 ? res_weather.value[0].temperature : null;
+            info.weather = res_weather.value.length !== 0 ? res_weather.value[0].weather_description : null;
+        }
+        
+        if (res_airport.status === "rejected") {
+            info.airport = null;
+        } else {
+            info.airport = res_airport.value.length !== 0 ? res_airport.value[0].name : null;
         }
 
-        return country
+        return info
     })();
 
     
     getDashboardData.then(data => {
         console.log('Dasboard data:', data);
-        console.log(
-            `${data.city} is in ${data.country}.\n` +
-            `Today there are ${data.temperature} degrees and the weather is ${data.weather}.\n`+
-            `The main airport is ${data.airport}.\n`
-        );
+        let phrase = "";
+        
+        if (data.city !== null && data.country !== null) {
+            phrase += `${data.city} is in ${data.country}.\n`;
+        } else {
+            phrase = "";
+        }
+             
+        if (data.weather !== null && data.temperature !== null) {
+            phrase += `Today there are ${data.temperature} degrees and the weather is ${data.weather}.\n`;
+        } else {
+            phrase = "";
+        }
+
+        if (data.airport !== null) {
+             phrase += `The main airport is ${data.airport}.\n`;
+        } else {
+            phrase = "";
+        }
+
+        console.log(phrase);
+       
     }).catch(error => console.error(error));
