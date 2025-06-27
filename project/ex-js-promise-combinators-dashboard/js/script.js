@@ -1,0 +1,47 @@
+    const cities = {
+      "roma": {
+        title: "Roma, Italia",
+        image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Colosseo_2020.jpg",
+        features: [
+          "Capitale d'Italia",
+          "Ricca di storia antica (Colosseo, Foro Romano)",
+          "Popolazione: ~2.8 milioni",
+          "Cucina famosa: pasta, pizza, gelato",
+          "Centro della Chiesa cattolica (Vaticano)"
+        ]
+      },
+      "parigi": {
+        title: "Parigi, Francia",
+        image: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg",
+        features: [
+          "Capitale della Francia",
+          "Iconica Torre Eiffel",
+          "Museo del Louvre e Notre-Dame",
+          "Città dell'amore e della moda",
+          "Popolazione: ~2.1 milioni"
+        ]
+      }
+    };
+
+    document.getElementById("cityInput").addEventListener("input", function () {
+      const cityName = this.value.trim().toLowerCase();
+      const city = cities[cityName];
+      const card = document.getElementById("cityCard");
+
+      if (city) {
+        document.getElementById("cityTitle").textContent = city.title;
+        document.getElementById("cityImage").src = city.image;
+
+        const featureList = document.getElementById("cityFeatures");
+        featureList.innerHTML = "";
+        city.features.forEach(f => {
+          const li = document.createElement("li");
+          li.textContent = f;
+          featureList.appendChild(li);
+        });
+
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
