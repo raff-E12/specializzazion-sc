@@ -21,15 +21,48 @@
  */
 
 
-    async function getDashboardData(query) {
+    async function getInfo(response, query) {
         try {
-            const url = `http://localhost:3333/destinations?search=${query}`
+            const url = `${response}?search=${query}`;
             const fething = await fetch(url);
             const data = fething.json();
-            console.log(data);
+            return data
         } catch (error) {
             throw new Error(error.message)
         }
     }
 
-    getDashboardData()
+    const getDashboardData = (async () => {
+        const destinations = "http://localhost:3333/destinations";
+        const weather = "http://localhost:3333/weathers"
+        const airport = "http://localhost:3333/airports";
+        let query = "london";
+        let country = {};
+
+        const destinations_res = getInfo(destinations, query);
+        const weather_res = getInfo(weather, query);
+        const airport_res = getInfo(airport, query);
+
+        const req_list = [destinations_res, weather_res, airport_res];
+        const requests = await Promise.all(req_list);
+        
+        country = {
+            city: requests[0][0].name,
+            country: requests[0][0].country,
+            temperature: requests[1][0].temperature,
+            weather: requests[1][0].weather_description,
+            airport: requests[2][0].name
+        }
+
+        return country
+    })();
+
+    
+    getDashboardData.then(data => {
+        console.log('Dasboard data:', data);
+        console.log(
+            `${data.city} is in ${data.country}.\n` +
+            `Today there are ${data.temperature} degrees and the weather is ${data.weather}.\n`+
+            `The main airport is ${data.airport}.\n`
+        );
+    }).catch(error => console.error(error));
