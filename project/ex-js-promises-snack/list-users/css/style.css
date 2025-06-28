@@ -78,5 +78,12 @@ footer {
   margin-top: 40px;
 }
 
+#text-load{
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  height: 100vh;
+}
+
 
 /***** End Webpage *****/

@@ -8,6 +8,7 @@
       let index = 1;
       dice.innerHTML = "";
 
+      // Dispozione dei punti nelle singole celle.
       const faces = {
       1: [5],
       2: [1, 9],
