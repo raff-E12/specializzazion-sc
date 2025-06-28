@@ -102,13 +102,13 @@ input.addEventListener("input", async () => {
         card.style.display = "none";
 
         info.style.display = "block";
-        info.textContent = "Non Trovato";
+        info.textContent = "Non Trovato.";
       }
 
     } else {
       card.style.display = "none";
       
-      info.style.display = "none";
-      info.textContent = "";
+      info.style.display = "block";
+      info.textContent = "Continua la tua ricerca...";
     }
 });
