@@ -51,12 +51,14 @@ async function getChefBirthday(id) {
             throw new Error("Impossibile Recuperare le informazioni ottenute.");
         }
 
+        if (chef.message) return console.error(chef.message);
+
         return console.log("Data di nascita dello chef:", bithday);;
 }
 
 const api_response = (async () => {
     try {
-        const bithday = await getChefBirthday(2);
+        const bithday = await getChefBirthday(3);
     } catch (error) { 
         throw new Error(error.message);
     }
