@@ -156,3 +156,20 @@ const tagCounts = books.reduce((acc, book) => {
 }, {})
 
 console.log(tagCounts)
+
+const CountTags = () => {
+    let CountTagsList = {};
+    console.log("Sto Esesguendo la Funzione")
+    for (let index = 0; index < books.length; index++) {
+        let indexTags = books[index].tags;
+        for (const key in indexTags) {
+            if (!CountTagsList[indexTags[key]]) CountTagsList[indexTags[key]] = 0;
+            CountTagsList[indexTags[key]]++
+        }
+    }
+
+    const CountLists = Object.entries(CountTagsList).map((obj, value) => {return {[obj[0]]: value}})
+    console.log(CountLists)
+}
+
+CountTags();
