@@ -1,0 +1,28 @@
+
+/***** WebPage Css *****/ 
+
+ body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #111;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #00ffc3;
+    }
+    section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border-left: 3px solid #00ffc3;
+      background: #1b1b1b;
+    }
+    code {
+      background: #222;
+      padding: 0.2em 0.4em;
+      border-radius: 5px;
+      color: #eee;
+    }
+
+/***** End WebPage Css *****/
