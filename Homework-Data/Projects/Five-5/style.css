@@ -1,0 +1,75 @@
+
+/***** WebPagae Css *****/ 
+
+   body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .weather-app {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .location {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .temperature {
+      font-size: 4rem;
+      margin: 10px 0;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .weather-icon {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .forecast {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .forecast-day {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 10px;
+      width: 60px;
+    }
+
+    .forecast-day p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 400px) {
+      .weather-app {
+        padding: 1rem;
+      }
+
+      .temperature {
+        font-size: 3rem;
+      }
+    }
+
+/***** End WebPagae Css *****/

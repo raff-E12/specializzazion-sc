@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cube {
+    width: 150px;
+    height: 150px;
+    background-color: #3498db; /* Colore iniziale del cubo */
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out; /* Animazione per il cambio colore */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2ecc71; /* Colore del pulsante */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #27ae60; /* Colore del pulsante al passaggio del mouse */
+}

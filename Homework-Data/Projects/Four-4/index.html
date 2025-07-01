@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mia To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>La Mia To-Do List</h1>
+
+        <div class="todo-input">
+            <input type="text" id="todo-text" placeholder="Aggiungi una nuova attività...">
+            <button id="add-todo-button">Aggiungi</button>
+        </div>
+
+        <ul id="todo-list">
+            <li class="todo-item">
+                <span class="task-text">Fare la spesa</span>
+                <div class="actions">
+                    <button class="complete-button">Completato</button>
+                    <button class="delete-button">Elimina</button>
+                </div>
+            </li>
+            <li class="todo-item completed">
+                <span class="task-text">Pagare le bollette</span>
+                <div class="actions">
+                    <button class="complete-button">Completato</button>
+                    <button class="delete-button">Elimina</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

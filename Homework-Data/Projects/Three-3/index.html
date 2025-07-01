@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - 3</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+      <div class="calculator">
+    <input type="text" class="display" id="display" readonly />
+    <div class="buttons">
+      <button class="button-sp" id="Reset">C</button>
+      <button class="button" data-value="(">(</button>
+      <button class="button" data-value=")">)</button>
+      <button class="button" data-value="/">÷</button>
+
+      <button class="button" data-value="7">7</button>
+      <button class="button" data-value="8">8</button>
+      <button class="button" data-value="9">9</button>
+      <button class="button" data-value="*">×</button>
+
+      <button class="button" data-value="4">4</button>
+      <button class="button" data-value="5">5</button>
+      <button class="button" data-value="6">6</button>
+      <button class="button" data-value="-">−</button>
+
+      <button class="button" data-value="1">1</button>
+      <button class="button" data-value="2">2</button>
+      <button class="button" data-value="3">3</button>
+      <button class="button" data-value="+">+</button>
+
+      <button class="button" data-value="0">0</button>
+      <button class="button" data-value=".">.</button>
+      <button class="button-sp" id="Result">=</button>
+      <button class="button-sp" id="Back"><i class="fa-solid fa-delete-left"></i></button>
+      <button class="button-sp" id="Values"><i class="fa-solid fa-dollar-sign"></i></button>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.10.0/axios.js" integrity="sha512-htoh0mqlLP00vZAa+tZAuuJYiz1SOe9V6P5i5VLU4Tt63Vmo1NikZVu0AeM1cCochs+0KraOQeUeH6GPTuuSxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+</body>
+</html>

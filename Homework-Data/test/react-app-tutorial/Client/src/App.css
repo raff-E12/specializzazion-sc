@@ -1,0 +1,372 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.header{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
+  position: absolute;
+  background-color: #002E37;
+  border: none;
+  color: white;
+  z-index: 9999;
+}
+
+.header h2{
+  padding: 0;
+  margin: 0;
+  width: 400%;
+}
+
+.header ul{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 60px;
+  padding: 0;
+  margin: 0;
+  width: 200%;
+}
+
+.header ul li a{
+  color: white;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+body{
+display: flex;
+align-items: flex-start;
+justify-content: flex-start;
+flex-direction: column;
+padding: 0;
+margin: 0;
+background-color: #AACCB0;
+}
+
+h1{
+  font-size: 46.28px;
+  font-family: "Gabarito", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+h2{
+  font-size: 38.57px;
+  font-family: "Gabarito", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+h3{
+  font-size: 32.14px;
+  font-family: "Gabarito", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+h4{
+  font-size: 26.78px;
+  font-family: "Gabarito", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+h5{
+  font-size: 22.32px;
+  font-family: "Gabarito", serif;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0;
+}
+
+h6{
+  font-size: 18.6px;
+  font-family: "Gabarito", serif;
+  font-weight: 500;
+  font-style: normal;
+
+}
+
+p{
+  font-size: 20.5px;
+  font-family: "Gabarito", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.card{
+  border: 9px solid #727365;
+  margin-top: 150px;
+  margin-left: 471px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20px;
+  gap: 10px;
+  width: 400px;
+  height: 340px;
+  padding: 20px;
+  background-color: #D6D9C1;
+  text-align: center;
+  text-transform: capitalize;
+  color: #034AA6;
+  box-shadow: 10px 10px 10px 1px #4e4f45;
+}
+
+.card img{
+  width: 100%;
+}
+
+.card p{
+  padding: 10px;
+  background-color: #D6D9C1;
+}
+
+.img-card{
+  width: 90px;
+  height: 90px;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.box-props{
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  margin-top: 40px;
+  margin-left: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-transform: capitalize;
+  color: #D6D9C1;
+  gap: 10px;
+  background-color: #4e4f45;
+}
+
+.boxLogin{
+  background-color: #002E37;
+  margin-top: 30px;
+  text-align: center;
+  color: white;
+}
+
+.boxBen{
+  background-color: #034AA6;
+  margin-top: 30px;
+  text-align: center;
+  color: white;
+}
+
+.listAppend{
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.title-list{
+  padding: 10px;
+  text-align: center;
+  background-color: #002E37;
+  color: white;
+}
+
+.counter-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #034AA6;
+  padding: 10px;
+  color: #D6D9C1;
+}
+
+.box-select-color{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  top: 67px;
+  width: 100%;
+  position: absolute;
+  background-color: #034AA6;
+  padding: 10px;
+  color: white;
+}
+
+.box-color{
+  background-color: #4e4f45;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+
+.to-do-list-box{
+  margin-top: 79px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  position: absolute;
+  background-color: #034AA6;
+  color: #D6D9C1;
+  padding: 10px;
+}
+
+.box-inp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+  width: 70%;
+  padding: 10px;
+}
+
+.box-inp input{
+  width: 300px;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.list-imp{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-imp li{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction:row;
+  gap: 10px;
+  background-color: #4e4f45;
+  border: 2px solid white;
+  padding: 10px;
+}
+
+li .text{
+  overflow: hidden;
+}
+
+.container-fluid{
+  width: 100%; 
+  min-width: 100vh;  
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.clock-container{
+  width: 200%;
+  height: 500px;
+  position: relative;
+  top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #034AA6;
+  min-width: 100vh;
+}
+
+.box-clock{
+  background-color: #727365;
+  width: 300px;
+  text-align: center;
+  padding: 10px;
+  color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+}
+
+.stop-watch{
+  border: 2px solid #4e4f45;
+  position: relative;
+  top: 200px;
+  left: 390px;
+  background-color: #034AA6;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.display{
+  border: 2px solid #002E37;
+  width: 500px;
+  text-align: center;
+  background-color: #727365;
+  color: white;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 10px 1px #002E37;
+  padding: 10px;
+}
+
+.controls{
+  min-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+.container-sm.box-con{
+  border: 2px solid red;
+}
+
+.pargraph-api{
+  border: 2px solid #034AA6;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  margin: 12px;
+  padding: 10px;
+  background-color: #D6D9C1;
+  cursor: pointer;
+}
+
+.pargraph-api:active{
+  background-color: #034AA6;
+  transform: scale(0.9, 0.9);
+  color: #D6D9C1;
+}

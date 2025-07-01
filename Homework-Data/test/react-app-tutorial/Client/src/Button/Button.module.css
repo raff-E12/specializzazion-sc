@@ -1,0 +1,19 @@
+.btnsub{
+    background-color: #90B4D4;
+    margin-left: 608px;
+    margin-top: 40px;
+    color: #26220E;
+    border: 3px solid #034AA6;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .btnsub:active{
+    background-color: #034AA6;
+    color: white;
+    outline: none;
+  }
+  
+  .btnsub:focus{
+    outline: none;
+  }

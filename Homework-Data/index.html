@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi Javascript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Palindrome Checker
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi una funzione che prenda una stringa e restituisca true se è una palindroma 
+                    (si legge allo stesso modo da sinistra a destra e da destra a sinistra, 
+                    ignorando maiuscole/minuscole e spazi), altrimenti false.</p>
+                <button class="btn" id="btn-1">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                const word_selected = "ciccio";
+
+                function Pali_fun(words) {
+                const pattern = /[^a-zA-Z-0-9\s]/gi;
+                let word_lowercase = words.toLowerCase().replace(pattern, "");
+                let word_array = word_lowercase.trim().split("").reverse().join("");
+                let result_word = "";
+
+                // console.log(word_array);
+                // console.log(word_lowercase)
+
+                if (word_lowercase === word_array) {
+                return result_word = "è palindroma come parola";
+                } else {
+                return result_word = "non è palindroma";
+                }
+                }
+
+                console.log(Pali_fun(word_selected));
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: FizzBuzz
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi un programma che stampi i numeri da 1 a 100. Per i multipli di 3, 
+                    stampa "Fizz" invece del numero. Per i multipli di 5, stampa "Buzz". 
+                    Per i numeri che sono multipli sia di 3 che di 5, stampa "FizzBuzz".</p>
+                <button class="btn" id="btn-2">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                function Count_Flizz() {
+                    let index = 0;
+
+                    for (let index = 0; index < 200; index++) {
+                    if(index % 3 === 0 && index % 5 === 0) {
+                        console.log("FlizzBuzz");
+                    }else if (index % 3 === 0) {
+                        console.log("Flizz");
+                    } else if(index % 5 === 0) {
+                        console.log("Buzz");
+                    }else {
+                        console.log(index)
+                    }
+                    }
+
+                  return index
+                }
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+     <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Dupplicazione
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi una funzione che prenda un array e restituisca un nuovo array con tutti i duplicati rimossi.</p>
+                <button class="btn" id="btn-3">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                    const list_arrays = [1, 2, 3, 5, 6, 5, 6, 7, 8, 9, 10, 10, 9, 4];
+                    const new_list = [...new Set(list_arrays)].sort((a, b) => {return a - b});
+                    console.log(new_list)
+
+                    let new_list_string = [];
+                    const list_string = ["Mario", "Luigi", "Pippo", "Antonio", "Dario", "Antonio", "Pippo", "Giovanni"];
+                    const new_strings = new Set(list_string).forEach(element => new_list_string.push(element));
+                    console.log(new_list_string)
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+     <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Suddivisione Stringa in Oggetto
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi una funzione che prenda una stringa e restituisca un oggetto
+                     in cui le chiavi sono i caratteri della stringa e 
+                     i valori sono il numero di volte che quel carattere appare.</p>
+                <button class="btn" id="btn-4">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                    const string_value = "Paolo";
+
+                    function Object_words(strings) {
+                    let object_words = {};
+                    let count_words = 0;
+                    const string_splits = strings.toLowerCase().split("");
+
+                    for (const key in string_splits) {
+                    const key_value = string_splits[key];
+
+                    if (object_words[key_value]) {
+                        object_words[key_value]++;
+                    } else {
+                        object_words[key_value] = 1;  
+                    }
+                    }
+
+                    return object_words;
+                    }
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Calcolo del Raggio.
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi una funzione che prenda il raggio di un cerchio come argomento e restituisca la sua area(πr2).</p>
+                <button class="btn" id="btn-5">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                    let raggio = 0;
+                    const btn_5 = document.getElementById("btn-5");
+
+                    function Area_CirleFun(r) {
+                    const pi = Number(Math.PI.toFixed(2));
+                    const area = pi * (r * 2);
+                    const strings = "Area di :" + area;
+                    return strings
+                    }
+
+                    btn_5.addEventListener("click", () => {
+                    let raggio = Number(window.prompt("Inserisci il raggio:"));
+                    window.alert(Area_CirleFun(raggio));
+                    })
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Ripetizione
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi un programma che stampi i numeri da 1 a 100. Per i multipli di 3, 
+                    stampa "Fizz" invece del numero. Per i multipli di 5, stampa "Buzz". 
+                    Per i numeri che sono multipli sia di 3 che di 5, stampa "FizzBuzz". 
+                    Mi raccomando adatta il problema in varie forme diverse senza prendere quella presa finora</p>
+                <button class="btn" id="btn-6">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                <pre><code>
+                function Flizz_List(){
+                for (let index = 0; index < 100; index++) {
+
+                    if (index % 3 === 0 && index % 5 === 0) {
+                        let string = "FlizzBuzz";
+                        list_flizz.push(string);
+                    } else if (index % 3 === 0){
+                        let string = "Flizz";
+                        list_flizz.push(string);
+                    } else if (index % 5 === 0){
+                        let string = "Buzz";
+                        list_flizz.push(string);
+                    } else {
+                        list_flizz.push(index);
+                    }
+
+                }
+                console.log(list_flizz);
+                }
+                </code></pre>
+                </div>
+            </div>
+        
+
+         <div class="exercise-card">
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Scrivi una funzione che prenda una stringa e restituisca un oggetto
+                     in cui le chiavi sono i caratteri della stringa e 
+                     i valori sono il numero di volte che quel carattere appare.
+                     Mi raccomando adatta il problema in varie forme diverse senza prendere quella presa finora</p>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                    function Object_Compositions() {
+                    const pattern = /[^a-zA-Z-0-9]/gi;
+                    const list_words = strings_values.toLowerCase().replace("-", "").replace(pattern, "").split("");
+                    let count = 0;
+                    for (let index = 0; index < list_words.length; index++) {
+                        let words_index = list_words[index];
+
+                        // console.log(Strings_Map)
+                        // console.log(list_words)
+
+                        if (Strings_Map[words_index]) {
+                            Strings_Map[words_index]++;
+                        } else {
+                            Strings_Map[words_index] = 1;
+                        }
+                    }
+
+                    console.log(Strings_Map)
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Ricerca Binaria
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Implementa l'algoritmo di ricerca binaria. Data un array ordinato e un valore, 
+                    la funzione dovrebbe restituire l'indice del valore se presente, altrimenti -1.</p>
+                <button class="btn" id="btn-8">Mostra</button>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                    const list_sorted = [1, 2, 3, 4, 5, 6 ,7, 8, 9, 10, 11];
+                    const number_ref = 11;
+
+                    function Binary_SearchValue() {
+                    let start_index = 0;
+                    let end_index = list_sorted.length -1;
+
+                    while (start_index <= end_index) {
+
+                        let mid_value = Math.floor((start_index + end_index) / 2);
+
+                        console.log("mid:", mid_value)
+                        console.log("start:", start_index)
+                        console.log("end:", end_index)
+
+                        if (list_sorted[mid_value] === number_ref) return console.log(true)
+
+                        if (number_ref < list_sorted[mid_value]) {
+                            end_index = mid_value - 1;
+                        } else {
+                            start_index = mid_value + 1;
+                        }
+                    }
+
+                    return console.log(false);
+                    }
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="exercise-card">
+        <div class="card-header">
+            Esercizio: Testo in Scritta
+        </div>
+        <div class="card-content">
+            <div class="card-section">
+                <h3>Descrizione dell'Esercizio</h3>
+                <p>Crea un elemento <code>span</code> vuoto.
+                Hai una stringa di testo predefinita (es. "Ciao, sono un simulatore di digitazione!").
+                Usando setTimeout in un ciclo o ricorsivamente, aggiungi un carattere alla volta alla <code>span</code>
+                    con un piccolo ritardo tra un carattere e l'altro (es. 100ms), simulando la digitazione.</p>
+                <button class="btn" id="btn-9">Mostra</button>
+
+                <div class="text-card">
+                    <p id="par-an"></p>
+                </div>
+            </div>
+
+            <div class="card-section">
+                <h3>Soluzione del Codice</h3>
+                <div class="code-block">
+                    <pre><code>
+                        ...
+                        const interval_text = setInterval(() => {
+                        count++
+                        pushing_text.push(sud_text[count]);
+                        text_selection.textContent = pushing_text.join("");
+                        if (count === sud_text.length - 1) {
+                            clearInterval(interval_text);
+                        }
+                        console.log(pushing_text)
+                        }, 290)
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-msg close" id="notify">
+        <div class="msg">
+            <p>Nuovo Messaggio</p>
+            <div class="circle"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

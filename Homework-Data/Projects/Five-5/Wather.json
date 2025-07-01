@@ -1,0 +1,142 @@
+[
+  {
+    "location": "Roma, IT",
+    "id": 1,
+    "current": {
+      "temperature": 28,
+      "description": "Sereno",
+      "icon": "https://openweathermap.org/img/wn/01d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 25, "icon": "https://openweathermap.org/img/wn/02d.png" },
+      { "day": "Mar", "temperature": 22, "icon": "https://openweathermap.org/img/wn/03d.png" },
+      { "day": "Mer", "temperature": 20, "icon": "https://openweathermap.org/img/wn/10d.png" }
+    ]
+  },
+  {
+    "location": "Parigi, FR",
+    "id": 2,
+    "current": {
+      "temperature": 21,
+      "description": "Nuvoloso",
+      "icon": "https://openweathermap.org/img/wn/03d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 20, "icon": "https://openweathermap.org/img/wn/04d.png" },
+      { "day": "Mar", "temperature": 19, "icon": "https://openweathermap.org/img/wn/04d.png" },
+      { "day": "Mer", "temperature": 18, "icon": "https://openweathermap.org/img/wn/10d.png" }
+    ]
+  },
+  {
+    "location": "Berlino, DE",
+    "id": 3,
+    "current": {
+      "temperature": 19,
+      "description": "Pioggia leggera",
+      "icon": "https://openweathermap.org/img/wn/10d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 18, "icon": "https://openweathermap.org/img/wn/10d.png" },
+      { "day": "Mar", "temperature": 16, "icon": "https://openweathermap.org/img/wn/09d.png" },
+      { "day": "Mer", "temperature": 15, "icon": "https://openweathermap.org/img/wn/04d.png" }
+    ]
+  },
+  {
+    "location": "Londra, UK",
+    "id": 4,
+    "current": {
+      "temperature": 17,
+      "description": "Nebbia",
+      "icon": "https://openweathermap.org/img/wn/50d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 18, "icon": "https://openweathermap.org/img/wn/50d.png" },
+      { "day": "Mar", "temperature": 16, "icon": "https://openweathermap.org/img/wn/04d.png" },
+      { "day": "Mer", "temperature": 14, "icon": "https://openweathermap.org/img/wn/10d.png" }
+    ]
+  },
+  {
+    "location": "New York, US",
+    "id": 5,
+    "current": {
+      "temperature": 31,
+      "description": "Soleggiato",
+      "icon": "https://openweathermap.org/img/wn/01d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 33, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mar", "temperature": 30, "icon": "https://openweathermap.org/img/wn/02d.png" },
+      { "day": "Mer", "temperature": 29, "icon": "https://openweathermap.org/img/wn/03d.png" }
+    ]
+  },
+  {
+    "location": "Tokyo, JP",
+    "id": 6,
+    "current": {
+      "temperature": 26,
+      "description": "Pioggia moderata",
+      "icon": "https://openweathermap.org/img/wn/10d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 27, "icon": "https://openweathermap.org/img/wn/10d.png" },
+      { "day": "Mar", "temperature": 25, "icon": "https://openweathermap.org/img/wn/09d.png" },
+      { "day": "Mer", "temperature": 24, "icon": "https://openweathermap.org/img/wn/04d.png" }
+    ]
+  },
+  {
+    "location": "Madrid, ES",
+    "id": 7,
+    "current": {
+      "temperature": 35,
+      "description": "Caldo secco",
+      "icon": "https://openweathermap.org/img/wn/01d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 36, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mar", "temperature": 34, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mer", "temperature": 32, "icon": "https://openweathermap.org/img/wn/02d.png" }
+    ]
+  },
+  {
+    "location": "Il Cairo, EG",
+    "id": 8,
+    "current": {
+      "temperature": 38,
+      "description": "Desertico",
+      "icon": "https://openweathermap.org/img/wn/01d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 40, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mar", "temperature": 39, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mer", "temperature": 37, "icon": "https://openweathermap.org/img/wn/02d.png" }
+    ]
+  },
+  {
+    "location": "Mosca, RU",
+    "id": 9,
+    "current": {
+      "temperature": 12,
+      "description": "Freddo e nuvoloso",
+      "icon": "https://openweathermap.org/img/wn/04d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 14, "icon": "https://openweathermap.org/img/wn/04d.png" },
+      { "day": "Mar", "temperature": 13, "icon": "https://openweathermap.org/img/wn/03d.png" },
+      { "day": "Mer", "temperature": 11, "icon": "https://openweathermap.org/img/wn/10d.png" }
+    ]
+  },
+  {
+    "location": "Buenos Aires, AR",
+    "id": 10,
+    "current": {
+      "temperature": 18,
+      "description": "Parzialmente nuvoloso",
+      "icon": "https://openweathermap.org/img/wn/03d.png"
+    },
+    "forecast": [
+      { "day": "Lun", "temperature": 19, "icon": "https://openweathermap.org/img/wn/03d.png" },
+      { "day": "Mar", "temperature": 20, "icon": "https://openweathermap.org/img/wn/01d.png" },
+      { "day": "Mer", "temperature": 21, "icon": "https://openweathermap.org/img/wn/02d.png" }
+    ]
+  }
+]
