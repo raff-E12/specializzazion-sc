@@ -31,7 +31,7 @@ function Modal({
                   <h2>{title}</h2>
                   <p>{content}</p>
                  <div className="inp-modal">
-                    <input id="input-add" value={isValue} onChange={(e) => setValue(e.target.value)}></input>
+                    <input id="input-add" value={isValue} onChange={(e) => setValue(e.target.value)} />
                         <div className="btns-modals">
                             <button onClick={onClose}>Annulla</button>
                             <button onClick={AddAnimals}>Conferma</button>
