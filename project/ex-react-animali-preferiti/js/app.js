@@ -2,6 +2,7 @@
 // Itegrazione React con Javascript Vanilla
 const { createRoot } = ReactDOM;
 const { useState } = React;
+const { useEffect } = React;
 
 const root = document.querySelector(".lista-animali");
 
@@ -35,11 +36,66 @@ function Modal({
       )
 }
 
+  function CardsAnimals({query}){
+    const [IsList, setList] = useState([]);
+    const [isFilter, setFilter] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+
+    console.log(query)
+
+    const ResponseApi = async (url) => {
+        const request = await fetch(url);
+        const data = request.json();
+        return data;
+    }
+
+    const GenCard = async () => {
+       try {
+            setLoading(true)
+            const endpoint = `http://localhost:3333/animals?search=${query}`;
+            const response = await ResponseApi(endpoint);
+            console.log(response)
+
+            setTimeout(() => {
+            setList(response);
+            setLoading(false);
+            }, 1500);
+       } catch (error) {
+          throw new Error(error.message);
+       }
+    }
+
+    useEffect(() => {
+        ResponseApi();
+        GenCard()
+    },[query]);
+
+    return(<>
+    {isLoading ? <p>Caricamento...</p> : <div class="card-container">
+        {IsList.map((card, index) => {
+            return(<>
+            <div class="card" key={index}>
+               <div class="card-front">
+                    <h2>{card.name}</h2>
+                    <p>Scopri di più</p>
+                </div>
+                <div class="card-back">
+                    <h3>Informazioni</h3>
+                    <p>{card.description}</p>
+                </div>
+            </div>
+            </>)
+        })}
+    </div>}
+    </>)
+  }
+
 function DatailsAnimals() {
     const [isRandom, SetRandom] = useState(["Elefante", "Coniglio", "Criceto", "Pulcino", "Orso"]);
     const [isAnimals, SetAnimals] = useState(["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"]);
     const [isShow, setShow] = useState(false);
     const [isValue, setValue] = useState("");
+    const [isAnimal, setAnimal] = useState("");
 
     function AddAnimals() {
         const RandomAnimals = isRandom[Math.floor(Math.random() * isRandom.length)];
@@ -77,5 +133,14 @@ function DatailsAnimals() {
             })}
         </ul>
     </details>
+    <h2>Vedi i Nostri Migliori Amici</h2>
+    <div className="search-inp">
+        <input value={isAnimal} onChange={(e) => setAnimal(e.target.value)} id="inp-src"/>
+    </div>
+    <div className="card-sc">
+        <div id="card-sc">
+            <CardsAnimals query={isAnimal}/>
+        </div>
+    </div>
     </>)
 }
