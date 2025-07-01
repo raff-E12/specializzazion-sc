@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+main {
+    padding: 1rem;
+    display: flex;
+    height: calc(100vh + 10vh);
+    flex-direction: column;
+    align-items: center;
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+img{
+    max-width: 100%;
+}
+.lista-animali{
+    width: 100%;
+}
+#btn-add{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+#details-sc{
+    height: 300px;
+    overflow-y: scroll;
+}
+.modal-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal{
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+.btns-modals{
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+#input-add{
+    width: 100%;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+.inp-modal{
+    width: auto;
+    padding: 10px;
+}
