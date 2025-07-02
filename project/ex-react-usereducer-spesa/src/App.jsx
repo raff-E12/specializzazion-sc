@@ -1,10 +1,39 @@
-import { useState } from 'react';
-import './App.css'
+import { useReducer, useState } from 'react';
+import './App.css';
+
+function CartReducer(state, action) {
+  switch (action.type) {
+    case "ADD_CART":
+      const name = action.payload;
+      const existing = state.find(item => item.name === name);
+      if (existing) {
+        return state.map(item =>
+          item.name === name ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...state, { name: name, quantity: 1 }];
+      }
+
+    case "UPDATE_CART":
+      const { name: updateName, quantity } = action.payload;
+      if (isNaN(quantity) || quantity < 1) return state;
+      return state.map(item =>
+        item.name === updateName ? { ...item, quantity: parseInt(quantity) } : item
+      );
+
+    case "REMOVE_CART":
+      return state.filter(item => item.name !== action.payload);
+
+    default:
+      return state;
+  }
+}
 
 function App() {
-
-  const [addedProducts, setCart] = useState([]);
-  console.log(addedProducts)
+  const [isShow, setShow] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [addedProducts, dispatchCart] = useReducer(CartReducer, []);
+  const [inputQty, setInputQty] = useState(1);
 
   const products = [
     { name: 'Mela', price: 0.5 },
@@ -13,79 +42,76 @@ function App() {
     { name: 'Pasta', price: 0.7 },
   ];
 
-  const updateProductQuantity = (name, count) => {
-    setCart(list => list.map((element) => {
-      if (element.name === name) return { ...element, quantity: count }
-      return element
-    }))
-  }
-
-  const addToCart = (item) => {
-    const item_name = item;
-    const ProdFind = addedProducts.find(prod => prod.name === item_name);
-    if (ProdFind) {
-      updateProductQuantity(ProdFind.name, ProdFind.quantity + 1)
-      return null
-    }
-    return setCart(items => [...items, {name: item_name, quantity: 1}])
-  }
-
-  const removeFromCart = (item) => {
-    const item_name = item;
-    const filterProd = addedProducts.filter(items => items.name !== item_name);
-    console.log(filterProd)
-    setCart(filterProd)
-  }
+  const getPrice = (name) => products.find(p => p.name === name)?.price || 0;
 
   const totalCart = () => {
-      const total_price = addedProducts.reduce((acc, prod) => {return acc + prod.quantity}, 0);
-      console.log(total_price)
-      return total_price
-  }
+    return addedProducts.reduce((acc, item) => {
+      return acc + getPrice(item.name) * item.quantity;
+    }, 0);
+  };
 
   return (
     <>
-      
-  <div className="container">
-
-    {/* <!-- Lista Prodotti --> */}
-    <div className="section">
-      <h2>Prodotti Disponibili</h2>
-      {products.map((items, index) => {
-        return(<>
-        <div className="item" key={index}>
-          <div className="item-info">
-            <div className="item-name">{items.name}</div>
-            <div className="item-qty">Prezzo: ${items.price.toFixed(2)}</div>
-          </div>
-          <a className="btn" onClick={() => addToCart(items.name)}>Aggiungi</a>
+      <div className="container">
+        {/* Lista Prodotti */}
+        <div className="section">
+          <h2>Prodotti Disponibili</h2>
+          {products.map((item, index) => (
+            <div className="item" key={index}>
+              <div className="item-info">
+                <div className="item-name">{item.name}</div>
+                <div className="item-qty">Prezzo: €{item.price.toFixed(2)}</div>
+              </div>
+              <a className="btn" onClick={() => dispatchCart({ type: "ADD_CART", payload: item.name })}>Aggiungi</a>
+            </div>
+          ))}
         </div>
-        </>)
-      })}
-    </div>
 
-    {/* <!-- Carrello --> */}
-    <div className="section">
-      <h2>Carrello</h2>
-
-      {addedProducts.length === 0 ? <div className="placeholder">Il carrello è vuoto.</div> : addedProducts.map((items, index) => {
-        return(<>
-        <div className="item" key={index}>
-          <div className="item-info">
-            <div className="item-name">{items.name}</div>
-            <div className="item-qty">Quantità: {items.quantity}</div>
-          </div>
-          <a href="#" className="btn" onClick={() => removeFromCart(items.name)}>Rimuovi</a>
+        {/* Carrello */}
+        <div className="section card">
+          <h2>Carrello</h2>
+          {addedProducts.length === 0 ? (
+            <div className="placeholder">Il carrello è vuoto.</div>
+          ) : (
+            addedProducts.map((item, index) => (
+              <div className="item" key={index}>
+                <div className="item-info" onClick={() => { setShow(true); 
+                  setInputQty(item.quantity);
+                  setSelectedItem(item); }}>
+                  <div className="item-name">{item.name}</div>
+                  <div className="item-qty">Quantità: {item.quantity}</div>
+                </div>
+                <a href="#" className="btn" onClick={() => dispatchCart({ type: "REMOVE_CART", payload: item.name })}>Rimuovi</a>
+              </div>
+            ))
+          )}
         </div>
-        </>)
-      })}
 
-    </div>
+        {/* Popup */}
+        {isShow && selectedItem && (
+          <div className="popup-overlay flex" id="popup">
+            <div className="popup">
+              <h2>Modifica quantità per {selectedItem.name}</h2>
+              <input type="number" min="1" max="100" value={inputQty} onChange={(e) => setInputQty(e.target.value)}/>
+              <br />
+              {/* Creazione del Payload */}
+              <button id="confirmBtn" onClick={() => {
+              dispatchCart({
+                type: "UPDATE_CART",
+                payload: { name: selectedItem.name, quantity: parseInt(inputQty) }
+              });
+              setShow(false);
+            }}>Conferma</button>
+            </div>
+          </div>
+        )}
 
-    <div id="totale">{addedProducts.length !== 0 ? <p>Totale: ${totalCart().toFixed(2)}</p> : <p></p>}</div>
-  </div>
+        <div id="totale">
+          {addedProducts.length > 0 && <p>Totale: €{totalCart().toFixed(2)}</p>}
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
