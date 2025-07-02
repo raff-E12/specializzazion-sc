@@ -14,6 +14,8 @@ function CartReducer(state, action) {
         return [...state, { name: name, quantity: 1 }];
       }
 
+      // Questo caso non ha il "brack", perchè è collegato in un solo processo. 
+
     case "UPDATE_CART":
       const { name: updateName, quantity } = action.payload;
       if (isNaN(quantity) || quantity < 1) return state;
