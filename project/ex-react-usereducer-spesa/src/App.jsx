@@ -14,7 +14,7 @@ function CartReducer(state, action) {
         return [...state, { name: name, quantity: 1 }];
       }
 
-      // Questo caso non ha il "brack", perchè è collegato in un solo processo. 
+      // Questo caso non ha il "brack", perchè è collegato in un solo processo di ritorno. 
 
     case "UPDATE_CART":
       const { name: updateName, quantity } = action.payload;
