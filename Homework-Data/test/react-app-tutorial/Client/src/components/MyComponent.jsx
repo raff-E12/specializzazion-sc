@@ -4,6 +4,7 @@ function StopWatch(){
     //i primi due valori sono trattati con l'usestate per memorizzre i seguenti
     //parametri di variabile e funzione di aggiornamento.
     //gli altri due sono parametri sono trattati con l'useref in maniera mutabile
+    
     const [isRunning, setIsRunning] = useState(false);
     const [elapsedTime, setElapsedTime] = useState(0);
     let intervalIdRef = useRef(null); //memorizza il valore in variabile del intervallo
@@ -12,6 +13,7 @@ function StopWatch(){
     // console.log(intervalIdRef);
     // console.log(Date.now())// calcolo del orario in millisecondi
     // console.log(startTimeRef);
+
     //quando useEffect viene eseguito inizia a dipendere dalla variabile isRunning
     //con un intervallo impostato per aggiornare la variabile elapsedTime.
 

@@ -1,0 +1,46 @@
+
+/***** Pomodoro Timer *****/ 
+
+body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f04c4c;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .timer-container {
+      background-color: #fff;
+      color: #333;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .timer {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #f04c4c;
+      color: white;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #d13f3f;
+    }
+
+
+/***** End Pomodoro Timer *****/
