@@ -143,4 +143,30 @@
     color: #333;
   }
 
+  .search-bar {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.search-bar input {
+  padding: 10px 12px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #006699;
+  box-shadow: 0 0 0 2px rgba(0, 102, 153, 0.2);
+}
+
+#advise-text{
+  width: 100%;
+  text-align: center;
+}
+
 /***** End WebPage CSS *****/
