@@ -169,4 +169,95 @@
   text-align: center;
 }
 
+#posizioni-politiche {
+  margin-top: 60px;
+  background: white;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+#posizioni-politiche h2 {
+  font-size: 1.4rem;
+  color: #003366;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #006699;
+  padding-bottom: 8px;
+}
+
+/* Box wrapper */
+.posizione-box {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.posizione-box:hover {
+  border-color: #006699;
+}
+
+/* Checkbox hidden */
+.posizione-box input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Title label */
+.box-title {
+  display: block;
+  padding: 16px;
+  background: #f5f7fa;
+  cursor: pointer;
+  font-weight: 600;
+  color: #003366;
+  transition: background 0.2s;
+}
+.posizione-box:hover .box-title {
+  background: #e8edf2;
+}
+
+/* Content hidden by default */
+.box-content {
+  max-height: 0;
+  padding: 0 16px;
+  color: #333;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* When checked, expand */
+.posizione-box input:checked + .box-title + .box-content {
+  max-height: 500px; /* spazio sufficiente per contenuto */
+  padding: 16px;
+  opacity: 1;
+}
+
+/* Checkbox indicator */
+.box-title::before {
+  content: "⬜";
+  display: inline-block;
+  width: 1.2em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+.posizione-box input:checked + .box-title::before {
+  content: "✅";
+}
+
+/* Accordion arrow */
+.box-title::after {
+  content: "›";
+  float: right;
+  transition: transform 0.3s;
+}
+.posizione-box input:checked + .box-title::after {
+  transform: rotate(90deg);
+}
+
+
 /***** End WebPage CSS *****/

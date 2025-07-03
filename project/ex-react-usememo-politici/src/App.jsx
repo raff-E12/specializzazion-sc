@@ -1,4 +1,4 @@
-import React, { use, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import axios from "axios"
 import dummyImage from "../public/dummy_image.png"
@@ -27,7 +27,12 @@ function App() {
   const [isCard, setCard] = useState([]);
   const [FilterCard, setFilterCard] = useState([])
   const [isShow, setShow] = useState(false);
-  const [isSearch, setSearch] = useState("")
+  const [isSearch, setSearch] = useState("");
+  const [isPositions, setPositions] = useState([]);
+  const [isAdd, setAdd] = useState(false);
+  const [isSelect, setSelect] = useState("");
+
+  console.log(isSelect)
 
   async function GenLists() {
     try {
@@ -36,28 +41,37 @@ function App() {
       console.log(data)
       setPoliticians(data);
       setCard(data);
+      setAdd(true);
     } catch (error) {
       console.error(error.message);
     }
   }
 
+  function PositionSelection() {
+    let positions = [...new Set(isCard.map(element => element.position.toLocaleLowerCase().trim()))]; // Controllo dupplicati
+    setPositions(positions);
+    setAdd(false);
+  }
+
   function SearchCard() {
     const search_input = isSearch.toLowerCase().trim();
     const filter_Card = isCard.filter((element) => {
-      const CardName = String(element.name).toLocaleLowerCase().includes(search_input);
-      const CardBio = String(element.biography).toLocaleLowerCase().includes(search_input);
-      return CardName || CardBio
+      const CardName = String(element.name).toLowerCase().includes(search_input);
+      const CardBio = String(element.biography).toLowerCase().includes(search_input);
+      const CardPosition = String(element.position).toLowerCase().includes(isSelect);
+      return CardName && CardBio && CardPosition // Ricerca per tutti i campi
     })
     setFilterCard(() => filter_Card.length !== 0 ? filter_Card : isCard);
   }
 
   useEffect(() => { GenLists() }, []);
+  useMemo(() => { PositionSelection() }, [isAdd]);
 
   // Permette di ricalcolare solo quando il valore si aggiorna uno stato di una variabile in maniera dinamica.
   // se ad esempio mettiamo una variabile "isCard" (ovviamente va in errore di infinite loop), 
   // significa che aggiorna la variabile maniera proprietaria (memorizzato) rispetto a useEffect lo tende ricalcolare in tutto.
 
-  useMemo(() => { SearchCard() }, [isSearch]);
+  useMemo(() => { SearchCard() }, [isSearch, isSelect]);
 
   return (
     <>    
@@ -76,6 +90,24 @@ function App() {
         <button onClick={() => setShow(value => !value)}>...</button>
       </section>
     </main>
+
+  <section id="posizioni-politiche">
+    <h2>Seleziona le Posizioni Politiche</h2>
+
+    {isPositions.map((positions, index) => {
+      return(<>
+      <div  className="posizione-box">
+      <input type="radio" id={`pos-${index}`} name="position" data-position={`${positions}`} onChange={(e) => setSelect(e.target.dataset.position)}/>
+        <label for={`pos-${index}`} className="box-title">
+          {index}° - {String(positions).toUpperCase()}
+        </label>
+        <div className="box-content">
+          <p>Se non è rispettata la giustizia, che cosa sono gli Stati se non delle grandi bande di ladri? - Cit.Sant'Agostino</p>
+        </div>
+      </div>
+      </>)
+    })}
+  </section>
 
   <section id="card-presidenti">
     <h2>Presidenti – Biografie in breve</h2>
