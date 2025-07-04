@@ -1,11 +1,11 @@
 
 /***** CSS Webpage *****/ 
 
-  body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-      }
+ body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
 
     .hero {
       background-color: #ffffff;
@@ -70,6 +70,45 @@
       background-color: #f0f0f0;
     }
 
+    /* Risultati */
+    .results {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .ad-item {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #0073e6;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .ad-item a.title {
+      font-size: 1.2rem;
+      color: #1a0dab;
+      text-decoration: none;
+    }
+
+    .ad-item .url {
+      color: #006621;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .ad-item .description {
+      color: #545454;
+      font-size: 0.95rem;
+      margin: 8px 0;
+    }
+
+    .ad-item .price {
+      color: #c45500;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
     @media (max-width: 600px) {
       .hero h1 {
         font-size: 2rem;
@@ -78,7 +117,10 @@
       .search-box {
         max-width: 90%;
       }
-    }
 
+      .results {
+        padding: 0 10px;
+      }
+    }
 
 /***** End CSS Webpage *****/

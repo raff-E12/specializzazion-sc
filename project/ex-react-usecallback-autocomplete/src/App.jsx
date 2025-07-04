@@ -15,6 +15,7 @@ function App() {
 
   const [isResults, setResults] = useState([]);
   const [isSearch, setSearch] = useState("");
+  const [isClick, setClick] = useState(false)
 
   async function EndPointSearch(query) {
       try {
@@ -28,6 +29,7 @@ function App() {
     }
   }
 
+  // Render inutile della funzione
   const CallbackEffect = useCallback(DebounceFunction(EndPointSearch, 500), []);
 
   // Usare sempre una callback si utilizzano le clousere.
@@ -46,7 +48,7 @@ function App() {
             {isResults.map((element, index) => {
               if (isSearch !== "" && isSearch !== element.name) {
                 return(<>
-                <div key={index} onClick={() => setSearch(element.name)}><p>{element.name}</p></div>
+                <div key={index} onClick={() => { setSearch(element.name)} }><p>{element.name}</p></div>
                 </>)
               }
             })}
@@ -54,6 +56,21 @@ function App() {
         </div>
       </div>
     </section>
+
+    <div className="results" id="results">
+      {isResults.map((prod, index) => {
+        if (isSearch !== "") {
+          return(<>
+          <div className='ad-item' key={index}>
+              <div className="url">{prod.brand}</div>
+              <a className="title" href="#" target="_blank">{prod.name}</a>
+              <div className="description">{prod.description}</div>
+              <div classname="price">${prod.price}</div>
+          </div>
+          </>)
+        }
+      })}
+    </div>
     </>
   )
 }
