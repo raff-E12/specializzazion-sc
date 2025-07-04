@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import axios from "axios"
 import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 function DebounceFunction(callback, delay) {
   let TimeSet = null;
@@ -15,15 +16,30 @@ function App() {
 
   const [isResults, setResults] = useState([]);
   const [isSearch, setSearch] = useState("");
-  const [isClick, setClick] = useState(false)
+  const [isSelected, setSelected] = useState(null);
+  const [isProd, setProd] = useState([]);
 
   async function EndPointSearch(query) {
       try {
       const endpoint = `http://localhost:3333/products?search=${query}`;
       const fetchings = await axios.get(endpoint);
       const data = fetchings.data;
-      console.log(data)
       setResults(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  async function ProdResultsCard(name){
+    try {
+      const endpoint = `http://localhost:3333/products?search=${name}`;
+      const fetchings = await axios.get(endpoint);
+      const data = fetchings.data;
+      if (isSelected) {
+          let TimerSet = setTimeout(() => {
+          setProd(data);
+        }, 300);
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -34,6 +50,7 @@ function App() {
 
   // Usare sempre una callback si utilizzano le clousere.
   useEffect(() => { CallbackEffect(isSearch) }, [isSearch])
+  useEffect(() => { ProdResultsCard(isSelected)}, [isSelected])
 
   return (
     <>
@@ -48,7 +65,7 @@ function App() {
             {isResults.map((element, index) => {
               if (isSearch !== "" && isSearch !== element.name) {
                 return(<>
-                <div key={index} onClick={() => { setSearch(element.name)} }><p>{element.name}</p></div>
+                <div key={index} onClick={() => { setSearch(element.name); setSelected(element.name); } }><p>{element.name}</p></div>
                 </>)
               }
             })}
@@ -58,17 +75,15 @@ function App() {
     </section>
 
     <div className="results" id="results">
-      {isResults.map((prod, index) => {
-        if (isSearch !== "") {
+      {isSelected && isProd.map((prod, index) => {
           return(<>
           <div className='ad-item' key={index}>
               <div className="url">{prod.brand}</div>
               <a className="title" href="#" target="_blank">{prod.name}</a>
               <div className="description">{prod.description}</div>
-              <div classname="price">${prod.price}</div>
+              <div className="price">${prod.price}</div>
           </div>
           </>)
-        }
       })}
     </div>
     </>
