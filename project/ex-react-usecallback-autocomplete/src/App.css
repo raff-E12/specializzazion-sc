@@ -1,0 +1,84 @@
+
+/***** CSS Webpage *****/ 
+
+  body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+    .hero {
+      background-color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #232f3e;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .search-container {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .suggestions div {
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .suggestions div:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .search-box {
+        max-width: 90%;
+      }
+    }
+
+
+/***** End CSS Webpage *****/
