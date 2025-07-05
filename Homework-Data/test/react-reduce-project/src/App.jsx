@@ -1,12 +1,24 @@
 import { useState } from 'react'
 import './App.css'
-import PomodoroTimer from './assets/PomodoroTimer/PomodoroTimer'
+import PomodoroTimer from './assets/PomodoroTimer'
+import ReduceMethod from './assets/ReduceMethod'
+import Counter from './assets/ContatoreManuale'
+import InputFormsMultipart from './assets/InputFormsMultipart'
+import TodoApp from './assets/TodoApp'
+import Shop from './assets/CarrelloProdotti'
+
+// Questi sono tutti i componenti utilizzati nel esercitazione in useReduce
 
 function App() {
 
   return (
     <>
-    <PomodoroTimer />
+    {/* <ReduceMethod /> */}
+    {/* <PomodoroTimer /> */}
+    <Counter />
+    {/* <InputFormsMultipart /> */}
+    {/* <TodoApp /> */}
+    {/* <Shop /> */}
     </>
   )
 }
