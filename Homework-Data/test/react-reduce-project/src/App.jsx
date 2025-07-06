@@ -6,6 +6,8 @@ import Counter from './assets/ContatoreManuale'
 import InputFormsMultipart from './assets/InputFormsMultipart'
 import TodoApp from './assets/TodoApp'
 import Shop from './assets/CarrelloProdotti'
+import ToggleComponent from './assets/ToogleAvanzato'
+import NotificationApp from './assets/GestionNotifiche'
 
 // Questi sono tutti i componenti utilizzati nel esercitazione in useReduce
 
@@ -13,12 +15,12 @@ function App() {
 
   return (
     <>
-    {/* <ReduceMethod /> */}
-    {/* <PomodoroTimer /> */}
-    <Counter />
-    {/* <InputFormsMultipart /> */}
-    {/* <TodoApp /> */}
-    {/* <Shop /> */}
+    <div className='parent'>
+      <div className='box-flex'>
+        <ToggleComponent />
+        <NotificationApp />
+      </div>
+    </div>
     </>
   )
 }

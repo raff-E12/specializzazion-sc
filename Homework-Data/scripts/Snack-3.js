@@ -1,5 +1,5 @@
 
-// Prova Di esercitazione con "creaThrottler"
+// // Prova Di esercitazione con "creaThrottler"
 
 
 const prod_url = 'https://dummyjson.com/products';
