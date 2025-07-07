@@ -1,13 +1,15 @@
 import React from 'react'
 
-export default function PopupAdvi() {
+const PopupAdvi = React.memo(({isNotificate, setNotificate}) => {
   return (<>
-    <div class="popup-overlay" id="popup">
-    <div class="popup-box">
-        <h3>Registrazione completata ✅</h3>
-        <p>Grazie per esserti registrato! Ti contatteremo presto.</p>
-        <button class="close-btn" onclick="closePopup()">Chiudi</button>
+    <div className={`popup-overlay ${isNotificate ? "active" : "" }`} id="popup">
+    <div className="popup-box">
+        <h3>Un avvertimento!!</h3>
+        <p>Devi Completare la Registazione per accedere.</p>
+        <button className="close-btn" onClick={() => setNotificate(false)}>Chiudi</button>
     </div>
     </div>
   </>)
-}
+})
+
+export default PopupAdvi

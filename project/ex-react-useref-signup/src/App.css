@@ -52,6 +52,21 @@
       outline: none;
     }
 
+    .form-group #description {
+      resize: none;
+      overflow-y: scroll;
+    }
+
+    .form-group #description::-webkit-scrollbar{
+      background-color: transparent;
+      padding: 10px;
+    }
+
+     .form-group #description::-webkit-scrollbar-thumb{
+      background-color: #764ba2;
+      border-radius: 10px;
+    }
+
     .form-group label {
       position: absolute;
       top: 12px;
