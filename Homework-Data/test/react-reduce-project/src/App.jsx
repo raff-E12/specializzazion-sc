@@ -8,6 +8,13 @@ import TodoApp from './assets/TodoApp'
 import Shop from './assets/CarrelloProdotti'
 import ToggleComponent from './assets/ToogleAvanzato'
 import NotificationApp from './assets/GestionNotifiche'
+import HeavySum from './assets/SommaBase'
+import FilterList from './assets/LIstaFiltro'
+import Parent from './MemoCount'
+import SortableList from './assets/ListOrder'
+import AppProfile from './assets/AppProfile'
+import AppButton from './assets/ButtonSpace'
+import DataFetcher from './assets/ListEliminations'
 
 // Questi sono tutti i componenti utilizzati nel esercitazione in useReduce
 
@@ -17,8 +24,7 @@ function App() {
     <>
     <div className='parent'>
       <div className='box-flex'>
-        <ToggleComponent />
-        <NotificationApp />
+        <DataFetcher />
       </div>
     </div>
     </>
