@@ -86,11 +86,12 @@ img {
   box-sizing: inherit;
 }
 
-
+/* Root Reset */
 #root{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 140vh;
 }

@@ -1,4 +1,4 @@
-import { isValidElement, useMemo, useState } from 'react'
+import { isValidElement, useMemo, useRef, useState, useEffect } from 'react'
 import './App.css'
 import PopupAdvi from '../src/assets/PopupAdvi'
 
@@ -7,16 +7,26 @@ const numbers = "0123456789";
 const symbols = `!@#$%^&*()-_=+[]{}|;:'\\",.<>?/~`;
 
 function App() {
-  const [FullName, setFullname] = useState("");
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
-  const [Special, setSpecial] = useState("");
-  const [Experiences, setExperiences] = useState(0);
   const [Description, setDescription] = useState("");
+
   const [isNotificate, setNotificate] = useState(false);
   const [isTarget, setTarget] = useState(null);
+  const [isText, setText] = useState({title: null, desc: null});
+
+  const FullnameRef = useRef();
+  const SpecialRef = useRef();
+  const ExperiencesRef = useRef();
+  const FormRef = useRef();
 
   function HandleSubmitForm() {
+
+    // Input non controllati
+    const FullName = FullnameRef.current.value;
+    const Experiences = Number(ExperiencesRef.current.value);
+    const Special =  SpecialRef.current.value;
+
     if (
       FullName.trim() === "" ||
       Username.trim() === "" ||
@@ -29,11 +39,12 @@ function App() {
       !isValidPassword ||
       !isValidDescription
     ) {
-     return setNotificate(true)
+      setNotificate(true);
+      return setText({title: "Un avvertimento!!", desc: "Devi Completare la Registazione per accedere."});
     }
 
-    setNotificate(false)
-    return console.log("Ecco le credenziali", { FullName, Username, Password, Special, Experiences, Description});
+    setNotificate(true)
+    return setText({title: "Congratulazioni!!", desc: "Sei Stato Appena Registrato Nel Nostro Sito."});
   }
 
   const IsValidUsername = useMemo(() => {
@@ -64,49 +75,63 @@ function App() {
     }
   }, [Description])
 
+  useEffect(() => { FullnameRef.current.focus() }, []);
+
+  const HandleSubmitReset = () => {
+    setUsername("");
+    setPassword("");
+    setDescription("");
+    FullnameRef.current.value = "";
+    SpecialRef.current.value = "";
+    ExperiencesRef.current.value = "";
+    FullnameRef.current.focus();
+  }
+
   return (
     <>
-    <form className="form-container" onSubmit={e => HandleSubmitForm(e.preventDefault())}>
+    <form className="form-container" onSubmit={e => HandleSubmitForm(e.preventDefault())} ref={FormRef}>
       <h2>Registrazione</h2>
 
       <div className="form-group">
-        <input type="text" name="fullname" id="fullname" value={FullName} placeholder=" " required onChange={e => setFullname(e.target.value)}/>
+        <input type="text" name="fullname" id="fullname"  placeholder=" " required ref={FullnameRef}/>
         <label htmlFor="fullname">Nome completo</label>
       </div>
 
       <div className="form-group">
         <input type="text" name="username" onFocus={e => setTarget(e.target.name)} onBlur={() => setTarget(null)} id="username" placeholder=" " value={Username} required onChange={e => setUsername(e.target.value)}/>
         <label htmlFor="username">Username</label>      
-        <small className="input-hint">{!IsValidUsername && isTarget === "username" ? "Scegli un username unico (es. mariodev123).": ""}</small>
+        <small className="input-hint">{!IsValidUsername && isTarget === "username" && Username !== "" ? "Scegli un username unico (es. mariodev123).": ""}</small>
       </div>
-
-
 
       <div className="form-group">
         <input type="password" name="password" id="password" onFocus={e => setTarget(e.target.name)} onBlur={() => setTarget(null)} placeholder=" " value={Password} required onChange={e => setPassword(e.target.value)}/>
         <label htmlFor="password">Password</label>
-        <small className="input-hint">{!isValidPassword && isTarget === "password" ? "Minimo 8 caratteri, almeno una lettere, un simbolo e un numero.": ""}</small>
+        <small className="input-hint">{!isValidPassword && isTarget === "password" && Password !== "" ? "Minimo 8 caratteri, almeno una lettere, un simbolo e un numero.": ""}</small>
       </div>
 
       <div className="form-group">
-        <input type="text" name="specialization" id="specialization" placeholder=" " value={Special} required onChange={e => setSpecial(e.target.value)}/>
+        <input type="text" name="specialization" id="specialization" placeholder=" " required ref={SpecialRef}/>
         <label htmlFor="specialization">Specializzazione (es. Fullstack Developer)</label>
       </div>
 
       <div className="form-group">
-        <input type="number" name="experience" id="experience" placeholder=" " min="0" value={Experiences} required onChange={e => setExperiences(e.target.value)}/>
+        <input type="number" name="experience" id="experience" placeholder=" " min="0" required ref={ExperiencesRef}/>
         <label htmlFor="experience">Anni di esperienza</label>
       </div>
 
       <div className="form-group">
         <textarea name="description" id="description" placeholder=" " onFocus={e => setTarget(e.target.name)} onBlur={() => setTarget(null)} value={Description} required onChange={e => setDescription(e.target.value)}></textarea>
         <label htmlFor="description">Breve descrizione</label>
-        <small className="input-hint">{!isValidDescription && isTarget === "description" ? "La Descrizione deve essere tra i gli 100 e 1000 caratteri.": ""}</small>
+        <small className="input-hint">{!isValidDescription && isTarget === "description" && Description !== "" ? "La Descrizione deve essere tra i gli 100 e 1000 caratteri.": ""}</small>
       </div>
 
-      <button type="submit" className="submit-btn">Registrati</button>
+      <div class="form-buttons">
+        <button type="submit" className="submit-btn">Registrati</button>
+        <button type="reset" className="reset-btn" onClick={e => HandleSubmitReset(e.preventDefault())}>Reset</button>
+      </div>
     </form>
-    <PopupAdvi isNotificate={isNotificate} setNotificate={setNotificate}/>
+    <PopupAdvi isNotificate={isNotificate} setNotificate={setNotificate} isText={isText}/>
+    <button className="scroll-top-btn" onClick={() => { FormRef.current.scrollIntoView({ behavior: "smooth" });  } } title="Torna su"><i className="fa-solid fa-arrow-up"></i></button>
     </>
   )
 }
