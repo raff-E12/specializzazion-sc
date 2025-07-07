@@ -135,6 +135,12 @@
   z-index: 999;
 }
 
+.popup-box h3 {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 800;
+}
+
 .popup-overlay.active {
   opacity: 1;
   visibility: visible;
@@ -179,6 +185,16 @@
   background: #764ba2;
   color: #fff;
   transform: translateY(-1px);
+}
+
+.input-hint {
+  display: block;
+  font-size: 12px;
+  color: #eee;
+  margin-top: 5px;
+  padding-left: 2px;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
 }
 
 
