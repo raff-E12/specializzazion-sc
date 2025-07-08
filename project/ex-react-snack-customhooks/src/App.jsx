@@ -22,7 +22,7 @@ function App() {
       <p className='letter index'>{currentDate.toLocaleString()}</p>
     </div>
 
-    <div className='container cursor' style={{marginTop: "40px", position: "relative"}} id='cursor-box'>
+    <div className='container cursor' style={{marginTop: "40px"}} id='cursor-box'>
       {CostumePointer}
     </div>
 

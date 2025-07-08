@@ -4,42 +4,43 @@ import "../../../src/App.css"
 // Hook Delle Positions
 
 export default function UsePosition(component, id) {
-    const [isPosition, setPosition] = useState({ top: 0, left: 0 });
+    const [isPosition, setPosition] = useState({ x: 0, y: 0, top: null, left: null});
+    const cursorRef = useRef(null);
 
     const style = {
-        position: "absolute",
-        top: (isPosition.top + 140) + "px",
-        left: (isPosition.left + 140) + "px",
+        left: - isPosition.left+ "px" || "none",
+        top: - isPosition.left+ "px" || "none",
+        cursor: "none",
+        transform: `translate(${isPosition.x}px, ${isPosition.y}px)`
     }
 
-        
-    const handleMouseMove = (e) => {
-        const ChildElement = document.getElementById("cursor").getBoundingClientRect();
-        const ParentElement = document.getElementById(id).getBoundingClientRect();
-        if (!ChildElement) return;
-        const Width = ParentElement.width;
-        const Height = ParentElement.height;
-        const TopBox = ChildElement.top;
-        const LeftBox = ChildElement.left;
-        // console.log(e.clientX, e.clientY)
-        // Calcolare le nuove cordinate con il mouse con l'oggetto contenuto
+        useEffect(() => {
+        const parentElement = document.getElementById(id);
+        if (!parentElement || !cursorRef.current) return;
 
-        const DistanceCalcTop = e.clientX - Math.round(TopBox) - Math.round(Width);
-        const DistanceCalcLeft = e.clientY - Math.round(LeftBox) - Math.round(Height);
-        // console.log(ParentElement)
-        setPosition({top: DistanceCalcTop, left: DistanceCalcLeft })
-    };
+        const handleMouseMove = (e) => {
+        const parentRect = parentElement.getBoundingClientRect();
+        const cursorRect = cursorRef.current.getBoundingClientRect();
+        const LeftPosition = 20;
+        const TopPosition = 20;
 
-    // console.log(isPosition)
+        const offsetX = cursorRect.width / 2;
+        const offsetY = cursorRect.height / 2;
 
-    useEffect(() => {
-        const id_element = document.getElementById(id)
-        id_element.addEventListener("mousemove", handleMouseMove);
-        return () => id_element.removeEventListener("mousemove", handleMouseMove);
-    },[])
+        // Calcolo tra il contenitore e l'elemento contente + sottratti alle cordinate effettive
+        const relativeX =  e.clientX - (parentRect.left - offsetX);
+        const relativeY =  e.clientY - (parentRect.top - offsetY);
 
+        setPosition({ x: relativeX, y: relativeY, top: TopPosition , left: LeftPosition });
+        };
+
+        parentElement.addEventListener("mousemove", handleMouseMove);
+        return () => parentElement.removeEventListener("mousemove", handleMouseMove);
+    }, [id]);
+            
+   
     return(<>
-    <div style={style} className='cursor-style' id='cursor'>
+    <div style={style} className='cursor-style' id='cursor' ref={cursorRef}>
       {component}
     </div>
     </>)

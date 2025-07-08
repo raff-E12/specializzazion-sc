@@ -49,6 +49,10 @@
 
 .container.cursor{
   height: 500px;
+  position: relative;
+  padding: 20px;
+  cursor: none;
+  overflow: hidden;
 }
 
 .cursor-style {
@@ -61,7 +65,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  pointer-events: none;
   color: white;
+  position: absolute;
+  transition: all linear 0.12s;
   font-weight: 800;
   border: 6px solid #ba0707;
 }
