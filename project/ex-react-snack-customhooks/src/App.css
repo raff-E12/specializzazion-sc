@@ -1,0 +1,55 @@
+
+/***** Webpage Css *****/ 
+
+.container{
+  width: 500px;
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  gap: 12px;
+  justify-content: center;
+  background-color: #e02727;
+  border-radius: 10px;
+  cursor: none;
+}
+
+.btn {
+  width: 200px;
+  background-color: #ba0707;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.btn:active{
+  background-color: #7b0303;
+}
+
+#text-info{
+  padding: 14px;
+  color: #0b0000;
+}
+
+.container .letter{
+  background-color: #ba0707;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 900;
+  color: #fff;
+  border-radius: 12px;
+  padding: 11px;
+  width: 400px;
+}
+
+.container .index{
+  font-weight: 500;
+}
+
+.container.cursor{
+  height: 500px;
+}
+
+/***** End Webpage Css *****/
