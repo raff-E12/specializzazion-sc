@@ -8,7 +8,7 @@ function App() {
   const [isOn, toogle] = useSwitch();
   const currentDate = UseDate();
   const targetKey = UseKey("Enter")
-  const CostumePointer = UsePosition("§", "cursor-box");
+  const CostumePointer = UsePosition(<i class="fa-solid fa-arrow-pointer"></i>, "cursor-box");
 
   return (
     <>

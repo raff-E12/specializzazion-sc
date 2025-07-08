@@ -10,7 +10,6 @@
   justify-content: center;
   background-color: #e02727;
   border-radius: 10px;
-  cursor: none;
 }
 
 .btn {
@@ -50,6 +49,21 @@
 
 .container.cursor{
   height: 500px;
+}
+
+.cursor-style {
+  width: 50px;
+  height: 50px;
+  background-color: #7b0303;
+  border-radius: 100px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  font-weight: 800;
+  border: 6px solid #ba0707;
 }
 
 /***** End Webpage Css *****/

@@ -1,24 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react'
+import "../../../src/App.css"
 
 // Hook Delle Positions
 
 export default function UsePosition(component, id) {
-    const [isPostion, setPosition] = useState({x: 0, y: 0});
+    const [isPosition, setPosition] = useState({ top: 0, left: 0 });
 
     const style = {
         position: "absolute",
-        top: isPostion.x,
-        left: isPostion.y,
-        transform: "translate(-50%, -50%)",
-        cursor: "none",
-        pointerEvents: "none",
-        transition: "none",
-        }
+        top: (isPosition.top + 140) + "px",
+        left: (isPosition.left + 140) + "px",
+    }
 
         
     const handleMouseMove = (e) => {
-        setPosition({ x: e.clientX, y: e.clientY });
+        const ChildElement = document.getElementById("cursor").getBoundingClientRect();
+        const ParentElement = document.getElementById(id).getBoundingClientRect();
+        if (!ChildElement) return;
+        const Width = ParentElement.width;
+        const Height = ParentElement.height;
+        const TopBox = ChildElement.top;
+        const LeftBox = ChildElement.left;
+        // console.log(e.clientX, e.clientY)
+        // Calcolare le nuove cordinate con il mouse con l'oggetto contenuto
+
+        const DistanceCalcTop = e.clientX - Math.round(TopBox) - Math.round(Width);
+        const DistanceCalcLeft = e.clientY - Math.round(LeftBox) - Math.round(Height);
+        // console.log(ParentElement)
+        setPosition({top: DistanceCalcTop, left: DistanceCalcLeft })
     };
+
+    // console.log(isPosition)
 
     useEffect(() => {
         const id_element = document.getElementById(id)
@@ -27,7 +39,7 @@ export default function UsePosition(component, id) {
     },[])
 
     return(<>
-    <div style={style}>
+    <div style={style} className='cursor-style' id='cursor'>
       {component}
     </div>
     </>)
