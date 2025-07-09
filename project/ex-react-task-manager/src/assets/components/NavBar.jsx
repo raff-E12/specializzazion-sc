@@ -8,7 +8,7 @@ export default function NavBar() {
            <h1 className="h5 m-0">Task Manager</h1>
         </div>
         <div class="d-flex align-items-center">
-            <NavLink className={"nav-link"} to={"/"}>Lista</NavLink>
+            <NavLink className={"nav-link"} to={"/"}>Mostra</NavLink>
             <NavLink className={"nav-link"} to={"/add"}>Aggiungi</NavLink>
         </div>
   </nav>

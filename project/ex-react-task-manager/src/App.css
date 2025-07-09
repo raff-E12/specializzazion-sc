@@ -1,4 +1,3 @@
-
 /***** WebPage CSS Style *****/ 
 
 /* NAV */
@@ -79,6 +78,7 @@
 }
 .task-form .error-message {
   margin-top: 0.25rem;
+  text-transform: capitalize;
   color: var(--color-danger);
   font-size: 0.875rem;
 }
@@ -90,6 +90,7 @@
   font-weight: 500;
   transition: background-color 0.2s ease;
 }
+
 .btn-primary-custom {
   background-color: var(--color-primary);
   color: white;

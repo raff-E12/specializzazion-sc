@@ -17,9 +17,8 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
                 <td><a href="#" >{task.title}</a></td>
                 <td className={`${task.status === "Doing" ? "status-doing" : task.status === "Done" ? "status-done" : "status-todo" }`}>{task.status}</td>
                 {DateList.map((items, i) => {
-                    if (task.id === items.id) {
-                        const date = items.date[0];
-                        return(<td key={i}>{date}</td>)
+                    if (index === i) {
+                        return(<td key={i}>{items.date[0]}</td>)
                     }
                 })}
             </tr>
