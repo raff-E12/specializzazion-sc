@@ -153,5 +153,27 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
+/* POP-UP */
+
+.popup-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 250px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .popup-alert.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .popup-alert .btn-close {
+    padding: 0.5rem;
+  }
+
 
 /***** End WebPage CSS Style *****/

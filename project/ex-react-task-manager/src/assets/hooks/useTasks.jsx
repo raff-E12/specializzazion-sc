@@ -5,6 +5,7 @@ export default function useTasks() {
   const [Task, SetTask] = useState([]);
   const [isCompleted, setCompleted] = useState(false)
   const [DateList, SetDate] = useState([]);
+  const [isAdv, SetAdv] = useState(false);
   const [FormData, SetForm] = useState({});
   const [ID, SetID] = useState(0);
   const { VITE_API_URL } = import.meta.env;
@@ -39,7 +40,7 @@ async function GetTaskList() {
         const fetchingPost = await axios.post(`${VITE_API_URL}/tasks`, FormData);
         const condition = fetchingPost.data.success;
         if (condition) {
-          return window.alert("Aggiunto alla lista, con successo!!");
+          return SetAdv(true)
         }
       }
     } catch (error) {
@@ -59,5 +60,5 @@ async function GetTaskList() {
   useEffect(() => { addTasks() }, [FormData]);
   useMemo(() => { DateListSets() }, [isCompleted]);
 
-  return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, FormData, SetForm, ID, SetID }
+  return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, FormData, SetForm, ID, SetID, isAdv, SetAdv }
 }

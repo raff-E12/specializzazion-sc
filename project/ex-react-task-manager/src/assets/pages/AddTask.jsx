@@ -1,8 +1,9 @@
 import React, { useMemo, useRef, useState } from 'react'
 import { ExportGlobalContext } from '../context/GlobalContext';
+import PopUp from '../components/PopUp';
 
 export default function AddTask() {
-  const { FormData, SetForm, Task, ID, SetID } = ExportGlobalContext()
+  const { FormData, SetForm, Task, ID, SetID, isAdv, SetAdv } = ExportGlobalContext()
   const [TaskTitle, SetTitle] = useState("");
   const [isError, setError] = useState({msg: "", state: false});
   const [isFocus, setFocus] = useState(false);
@@ -26,6 +27,9 @@ export default function AddTask() {
      if (!isError.state && ValueDescription !== "" && ValueStatus !== "") {
         const formDataInputs = { id: ID, title: TaskTitle, description: ValueDescription, status: ValueStatus, createdAt: DateNow };
         SetForm(formDataInputs)
+        SetTitle("");
+        StatusRef.current.value = "";
+        DescriptionRef.current.value = "";
      }
   }
 
@@ -64,6 +68,7 @@ export default function AddTask() {
         <button type="submit" className="btn btn-custom btn-primary-custom" disabled={isError.state}>Aggiungi Task</button>
       </div>
     </form>
+    <PopUp Adv={isAdv} setAdv={SetAdv} />
   </main>
   </>)
 }
