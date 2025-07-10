@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router'
 
 export const TaskRows = React.memo(({Tasks, DateList}) => {
   return (<>
@@ -11,10 +12,10 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
         </tr>
       </thead>
       <tbody>
-        {Tasks.map((task, index) => {
+        {Tasks.length !== 0 ? Tasks.map((task, index) => {
             return(<>
             <tr key={index}>
-                <td><a href="#" >{task.title}</a></td>
+                <td><NavLink to={`/task/:${task.id}`}>{task.title}</NavLink></td>
                 <td className={`${task.status === "Doing" ? "status-doing" : task.status === "Done" ? "status-done" : "status-todo" }`}>{task.status}</td>
                 {DateList.map((items, i) => {
                     if (index === i) {
@@ -23,7 +24,7 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
                 })}
             </tr>
             </>)
-        })}
+        }) : <tr className='bg-dark text-capitalize fs-6 fw-bold text-light'><td colSpan={3} className='text-center'>Al momento non ci sono task.</td></tr>}
       </tbody>
     </table>
   </>)

@@ -1,14 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from "axios"
+import { useNavigate } from 'react-router';
 
 export default function useTasks() {
-  const [Task, SetTask] = useState([]);
-  const [isCompleted, setCompleted] = useState(false)
-  const [DateList, SetDate] = useState([]);
-  const [isAdv, SetAdv] = useState(false);
-  const [FormData, SetForm] = useState({});
-  const [ID, SetID] = useState(0);
+  const [Task, SetTask] = useState([]); // Lista Task in Lista
+  const [isCompleted, setCompleted] = useState(false);
+  const [DateList, SetDate] = useState([]); // Lista Date Formatate
+  const [isAdv, SetAdv] = useState(false); // Alternanza del messaggio di avviso
+  const [FormData, SetForm] = useState({}); // Campo dati Estratto dal FormData
+  const [ID, SetID] = useState(0); // ID di Aggiunta all'oggetto creato
+
+  const [isDelete, setDelete] = useState(null);
+  const [ShowModal, SetShowModal] = useState(false);
   const { VITE_API_URL } = import.meta.env;
+  const NavigateLink = useNavigate();
 
 async function GetTaskList() {
     try {
@@ -36,11 +41,13 @@ async function GetTaskList() {
   async function addTasks() {
     try {
       if (Object.keys(FormData).length !== 0) {
-        console.log("Inviato", FormData);
         const fetchingPost = await axios.post(`${VITE_API_URL}/tasks`, FormData);
-        const condition = fetchingPost.data.success;
-        if (condition) {
-          return SetAdv(true)
+        const { success, task } = fetchingPost.data;
+        if (success) {
+          SetID(0)
+          SetAdv(true)
+          SetTask(items => [...items, task]);
+          GetTaskList();
         }
       }
     } catch (error) {
@@ -48,8 +55,23 @@ async function GetTaskList() {
     }
   }
 
-  function RemoveTasks() {
-    
+  async function RemoveTasks() {
+    try {
+      if (isDelete !== null) {
+        const fetchingApi = await axios.delete(`${VITE_API_URL}/tasks/${isDelete}`);
+        const { success, task } = fetchingApi.data;
+        NavigateLink("/");
+        if (success) {
+          SetAdv(true);
+          setDelete(null);
+          SetShowModal(false);
+          SetTask(task => task.filter(item => item.id !== ID));
+        }
+      }
+    } catch (error) {
+      console.error(error.message)
+      setDelete(null)
+    }
   }
 
   function UpdateTasks() {
@@ -58,7 +80,10 @@ async function GetTaskList() {
 
   useEffect(() => { GetTaskList() }, []);
   useEffect(() => { addTasks() }, [FormData]);
-  useMemo(() => { DateListSets() }, [isCompleted]);
 
-  return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, FormData, SetForm, ID, SetID, isAdv, SetAdv }
+  useMemo(() => { DateListSets() }, [isCompleted]);
+  useMemo(() => { RemoveTasks() }, [isDelete, ShowModal]);
+
+  return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, 
+    FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, ShowModal, SetShowModal }
 }

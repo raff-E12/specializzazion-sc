@@ -1,9 +1,10 @@
 import React from 'react'
 import { TaskRows } from '../components/TaskRows';
 import { ExportGlobalContext } from '../context/GlobalContext'
+import PopUp from '../components/PopUp';
 
 export default function TaskList() {
-  const { Task, SetTask, DateList } = ExportGlobalContext();
+  const { Task, SetTask, DateList, isAdv, SetAdv } = ExportGlobalContext();
 
   return (<>
   <main className='container py-4'>
@@ -13,6 +14,7 @@ export default function TaskList() {
     </div>
 
     <TaskRows Tasks={Task} DateList={DateList}/>
+    <PopUp Adv={isAdv} setAdv={SetAdv}/>
   </main>
   </>)
 }

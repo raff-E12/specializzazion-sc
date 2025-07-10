@@ -157,22 +157,118 @@
 
 .popup-alert {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    min-width: 250px;
-    z-index: 9999;
+    bottom: 20px;
+    background-color: #ffffff84;
+    backdrop-filter: blur(4px);
+    border: 2px solid #d3d3d3;
+    padding: 20px;
+    right: 30px;
+    min-width: 380px;
+    z-index: 1060;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-20px);
+    pointer-events: none;
     transition: all 0.4s ease-in-out;
   }
 
   .popup-alert.show {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
   }
 
   .popup-alert .btn-close {
     padding: 0.5rem;
+  }
+
+  /* ANIMAZIONE ingresso */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInMove 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInMove {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Badge stato */
+  .badge-status {
+    padding: 0.4em 0.8em;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .badge-status.todo {
+    background-color: var(--color-todo);
+  }
+
+  .badge-status.doing {
+    background-color: var(--color-doing);
+  }
+
+  .badge-status.done {
+    background-color: var(--color-done);
+  }
+
+  .task-detail h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .fade-scale {
+    animation: fadeScaleIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  @keyframes fadeScaleIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .not-found-box {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 3rem 2rem;
+    background-color: var(--color-bg-white);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+
+  .not-found-box h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .not-found-box p {
+    color: var(--color-muted);
+  }
+
+  /* ANIMAZIONE modale */
+  
+  .modal-content.fade-in {
+    animation: fadeInUp 0.4s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
 
