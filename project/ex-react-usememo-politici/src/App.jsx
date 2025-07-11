@@ -26,13 +26,13 @@ function App() {
   const [isPoliticians, setPoliticians] = useState([]);
   const [isCard, setCard] = useState([]);
   const [FilterCard, setFilterCard] = useState([])
+
   const [isShow, setShow] = useState(false);
   const [isSearch, setSearch] = useState("");
+  
   const [isPositions, setPositions] = useState([]);
   const [isAdd, setAdd] = useState(false);
   const [isSelect, setSelect] = useState("");
-
-  console.log(isSelect)
 
   async function GenLists() {
     try {
@@ -48,7 +48,7 @@ function App() {
   }
 
   function PositionSelection() {
-    let positions = [...new Set(isCard.map(element => element.position.toLocaleLowerCase().trim()))]; // Controllo dupplicati
+    let positions = [...new Set(isCard.map(element => element.position.toLocaleLowerCase().trim()))]; // Controllo dupplicati con valori primitivi
     setPositions(positions);
     setAdd(false);
   }

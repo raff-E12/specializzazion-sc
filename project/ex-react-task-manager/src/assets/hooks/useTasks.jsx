@@ -35,11 +35,20 @@ async function GetTaskList() {
    if (isCompleted) {
       Task.forEach((element) => {
           const DateFormat = String(element.createdAt).replace("T", " ").replace("Z", " ").split(" ");
-          SetDate(item => [...item, {id: element.id, date: DateFormat}]);
+          SetDate(item => [...item,{id: element.id, date: DateFormat}]);
       })
-      setCompleted(false)
    }
   }
+
+  // Serve a togliere dupplicati in modo che le 
+  // chiavi posso essere confrontate da lasciare solo valori unici.
+  const PreventDupplication = useMemo(() => { 
+    const AlternativeList = Array.from(new Map(DateList.map(item => [item.id, item])).values()); // Conversione in un array.
+    SetDate(AlternativeList)
+    setCompleted(false)  
+  }, [isCompleted]);
+
+  console.log(DateList)
 
   async function addTasks() {
     try {
