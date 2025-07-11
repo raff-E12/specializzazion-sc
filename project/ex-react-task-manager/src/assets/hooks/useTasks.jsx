@@ -15,6 +15,9 @@ export default function useTasks() {
   const { VITE_API_URL } = import.meta.env;
   const NavigateLink = useNavigate();
 
+  const [isModifyModal, setModifyModal] = useState(false);
+  const [TaskEdit, setEditTask] = useState([]);
+
 async function GetTaskList() {
     try {
         const fetchings = await axios.get(`${VITE_API_URL}/tasks`);
@@ -30,11 +33,11 @@ async function GetTaskList() {
 
   function DateListSets() {
    if (isCompleted) {
-     Task.forEach((element) => {
-        const DateFormat = String(element.createdAt).replace("T", " ").replace("Z", " ").split(" ");
-        SetDate(item => [...item, {id: element.id, date: DateFormat}]);
-    })
-    setCompleted(false)
+      Task.forEach((element) => {
+          const DateFormat = String(element.createdAt).replace("T", " ").replace("Z", " ").split(" ");
+          SetDate(item => [...item, {id: element.id, date: DateFormat}]);
+      })
+      setCompleted(false)
    }
   }
 
@@ -74,16 +77,30 @@ async function GetTaskList() {
     }
   }
 
-  function UpdateTasks() {
-    
+  async function UpdateTasks() {
+     try {
+        const idTask = TaskEdit[0].id;
+        const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, TaskEdit[0]);
+        const { success, task } = fetchingApi.data;
+        console.log(idTask)
+        if (success) {
+          SetAdv(true)
+          GetTaskList()
+        }
+
+    } catch (error) {
+      console.error(error.message)
+    }
   }
 
   useEffect(() => { GetTaskList() }, []);
   useEffect(() => { addTasks() }, [FormData]);
+  useEffect(() => { UpdateTasks() }, [TaskEdit])
 
   useMemo(() => { DateListSets() }, [isCompleted]);
   useMemo(() => { RemoveTasks() }, [isDelete, ShowModal]);
 
   return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, 
-    FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, ShowModal, SetShowModal }
+    FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, 
+    ShowModal, SetShowModal, isModifyModal, setModifyModal,TaskEdit, setEditTask }
 }

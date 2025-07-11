@@ -106,6 +106,15 @@
   background-color: #dc2626;
 }
 
+.btn-success-custom {
+  background-color: var(--bs-green);
+  margin-left: 10px;
+  color: white;
+}
+.btn-success-custom:hover {
+  background-color: #44b01c;
+}
+
 /* MODAL */
 .modal-overlay {
   position: fixed;
@@ -271,5 +280,17 @@
     }
   }
 
+  /* ANIMAZIONE modale */
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
 
 /***** End WebPage CSS Style *****/

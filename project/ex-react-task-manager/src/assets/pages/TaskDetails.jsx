@@ -1,15 +1,20 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router'
 import { ExportGlobalContext } from '../context/GlobalContext';
 import PopUp from '../components/PopUp';
 import Modal from '../components/Modal';
+import EditTaskModal from '../components/EditTaskModal';
 
 export default function TaskDetails() {
   const { id } = useParams();
   const [isFind, setFind] = useState(false);
   const [isTask, SetTask] = useState([]);
   const NumberTask = parseInt(id.replace(":", ""));
-  const { Task, DateList, isDelete, setDelete, ShowModal, SetShowModal } = ExportGlobalContext();
+  const editFormRef = useRef();
+
+  const { Task, DateList, isDelete, setDelete, 
+  ShowModal, SetShowModal, isModifyModal, setModifyModal, 
+  TaskEdit, setEditTask, isAdv, SetAdv } = ExportGlobalContext();
 
   function HandleTaskFinder() {
     const task = Task.find(task => task.id === NumberTask);
@@ -18,6 +23,13 @@ export default function TaskDetails() {
         setFind(true);
         SetTask([{ task: task, dateTime: date }]);
     }
+  }
+
+  function HandleUpadateTask(UpdateTask) {
+    const date = DateList.find(date => date.id === NumberTask);
+    SetTask([{task: UpdateTask, dateTime: date}])
+    setEditTask([isTask[0].task]);
+    setModifyModal(false);
   }
 
   useMemo(() => HandleTaskFinder(), [isFind]);
@@ -42,11 +54,12 @@ export default function TaskDetails() {
       <p className="text-muted">
         <strong>Data di creazione:</strong> {item.dateTime.date[0]}
       </p>
-
       <div className="mt-4 d-flex justify-content-end">
         <button className="btn-custom btn-danger-custom" id="deleteBtn" onClick={() => SetShowModal(true)}>🗑 Elimina Task</button>
+        <button className="btn-custom btn-success-custom" id="modifyBtn" onClick={() => setModifyModal(true)}>Modifica</button>
       </div>
     </div>
+    <EditTaskModal task={isTask} show={isModifyModal} onClose={() => setModifyModal(false)} onSave={(UpdateTask) => HandleUpadateTask(UpdateTask)} ref={editFormRef}/>
     </>)
    }) : <div className="not-found-box fade-scale">
       <h2>Oops! Task non trovato</h2>
@@ -56,7 +69,7 @@ export default function TaskDetails() {
         <NavLink to="/" className={"btn-custom btn-primary-custom"}>Torna alla lista</NavLink>
       </div>
     </div>}
-  <Modal 
+  <Modal
     title={"Conferma Eliminazione"} 
     content={"Sei sicuro di voler eliminare questa task? L’azione è irreversibile"}
     show={ShowModal}
@@ -64,6 +77,7 @@ export default function TaskDetails() {
     onConfirm={() => setDelete(NumberTask)}
     confirmText='Elimina'
   />
+  <PopUp setAdv={SetAdv} Adv={isAdv}/>
   </main>
   </>)
 }
