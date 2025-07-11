@@ -137,6 +137,12 @@
   width: 90%;
   max-width: 480px;
 }
+
+.modal-content p {
+  height: 330px;
+  overflow-x: auto;
+}
+
 .modal-footer {
   margin-top: 1.5rem;
   display: flex;

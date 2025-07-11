@@ -8,8 +8,15 @@ import Modal from './Modal'
   // Visto che i ref funzionano solo su elementi DOM non sui componenti personalizzati. (forwardRef)
 
 const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
-    const [editTask, setEditTask] = useState([]); // Viene Passata la task corrente in uno stato
+    const [editTask, setEditTask] = useState([]); 
 
+    useEffect(() => {
+      if (task && task[0].task) {
+        setEditTask(task[0].task)
+      }
+    },[task])
+    
+    // Viene Passata la task corrente in uno stato
     // Distribuisce e crea un oggetto per distribuire le seguenti informazioni sugli input.
     function HandleChangeTask(key, event) {
       setEditTask(prev => ({...prev, [key]: event.target.value })) 
@@ -25,12 +32,6 @@ const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
     }
 
     const { title, description, status } = editTask;
-
-    useEffect(() => {
-      if (task && task[0].task) {
-        setEditTask(task[0].task)
-      }
-    },[task])
 
     return(<Modal 
       title={"Modifica della Task"}
