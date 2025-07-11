@@ -3,9 +3,11 @@ import axios from "axios"
 import { useNavigate } from 'react-router';
 
 export default function useTasks() {
-  const [Task, SetTask] = useState([]); // Lista Task in Lista
+  const [Task, SetTask] = useState([]); // Lista Task
   const [isCompleted, setCompleted] = useState(false);
   const [DateList, SetDate] = useState([]); // Lista Date Formatate
+  const [TaskList, setListTask] = useState([])
+
   const [isAdv, SetAdv] = useState(false); // Alternanza del messaggio di avviso
   const [FormData, SetForm] = useState({}); // Campo dati Estratto dal FormData
   const [ID, SetID] = useState(0); // ID di Aggiunta all'oggetto creato
@@ -22,10 +24,10 @@ async function GetTaskList() {
     try {
         const fetchings = await axios.get(`${VITE_API_URL}/tasks`);
         const data = await fetchings.data;
-        console.log(data)
         SetTask(data)
         SetID(Number(data[data.length - 1].id))
         setCompleted(true)
+        setListTask(data);
     } catch (error) {
         console.error(error.message);
     }
@@ -47,8 +49,6 @@ async function GetTaskList() {
     SetDate(AlternativeList)
     setCompleted(false)  
   }, [isCompleted]);
-
-  console.log(DateList)
 
   async function addTasks() {
     try {
@@ -88,15 +88,15 @@ async function GetTaskList() {
 
   async function UpdateTasks() {
      try {
-        const idTask = TaskEdit[0].id;
-        const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, TaskEdit[0]);
-        const { success, task } = fetchingApi.data;
-        console.log(idTask)
-        if (success) {
-          SetAdv(true)
-          GetTaskList()
-        }
-
+      if (Task.length !== 0) {
+          const idTask = TaskEdit[0].id;
+          const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, TaskEdit[0]);
+          const { success, task } = fetchingApi.data;
+          if (success) {
+            SetAdv(true)
+            GetTaskList()
+          }
+      }
     } catch (error) {
       console.error(error.message)
     }
@@ -109,7 +109,8 @@ async function GetTaskList() {
   useMemo(() => { DateListSets() }, [isCompleted]);
   useMemo(() => { RemoveTasks() }, [isDelete, ShowModal]);
 
-  return { Task, DateList, addTasks, RemoveTasks, UpdateTasks, 
+  return { Task, SetTask, DateList, addTasks, RemoveTasks, UpdateTasks, 
     FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, 
-    ShowModal, SetShowModal, isModifyModal, setModifyModal,TaskEdit, setEditTask }
+    ShowModal, SetShowModal, TaskList,
+    isModifyModal, setModifyModal,TaskEdit, setEditTask }
 }

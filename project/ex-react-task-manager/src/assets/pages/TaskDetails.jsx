@@ -10,6 +10,9 @@ export default function TaskDetails() {
   const [isFind, setFind] = useState(false);
   const [isTask, SetTask] = useState([]);
   const NumberTask = parseInt(id.replace(":", ""));
+
+  // L'uso del riferimento va al componenete figlio che permette 
+  // di interagire con le sue proprietà usate, è che posso accadere alla funzione passata al figlio.
   const editFormRef = useRef();
 
   const { Task, DateList, isDelete, setDelete, 
@@ -25,6 +28,8 @@ export default function TaskDetails() {
     }
   }
 
+  // Una volta passati, si utilizzano per aggiornare l'oggetto di rifermento
+  // con la gestione api con useTask usato dal contesto stesso.
   function HandleUpadateTask(UpdateTask) {
     const date = DateList.find(date => date.id === NumberTask);
     SetTask([{task: UpdateTask, dateTime: date}])

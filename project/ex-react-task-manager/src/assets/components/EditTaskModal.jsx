@@ -1,17 +1,25 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import Modal from './Modal'
 
-const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
-    const [editTask, setEditTask] = useState(task[0].task);
+  // Serve per esporre funzioni del componente figlio (EditTaskModal) 
+  // al componente genitore (TaskDetails) tramite ref.
 
+  // Usato per passare un riferimento da un componente genitore al figlio.
+  // Visto che i ref funzionano solo su elementi DOM non sui componenti personalizzati. (forwardRef)
+
+const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
+    const [editTask, setEditTask] = useState(task[0].task); // Viene Passata la task corrente in uno stato
+
+    // Distribuisce e crea un oggetto per distribuire le seguenti informazioni sugli input.
     function HandleChangeTask(key, event) {
-      setEditTask(prev => ({...prev, [key]: event.target.value }))
+      setEditTask(prev => ({...prev, [key]: event.target.value })) 
     }
 
-    useImperativeHandle(ref, () => ({
-      HandleSubmitForm
-    }));
+    // Serve ad accedere alla funzione usata come prop dal componente padre al figlio che gli possa (useImperativeHandle)
+    // permettere di eseguirla in maniera diretta.(Ovviamente serve a comandare un figlio dal componente genitore)
+    useImperativeHandle(ref, () => ({ HandleSubmitForm }));
 
+    // Passaggio dei dati dal figlio al genitore.
     function HandleSubmitForm() {
       return onSave(editTask);
     }
@@ -48,6 +56,7 @@ const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
       confirmText='Salva Modifica'
       show={show}
       onClose={onClose}
+      // Esegue la funzione in maniera diretta tramite rifermento dello stesso genitore.
       onConfirm={() => ref.current.HandleSubmitForm()}
     />)
 })

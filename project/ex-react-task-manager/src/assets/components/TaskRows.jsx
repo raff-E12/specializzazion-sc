@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { NavLink } from 'react-router'
+import { ExportGlobalContext } from '../context/GlobalContext'
 
-export const TaskRows = React.memo(({Tasks, DateList}) => {
+export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
   const [sortBy, setSortBy] = useState("CreateAt");
   const [sortOrder, setSortOrder] = useState(1); // Rappresentazione di Ordinamento
 
@@ -16,8 +17,19 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
     }
   }
 
-  const SortListTable = () => {
-      return Tasks.sort((a, b) => {
+  // const HandleSearchTasks = () => {
+  //   if (isSearch === "") return SetTask(TaskList)
+  //     const SearchLowercase = String(isSearch).toLowerCase().trim();
+  //     const filterList = [...Tasks].filter(items => items.title.toLowerCase().includes(SearchLowercase));
+  //     const conditionList = filterList.length === 0 ? TaskList : filterList;
+  //     SetTask(conditionList);
+  // }
+
+  // useMemo(() => { HandleSearchTasks() }, [isSearch])
+
+  const SortListTable = useMemo(() => {
+    const SearchLowercase = String(isSearch).toLowerCase().trim();
+    return [...Tasks].filter(items => items.title.toLowerCase().includes(SearchLowercase)).sort((a, b) => {
       let comparison = null;
 
       if (sortBy === "title") {
@@ -35,9 +47,7 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
       // per ogni elemento ordinato in base al sortBy selezionato.
       return comparison * sortOrder
     })
-  }
-
-  useMemo(() => { SortListTable() }, [Tasks, sortBy, sortOrder])
+  }, [Tasks, sortBy, sortOrder, isSearch])
 
   return (<>
   <table className="task-table">
@@ -49,7 +59,7 @@ export const TaskRows = React.memo(({Tasks, DateList}) => {
         </tr>
       </thead>
       <tbody>
-        {Tasks.length !== 0 ? Tasks.map((task, index) => {
+        {SortListTable.length !== 0 ? SortListTable.map((task, index) => {
             return(<>
             <tr key={index}>
                 <td><NavLink to={`/task/:${task.id}`}>{task.title}</NavLink></td>
