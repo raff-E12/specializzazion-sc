@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import Modal from './Modal'
 
   // Serve per esporre funzioni del componente figlio (EditTaskModal) 
@@ -8,7 +8,7 @@ import Modal from './Modal'
   // Visto che i ref funzionano solo su elementi DOM non sui componenti personalizzati. (forwardRef)
 
 const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
-    const [editTask, setEditTask] = useState(task[0].task); // Viene Passata la task corrente in uno stato
+    const [editTask, setEditTask] = useState([]); // Viene Passata la task corrente in uno stato
 
     // Distribuisce e crea un oggetto per distribuire le seguenti informazioni sugli input.
     function HandleChangeTask(key, event) {
@@ -25,6 +25,12 @@ const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
     }
 
     const { title, description, status } = editTask;
+
+    useEffect(() => {
+      if (task && task[0].task) {
+        setEditTask(task[0].task)
+      }
+    },[task])
 
     return(<Modal 
       title={"Modifica della Task"}
@@ -46,7 +52,7 @@ const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
             <label htmlFor="editStatus">Stato</label>
             <select id="editStatus" name="status" value={status} onChange={(e) => HandleChangeTask("status", e )}>
               <option value="To do">To do</option>
-              <option value="Doing" selected>Doing</option>
+              <option value="Doing">Doing</option>
               <option value="Done">Done</option>
             </select>
           </div>

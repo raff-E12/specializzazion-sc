@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router'
 import { ExportGlobalContext } from '../context/GlobalContext';
 import PopUp from '../components/PopUp';
@@ -37,7 +37,7 @@ export default function TaskDetails() {
     setModifyModal(false);
   }
 
-  useMemo(() => HandleTaskFinder(), [isFind]);
+  useEffect(() => {HandleTaskFinder()}, [isFind]);
 
   return (<>
   <main className="container">
@@ -64,7 +64,7 @@ export default function TaskDetails() {
         <button className="btn-custom btn-success-custom" id="modifyBtn" onClick={() => setModifyModal(true)}>Modifica</button>
       </div>
     </div>
-    <EditTaskModal task={isTask} show={isModifyModal} onClose={() => setModifyModal(false)} onSave={(UpdateTask) => HandleUpadateTask(UpdateTask)} ref={editFormRef}/>
+    <EditTaskModal task={isTask.length !== 0 ? isTask : [{task: {}, dateTime: {}}]} show={isModifyModal} onClose={() => setModifyModal(false)} onSave={(UpdateTask) => HandleUpadateTask(UpdateTask)} ref={editFormRef}/>
     </>)
    }) : <div className="not-found-box fade-scale">
       <h2>Oops! Task non trovato</h2>
