@@ -10,7 +10,7 @@ export default function NavBar() {
         <div className="d-flex align-items-center">
            <h1 className="h5 m-0">Task Manager</h1>
         </div>
-        <div class="d-flex align-items-center">
+        <div className="d-flex align-items-center">
             <NavLink className={`nav-link ${!isActive ? "active" : ""}`} to={"/"} onClick={() => setActive(false)}>Mostra</NavLink>
             <NavLink className={`nav-link ${isActive ? "active" : ""}`} to={"/add"} onClick={() => setActive(true)}>Aggiungi</NavLink>
         </div>

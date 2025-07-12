@@ -138,8 +138,8 @@
   max-width: 480px;
 }
 
-.modal-content p {
-  height: auto;
+.modal-content p .task-form.fade-in {
+  height: 330px;
   overflow-x: auto;
 }
 

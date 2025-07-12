@@ -62,6 +62,7 @@ export default function useTasks() {
           dispatch({ type: "SET_ADV" });
           dispatch({ type: "RESET_FORM" });
           dispatch({ type: "SET_RELOAD", payload: true });
+          window.location.reload();
         }
       }
     } catch (error) {

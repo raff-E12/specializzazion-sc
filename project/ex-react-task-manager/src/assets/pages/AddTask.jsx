@@ -42,20 +42,20 @@ export default function AddTask() {
 
       {/* <!-- Nome --> */}
       <div className="form-group">
-        <label for="taskTitle">Nome del Task</label>
+        <label htmlFor="taskTitle">Nome del Task</label>
         <input type="text" id="taskTitle" name="title" onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} required value={TaskTitle} onChange={e => SetTitle(e.target.value)}/>
         {isFocus && isError.state && <div className="error-message" id="titleError">{isError.msg}</div>}
       </div>
 
       {/* <!-- Descrizione --> */}
       <div className="form-group">
-        <label for="taskDescription">Descrizione</label>
+        <label htmlFor="taskDescription">Descrizione</label>
         <textarea id="taskDescription" name="description" rows="4" ref={DescriptionRef} required></textarea>
       </div>
 
       {/* <!-- Stato --> */}
       <div className="form-group">
-        <label for="taskStatus">Stato</label>
+        <label htmlFor="taskStatus">Stato</label>
         <select id="taskStatus" name="status" ref={StatusRef} required>
           <option value="To do" selected>To do</option>
           <option value="Doing">Doing</option>
