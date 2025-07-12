@@ -82,7 +82,7 @@ export default function TaskDetails() {
     onConfirm={() => setDelete(NumberTask)}
     confirmText='Elimina'
   />
-  <PopUp setAdv={SetAdv} Adv={isAdv}/>
+  <PopUp setAdv={SetAdv} Adv={isAdv} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }

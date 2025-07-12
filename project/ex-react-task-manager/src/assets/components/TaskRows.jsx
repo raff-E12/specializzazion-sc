@@ -1,10 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { NavLink } from 'react-router'
 import { ExportGlobalContext } from '../context/GlobalContext'
+import PopUp from './PopUp';
 
 export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
   const [sortBy, setSortBy] = useState("CreateAt");
+  const { RemoveMultipleTasks, RejectList, isAdv, SetAdv } = ExportGlobalContext();
   const [sortOrder, setSortOrder] = useState(1); // Rappresentazione di Ordinamento
+  const [TaskSelectedID, setTaskSelectID] = useState([]);
 
   const SortIconOrder = sortOrder === 1 ? <i class="bi bi-sort-alpha-down"></i> : <i class="bi bi-sort-alpha-up"></i>;
 
@@ -17,15 +20,21 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
     }
   }
 
-  // const HandleSearchTasks = () => {
-  //   if (isSearch === "") return SetTask(TaskList)
-  //     const SearchLowercase = String(isSearch).toLowerCase().trim();
-  //     const filterList = [...Tasks].filter(items => items.title.toLowerCase().includes(SearchLowercase));
-  //     const conditionList = filterList.length === 0 ? TaskList : filterList;
-  //     SetTask(conditionList);
-  // }
+  const HandleCheckedInput = (Taskid) => {
+    return setTaskSelectID((prev) => {
+      if (TaskSelectedID.includes(Taskid)) {
+        return prev.filter(id => id !== Taskid);
+      } else {
+        return [...prev, Taskid];
+      }
+    })
+  }
 
-  // useMemo(() => { HandleSearchTasks() }, [isSearch])
+  // Reset della Lista e Esecuzione del API
+  const SettledCheckBoxStatus = (ID) => {
+      RemoveMultipleTasks(ID);
+      setTaskSelectID([]);
+  }
 
   const SortListTable = useMemo(() => {
     const SearchLowercase = String(isSearch).toLowerCase().trim();
@@ -50,9 +59,16 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
   }, [Tasks, sortBy, sortOrder, isSearch])
 
   return (<>
+
+  {TaskSelectedID.length > 0 ? <div className="d-flex justify-content-end gap-3 mb-4">
+    <button type="button" className="btn-custom btn-secondary" onClick={() => setTaskSelectID([])}>Annulla</button>
+    <button type="button" className="btn-custom btn-danger-custom" onClick={() => SettledCheckBoxStatus(TaskSelectedID)}>🗑 Elimina Tutto</button>
+  </div> : ""}
+
   <table className="task-table">
       <thead>
         <tr>
+          <th className='bg-secondary'></th>
           <th className="sortable" onClick={() => HandleSort("title")}>Nome {sortBy === "title" && SortIconOrder}</th>
           <th className="sortable" onClick={() => HandleSort("status")}>Stato {sortBy === "status" && SortIconOrder}</th>
           <th className="sortable" onClick={() => HandleSort("createAt")}>Data {sortBy === "createAt" && SortIconOrder}</th>
@@ -62,6 +78,12 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
         {SortListTable.length !== 0 ? SortListTable.map((task, index) => {
             return(<>
             <tr key={index}>
+                <td>
+                  <label className="checkbox-wrapper">
+                    <input type="checkbox" id={`task${task.id}`} name="selectedTasks" value={task.id} onChange={(e) => HandleCheckedInput(e.target.value)} checked={TaskSelectedID.length !== 0 && TaskSelectedID[task.id]}/>
+                    <span className="custom-checkbox"></span>
+                  </label>
+                </td>
                 <td><NavLink to={`/task/:${task.id}`}>{task.title}</NavLink></td>
                 <td className={`${task.status === "Doing" ? "status-doing" : task.status === "Done" ? "status-done" : "status-todo" }`}>{task.status}</td>
                 {DateList.map((items, i) => {
@@ -71,8 +93,9 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
                 })}
             </tr>
             </>)
-        }) : <tr className='bg-dark text-capitalize fs-6 fw-bold text-light'><td colSpan={3} className='text-center'>Al momento non ci sono task.</td></tr>}
+        }) : <tr className='bg-dark text-capitalize fs-6 fw-bold text-light'><td colSpan={4} className='text-center'>Al momento non ci sono task.</td></tr>}
       </tbody>
     </table>
+    <PopUp setAdv={SetAdv} Adv={isAdv} text={[...RejectList].length !== 0 ? "Operazione Eseguita con successo!!" : `Le Task: ${RejectList.join(",")}, non state eliminate con successo`}/>
   </>)
 })

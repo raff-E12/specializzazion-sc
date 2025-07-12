@@ -19,6 +19,7 @@ export default function useTasks() {
 
   const [isModifyModal, setModifyModal] = useState(false);
   const [TaskEdit, setEditTask] = useState([]);
+  const [RejectList, setRejectList] = useState([])
 
 async function GetTaskList() {
     try {
@@ -102,6 +103,51 @@ async function GetTaskList() {
     }
   }
 
+  async function PromisesTasksAll(url, id) {
+    try {
+      const fetchingApi = await axios.delete(`${url}/tasks/${id}`);
+      const { success, task } = fetchingApi.data;
+      return success
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  async function RemoveMultipleTasks(TaskId) {
+    try {
+      if (TaskId.length !== 0) {
+        const PromiseAlls = TaskId.map(id => PromisesTasksAll(VITE_API_URL, id));
+        const results = await Promise.allSettled(PromiseAlls);
+        console.log(results)
+
+        const fullFieldList = [];
+        const RejectedList = [];
+
+        results.forEach((items, index) => {
+          const itemsId = TaskId[index]
+          if (items.status === "fulfilled" && items.value) {
+             fullFieldList.push(itemsId);
+          } else {
+            RejectedList.push(itemsId);
+          }
+        })
+
+        if (fullFieldList.length > 0) {
+          SetAdv(true)
+          GetTaskList();
+        }
+
+        if (RejectedList.length > 0) {
+          SetAdv(true)
+          setRejectList(RejectedList);
+        }
+
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   useEffect(() => { GetTaskList() }, []);
   useEffect(() => { addTasks() }, [FormData]);
   useEffect(() => { UpdateTasks() }, [TaskEdit])
@@ -111,6 +157,6 @@ async function GetTaskList() {
 
   return { Task, SetTask, DateList, addTasks, RemoveTasks, UpdateTasks, 
     FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, 
-    ShowModal, SetShowModal, TaskList,
+    ShowModal, SetShowModal, TaskList, RemoveMultipleTasks, RejectList,
     isModifyModal, setModifyModal,TaskEdit, setEditTask }
 }

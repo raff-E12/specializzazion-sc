@@ -26,7 +26,7 @@ export default function TaskList() {
     </div>
 
     <TaskRows Tasks={Task} DateList={DateList} isSearch={isSearch} />
-    <PopUp Adv={isAdv} setAdv={SetAdv}/>
+    <PopUp Adv={isAdv} setAdv={SetAdv} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }

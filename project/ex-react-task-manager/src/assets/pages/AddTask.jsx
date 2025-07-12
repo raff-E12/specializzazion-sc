@@ -50,13 +50,13 @@ export default function AddTask() {
       {/* <!-- Descrizione --> */}
       <div className="form-group">
         <label for="taskDescription">Descrizione</label>
-        <textarea id="taskDescription" name="description" rows="4" ref={DescriptionRef}></textarea>
+        <textarea id="taskDescription" name="description" rows="4" ref={DescriptionRef} required></textarea>
       </div>
 
       {/* <!-- Stato --> */}
       <div className="form-group">
         <label for="taskStatus">Stato</label>
-        <select id="taskStatus" name="status" ref={StatusRef}>
+        <select id="taskStatus" name="status" ref={StatusRef} required>
           <option value="To do" selected>To do</option>
           <option value="Doing">Doing</option>
           <option value="Done">Done</option>
@@ -68,7 +68,7 @@ export default function AddTask() {
         <button type="submit" className="btn btn-custom btn-primary-custom" disabled={isError.state}>Aggiungi Task</button>
       </div>
     </form>
-    <PopUp Adv={isAdv} setAdv={SetAdv} />
+    <PopUp Adv={isAdv} setAdv={SetAdv} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }
