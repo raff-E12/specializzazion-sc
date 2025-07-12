@@ -15,12 +15,11 @@ export default function TaskDetails() {
   // di interagire con le sue proprietà usate, è che posso accadere alla funzione passata al figlio.
   const editFormRef = useRef();
 
-  const { Task, DateList, isDelete, setDelete, 
-  ShowModal, SetShowModal, isModifyModal, setModifyModal, 
-  TaskEdit, setEditTask, isAdv, SetAdv } = ExportGlobalContext();
+  const { Tasks, DateList, toggleModifyModal, setDelete, 
+  ShowModal, toggleModal, isModifyModal, setEditTask, isAdv, dispatch } = ExportGlobalContext();
 
   function HandleTaskFinder() {
-    const task = Task.find(task => task.id === NumberTask);
+    const task = Tasks.find(task => task.id === NumberTask);
     const date = DateList.find(date => date.id === NumberTask);
     if (task && date) {
         setFind(true);
@@ -32,9 +31,9 @@ export default function TaskDetails() {
   // con la gestione api con useTask usato dal contesto stesso.
   function HandleUpadateTask(UpdateTask) {
     const date = DateList.find(date => date.id === NumberTask);
-    SetTask([{task: UpdateTask, dateTime: date}])
+    SetTask([{task: UpdateTask, dateTime: date}]);
     setEditTask([isTask[0].task]);
-    setModifyModal(false);
+    toggleModifyModal(false);
   }
 
   useEffect(() => {HandleTaskFinder()}, [isFind]);
@@ -60,11 +59,11 @@ export default function TaskDetails() {
         <strong>Data di creazione:</strong> {item.dateTime.date[0]}
       </p>
       <div className="mt-4 d-flex justify-content-end">
-        <button className="btn-custom btn-danger-custom" id="deleteBtn" onClick={() => SetShowModal(true)}>🗑 Elimina Task</button>
-        <button className="btn-custom btn-success-custom" id="modifyBtn" onClick={() => setModifyModal(true)}>Modifica</button>
+        <button className="btn-custom btn-danger-custom" id="deleteBtn" onClick={() => toggleModal(true)}>🗑 Elimina Task</button>
+        <button className="btn-custom btn-success-custom" id="modifyBtn" onClick={() => toggleModifyModal(true)}>Modifica</button>
       </div>
     </div>
-    <EditTaskModal task={isTask.length !== 0 ? isTask : [{task: {}, dateTime: {}}]} show={isModifyModal} onClose={() => setModifyModal(false)} onSave={(UpdateTask) => HandleUpadateTask(UpdateTask)} ref={editFormRef}/>
+    <EditTaskModal task={isTask.length !== 0 ? isTask : [{task: {}, dateTime: {}}]} show={isModifyModal} onClose={() => toggleModifyModal(false)} onSave={(UpdateTask) => HandleUpadateTask(UpdateTask)} ref={editFormRef}/>
     </>)
    }) : <div className="not-found-box fade-scale">
       <h2>Oops! Task non trovato</h2>
@@ -78,11 +77,11 @@ export default function TaskDetails() {
     title={"Conferma Eliminazione"} 
     content={"Sei sicuro di voler eliminare questa task? L’azione è irreversibile"}
     show={ShowModal}
-    onClose={() => SetShowModal(false)}
+    onClose={() => toggleModal(false)}
     onConfirm={() => setDelete(NumberTask)}
     confirmText='Elimina'
   />
-  <PopUp setAdv={SetAdv} Adv={isAdv} text={"Operazione Eseguita con successo!!"}/>
+  <PopUp setAdv={dispatch} Adv={isAdv} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }

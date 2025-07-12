@@ -5,7 +5,7 @@ import PopUp from './PopUp';
 
 export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
   const [sortBy, setSortBy] = useState("CreateAt");
-  const { RemoveMultipleTasks, RejectList, isAdv, SetAdv } = ExportGlobalContext();
+  const { RemoveMultipleTasks, RejectList, isAdv, dispatch } = ExportGlobalContext();
   const [sortOrder, setSortOrder] = useState(1); // Rappresentazione di Ordinamento
   const [TaskSelectedID, setTaskSelectID] = useState([]);
 
@@ -29,6 +29,8 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
       }
     })
   }
+
+  console.log(TaskSelectedID)
 
   // Reset della Lista e Esecuzione del API
   const SettledCheckBoxStatus = (ID) => {
@@ -80,7 +82,8 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
             <tr key={index}>
                 <td>
                   <label className="checkbox-wrapper">
-                    <input type="checkbox" id={`task${task.id}`} name="selectedTasks" value={task.id} onChange={(e) => HandleCheckedInput(e.target.value)} checked={TaskSelectedID.length !== 0 && TaskSelectedID[task.id]}/>
+                    {/* Controllare Sempre il valore se si tratta di un input */}
+                    <input type="checkbox" id={`task${task.id}`} name="selectedTasks" value={task.id} onChange={() => HandleCheckedInput(task.id)} checked={TaskSelectedID.includes(task.id)} />
                     <span className="custom-checkbox"></span>
                   </label>
                 </td>
@@ -96,6 +99,6 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
         }) : <tr className='bg-dark text-capitalize fs-6 fw-bold text-light'><td colSpan={4} className='text-center'>Al momento non ci sono task.</td></tr>}
       </tbody>
     </table>
-    <PopUp setAdv={SetAdv} Adv={isAdv} text={[...RejectList].length !== 0 ? "Operazione Eseguita con successo!!" : `Le Task: ${RejectList.join(",")}, non state eliminate con successo`}/>
+    <PopUp setAdv={dispatch} Adv={isAdv} text={[...RejectList].length !== 0 ? "Operazione Eseguita con successo!!" : `Le Task: ${RejectList.join(",")}, non state eliminate con successo`}/>
   </>)
 })

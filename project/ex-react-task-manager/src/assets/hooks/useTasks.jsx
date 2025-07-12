@@ -1,66 +1,67 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useReducer, useState } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router';
+import ReducerGlobal from '../reducer/ReducerGlobal';
 
 export default function useTasks() {
-  const [Task, SetTask] = useState([]); // Lista Task
-  const [isCompleted, setCompleted] = useState(false);
-  const [DateList, SetDate] = useState([]); // Lista Date Formatate
-  const [TaskList, setListTask] = useState([])
-
-  const [isAdv, SetAdv] = useState(false); // Alternanza del messaggio di avviso
-  const [FormData, SetForm] = useState({}); // Campo dati Estratto dal FormData
-  const [ID, SetID] = useState(0); // ID di Aggiunta all'oggetto creato
-
-  const [isDelete, setDelete] = useState(null);
-  const [ShowModal, SetShowModal] = useState(false);
   const { VITE_API_URL } = import.meta.env;
   const NavigateLink = useNavigate();
 
-  const [isModifyModal, setModifyModal] = useState(false);
-  const [TaskEdit, setEditTask] = useState([]);
-  const [RejectList, setRejectList] = useState([])
+  // Nota: Con la UseReducer si cerca di utilizzare un oggetto che raccoglie e usa le quei dati nelle diverse
+  // funzioni in precisione.
 
-async function GetTaskList() {
-    try {
-        const fetchings = await axios.get(`${VITE_API_URL}/tasks`);
-        const data = await fetchings.data;
-        SetTask(data)
-        SetID(Number(data[data.length - 1].id))
-        setCompleted(true)
-        setListTask(data);
-    } catch (error) {
-        console.error(error.message);
-    }
+  const initialState = {
+    Tasks: [],
+    isCompleted: false,
+    DateList: [],
+    TaskList: [],
+    isAdv: false,
+    FormData: {},
+    ID: 0,
+    isReload: true,
+    isDelete: null,
+    ShowModal: false,
+    isModifyModal: false,
+    TaskEdit: [],
+    RejectList: []
   }
 
+  const [StateTask, dispatch] = useReducer(ReducerGlobal, initialState);
+
+  async function GetTaskList() {
+      try {
+          const fetchings = await axios.get(`${VITE_API_URL}/tasks`);
+          const data = await fetchings.data;
+          dispatch({ type: "SET_TASKS", payload: data});
+      } catch (error) {
+          console.error(error.message);
+      }
+  }
+
+  console.log(StateTask)
+
   function DateListSets() {
-   if (isCompleted) {
-      Task.forEach((element) => {
+   if (StateTask.isCompleted) {
+      const ListDate = StateTask.Tasks.map((element) => {
           const DateFormat = String(element.createdAt).replace("T", " ").replace("Z", " ").split(" ");
-          SetDate(item => [...item,{id: element.id, date: DateFormat}]);
+          return { id: element.id, date: DateFormat }
       })
+
+      // Coppia Chiave valore nel suo confronto primordiale.
+      const AlternativeList = Array.from(new Map(ListDate.map(element => [element.id, element])).values());
+      return dispatch({ type: "SET_DATE_LIST", payload: AlternativeList })
    }
   }
 
-  // Serve a togliere dupplicati in modo che le 
-  // chiavi posso essere confrontate da lasciare solo valori unici.
-  const PreventDupplication = useMemo(() => { 
-    const AlternativeList = Array.from(new Map(DateList.map(item => [item.id, item])).values()); // Conversione in un array.
-    SetDate(AlternativeList)
-    setCompleted(false)  
-  }, [isCompleted]);
-
   async function addTasks() {
     try {
-      if (Object.keys(FormData).length !== 0) {
-        const fetchingPost = await axios.post(`${VITE_API_URL}/tasks`, FormData);
+      if (Object.keys(StateTask.FormData).length !== 0) {
+        const fetchingPost = await axios.post(`${VITE_API_URL}/tasks`, StateTask.FormData);
         const { success, task } = fetchingPost.data;
         if (success) {
-          SetID(0)
-          SetAdv(true)
-          SetTask(items => [...items, task]);
-          GetTaskList();
+          dispatch({ type: "SET_ADV" });
+          dispatch({ type: "RESET_FORM" });
+          dispatch({ type: "SET_RELOAD", payload: true });
         }
       }
     } catch (error) {
@@ -70,32 +71,31 @@ async function GetTaskList() {
 
   async function RemoveTasks() {
     try {
-      if (isDelete !== null) {
-        const fetchingApi = await axios.delete(`${VITE_API_URL}/tasks/${isDelete}`);
+      if (StateTask.isDelete !== null) {
+        const fetchingApi = await axios.delete(`${VITE_API_URL}/tasks/${StateTask.isDelete}`);
         const { success, task } = fetchingApi.data;
         NavigateLink("/");
         if (success) {
-          SetAdv(true);
-          setDelete(null);
-          SetShowModal(false);
-          SetTask(task => task.filter(item => item.id !== ID));
+          dispatch({ type: "SET_ADV" });
+          dispatch({ type: "RESET_DELETE" });
+          dispatch({ type: "TOGGLE_MODAL" , payload: false });
+          dispatch({ type: "SET_RELOAD", payload: true });
         }
       }
     } catch (error) {
       console.error(error.message)
-      setDelete(null)
     }
   }
 
   async function UpdateTasks() {
      try {
-      if (Task.length !== 0) {
-          const idTask = TaskEdit[0].id;
-          const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, TaskEdit[0]);
+      if (StateTask.Tasks.length !== 0) {
+          const idTask = StateTask.TaskEdit[0].id;
+          const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, StateTask.TaskEdit[0]);
           const { success, task } = fetchingApi.data;
           if (success) {
-            SetAdv(true)
-            GetTaskList()
+            dispatch({ type: "SET_ADV" });
+            dispatch({ type: "SET_RELOAD", payload: true });
           }
       }
     } catch (error) {
@@ -118,7 +118,6 @@ async function GetTaskList() {
       if (TaskId.length !== 0) {
         const PromiseAlls = TaskId.map(id => PromisesTasksAll(VITE_API_URL, id));
         const results = await Promise.allSettled(PromiseAlls);
-        console.log(results)
 
         const fullFieldList = [];
         const RejectedList = [];
@@ -133,13 +132,13 @@ async function GetTaskList() {
         })
 
         if (fullFieldList.length > 0) {
-          SetAdv(true)
-          GetTaskList();
+          dispatch({ type: "SET_ADV"})
+          dispatch({ type: "SET_RELOAD", payload: true });
         }
 
         if (RejectedList.length > 0) {
-          SetAdv(true)
-          setRejectList(RejectedList);
+          dispatch({ type: "SET_ADV"})
+          dispatch({ type: "SET_REJECT_LIST", payload: RejectedList})
         }
 
       }
@@ -148,15 +147,26 @@ async function GetTaskList() {
     }
   }
 
-  useEffect(() => { GetTaskList() }, []);
-  useEffect(() => { addTasks() }, [FormData]);
-  useEffect(() => { UpdateTasks() }, [TaskEdit])
+  useEffect(() => { GetTaskList() }, [StateTask.isReload]);
+  useEffect(() => { addTasks() }, [StateTask.FormData]);
+  useEffect(() => { UpdateTasks() }, [StateTask.TaskEdit])
 
-  useMemo(() => { DateListSets() }, [isCompleted]);
-  useMemo(() => { RemoveTasks() }, [isDelete, ShowModal]);
+  useMemo(() => { DateListSets() }, [StateTask.isCompleted]);
+  useMemo(() => { RemoveTasks() }, [StateTask.isDelete, StateTask.ShowModal]);
 
-  return { Task, SetTask, DateList, addTasks, RemoveTasks, UpdateTasks, 
-    FormData, SetForm, ID, SetID, isAdv, SetAdv, isDelete, setDelete, 
-    ShowModal, SetShowModal, TaskList, RemoveMultipleTasks, RejectList,
-    isModifyModal, setModifyModal,TaskEdit, setEditTask }
+  return { 
+    ...StateTask,
+    dispatch,
+    GetTaskList,
+    addTasks,
+    UpdateTasks,
+    RemoveTasks,
+    SetID: (id) => dispatch({ type:"SET_ID", payload: id}),
+    RemoveMultipleTasks,
+    setFormData: (data) => dispatch({ type: "SET_FORM", payload: data }),
+    toggleModal: (bool) => dispatch({ type: "TOGGLE_MODAL", payload: bool }),
+    toggleModifyModal: (bool) => dispatch({ type: "TOGGLE_MODIFY_MODAL", payload: bool }),
+    setEditTask: (task) => dispatch({ type: "SET_EDIT_TASK", payload: task }),
+    setDelete: (id) => dispatch({ type: "SET_DELETE", payload: id })
+  }
 }

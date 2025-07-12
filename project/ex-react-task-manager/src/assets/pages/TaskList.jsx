@@ -14,7 +14,7 @@ function Debounce(callback, delay) {
 }
 
 export default function TaskList() {
-  const { Task, DateList, isAdv, SetAdv, SetTask, TaskList } = ExportGlobalContext();
+  const { Tasks, DateList, isAdv, dispatch } = ExportGlobalContext();
   const [isSearch, setSearch] = useState("");
   const DebounceFunction = useCallback(Debounce(setSearch, 600), []);
 
@@ -25,8 +25,8 @@ export default function TaskList() {
       <input type="text" placeholder="Cerca per nome..." id="searchTask" onChange={(e) => DebounceFunction(e.target.value)}/>
     </div>
 
-    <TaskRows Tasks={Task} DateList={DateList} isSearch={isSearch} />
-    <PopUp Adv={isAdv} setAdv={SetAdv} text={"Operazione Eseguita con successo!!"}/>
+    <TaskRows Tasks={Tasks} DateList={DateList} isSearch={isSearch} />
+    <PopUp Adv={isAdv} setAdv={dispatch} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }

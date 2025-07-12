@@ -139,7 +139,7 @@
 }
 
 .modal-content p {
-  height: 330px;
+  height: auto;
   overflow-x: auto;
 }
 

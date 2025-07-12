@@ -3,7 +3,7 @@ import { ExportGlobalContext } from '../context/GlobalContext';
 import PopUp from '../components/PopUp';
 
 export default function AddTask() {
-  const { FormData, SetForm, Task, ID, SetID, isAdv, SetAdv } = ExportGlobalContext()
+  const { setFormData, ID, SetID, isAdv, dispatch } = ExportGlobalContext()
   const [TaskTitle, SetTitle] = useState("");
   const [isError, setError] = useState({msg: "", state: false});
   const [isFocus, setFocus] = useState(false);
@@ -26,7 +26,7 @@ export default function AddTask() {
     SetID(id => id += 1);
      if (!isError.state && ValueDescription !== "" && ValueStatus !== "") {
         const formDataInputs = { id: ID, title: TaskTitle, description: ValueDescription, status: ValueStatus, createdAt: DateNow };
-        SetForm(formDataInputs)
+        setFormData(formDataInputs)
         SetTitle("");
         StatusRef.current.value = "";
         DescriptionRef.current.value = "";
@@ -68,7 +68,7 @@ export default function AddTask() {
         <button type="submit" className="btn btn-custom btn-primary-custom" disabled={isError.state}>Aggiungi Task</button>
       </div>
     </form>
-    <PopUp Adv={isAdv} setAdv={SetAdv} text={"Operazione Eseguita con successo!!"}/>
+    <PopUp Adv={isAdv} setAdv={dispatch} text={"Operazione Eseguita con successo!!"}/>
   </main>
   </>)
 }
