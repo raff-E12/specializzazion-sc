@@ -30,8 +30,6 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
     })
   }
 
-  console.log(TaskSelectedID)
-
   // Reset della Lista e Esecuzione del API
   const SettledCheckBoxStatus = (ID) => {
       RemoveMultipleTasks(ID);
@@ -40,7 +38,7 @@ export const TaskRows = React.memo(({ Tasks, DateList, isSearch }) => {
 
   const SortListTable = useMemo(() => {
     const SearchLowercase = String(isSearch).toLowerCase().trim();
-    return [...Tasks].filter(items => items.title.toLowerCase().includes(SearchLowercase)).sort((a, b) => {
+    return Tasks.filter(items => items.title.toLowerCase().includes(SearchLowercase)).sort((a, b) => {
       let comparison = null;
 
       if (sortBy === "title") {

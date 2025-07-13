@@ -10,7 +10,7 @@ export default function useTasks() {
   // Nota: Con la UseReducer si cerca di utilizzare un oggetto che raccoglie e usa le quei dati nelle diverse
   // funzioni in precisione.
 
-  const initialState = {
+  let initialState = {
     Tasks: [],
     isCompleted: false,
     DateList: [],
@@ -49,7 +49,8 @@ export default function useTasks() {
 
       // Coppia Chiave valore nel suo confronto primordiale.
       const AlternativeList = Array.from(new Map(ListDate.map(element => [element.id, element])).values());
-      return dispatch({ type: "SET_DATE_LIST", payload: AlternativeList })
+      dispatch({ type: "SET_DATE_LIST", payload: AlternativeList })
+      dispatch({ type: "SET_COMPLETED" })
    }
   }
 
@@ -62,7 +63,6 @@ export default function useTasks() {
           dispatch({ type: "SET_ADV" });
           dispatch({ type: "RESET_FORM" });
           dispatch({ type: "SET_RELOAD", payload: true });
-          window.location.reload();
         }
       }
     } catch (error) {

@@ -50,6 +50,9 @@ export default function ReducerGlobal(state, action) {
 
         case "SET_RELOAD":
         return { ...state, isReload: action.payload };
+
+        case "SET_COMPLETED":
+        return { ...state, isCompleted: false };
     
         default:
         return state
