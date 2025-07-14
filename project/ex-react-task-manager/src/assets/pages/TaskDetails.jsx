@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router'
 import { ExportGlobalContext } from '../context/GlobalContext';
 import PopUp from '../components/PopUp';
@@ -27,16 +27,18 @@ export default function TaskDetails() {
     }
   }
 
+  console.log(editFormRef.current)
+
   // Una volta passati, si utilizzano per aggiornare l'oggetto di rifermento
   // con la gestione api con useTask usato dal contesto stesso.
   function HandleUpadateTask(UpdateTask) {
-    const date = DateList.find(date => date.id === NumberTask);
+    const date = [...DateList].find(date => date.id === NumberTask);
     SetTask([{task: UpdateTask, dateTime: date}]);
-    setEditTask([isTask[0].task]);
     toggleModifyModal(false);
+    setEditTask(isTask[0].task);
   }
 
-  useEffect(() => {HandleTaskFinder()}, [isFind]);
+  useMemo(() => {HandleTaskFinder()}, [isFind]);
 
   return (<>
   <main className="container">

@@ -10,6 +10,8 @@ import Modal from './Modal'
 const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
     const [editTask, setEditTask] = useState([]); 
 
+    console.log(editTask)
+
     useEffect(() => {
       if (task && task[0].task) {
         setEditTask(task[0].task)
@@ -68,4 +70,4 @@ const EditTaskModal = forwardRef(({ show, onClose, task, onSave }, ref)  => {
     />)
 })
 
-export default EditTaskModal
+export default React.memo(EditTaskModal)

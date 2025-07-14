@@ -27,6 +27,9 @@ export default function ReducerGlobal(state, action) {
         case "RESET_FORM":
         return { ...state, FormData: {}, ID: 0 };
 
+        case "RESET_TASKEDIT":
+        return { ...state, FormData: {} };
+
         case "SET_ID":
         return { ...state, ID: action.payload};
         

@@ -8,7 +8,7 @@ export default function Modal({title, content, show, onClose, onConfirm, confirm
     return createPortal( <div id="confirmModal" className={`modal-overlay ${show ? "" : "d-none"}`}>
         <div className="modal-content fade-in">
         <h5 className="mb-3">{title}</h5>
-        <p>{content}</p>
+        <div id='content-modal'>{content}</div>
 
         <div class="modal-footer">
             <button className="btn-custom btn-secondary" onClick={onClose}>Annulla</button>

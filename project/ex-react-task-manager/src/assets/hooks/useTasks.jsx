@@ -10,7 +10,7 @@ export default function useTasks() {
   // Nota: Con la UseReducer si cerca di utilizzare un oggetto che raccoglie e usa le quei dati nelle diverse
   // funzioni in precisione.
 
-  let initialState = {
+  const initialState = {
     Tasks: [],
     isCompleted: false,
     DateList: [],
@@ -91,12 +91,13 @@ export default function useTasks() {
   async function UpdateTasks() {
      try {
       if (StateTask.Tasks.length !== 0) {
-          const idTask = StateTask.TaskEdit[0].id;
-          const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, StateTask.TaskEdit[0]);
+          const idTask = StateTask.TaskEdit.id;
+          const fetchingApi = await axios.put(`${VITE_API_URL}/tasks/${idTask}`, StateTask.TaskEdit);
           const { success, task } = fetchingApi.data;
           if (success) {
             dispatch({ type: "SET_ADV" });
             dispatch({ type: "SET_RELOAD", payload: true });
+            dispatch({ type: "RESET_TASKEDIT" });
           }
       }
     } catch (error) {
