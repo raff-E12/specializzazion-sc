@@ -27,7 +27,7 @@ export default function TaskDetails() {
     }
   }
 
-  console.log(editFormRef.current)
+  console.log(isTask)
 
   // Una volta passati, si utilizzano per aggiornare l'oggetto di rifermento
   // con la gestione api con useTask usato dal contesto stesso.
@@ -35,7 +35,7 @@ export default function TaskDetails() {
     const date = [...DateList].find(date => date.id === NumberTask);
     SetTask([{task: UpdateTask, dateTime: date}]);
     toggleModifyModal(false);
-    setEditTask(isTask[0].task);
+    setEditTask(UpdateTask);
   }
 
   useMemo(() => {HandleTaskFinder()}, [isFind]);
