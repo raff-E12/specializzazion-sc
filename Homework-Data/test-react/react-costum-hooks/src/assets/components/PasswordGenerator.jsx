@@ -89,7 +89,8 @@ export default function PasswordGenerator() {
   }
 
   return(<>
-  <div className="container">
+  <div className='body-password'>
+     <div className="container">
     <h1>Password Generator</h1>
 
     <div className="output-box">
@@ -111,6 +112,7 @@ export default function PasswordGenerator() {
     </div>
 
     <button className="generate-btn" onClick={() => dispatch({ type: "SET_CLICK" })}>Genera Password</button>
+  </div>
   </div>
   </>)
 }
