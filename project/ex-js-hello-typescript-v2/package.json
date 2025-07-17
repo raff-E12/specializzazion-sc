@@ -1,0 +1,17 @@
+{
+  "name": "ex-js-hello-typescript-v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "compile:watch": "tsc --watch",
+    "watch": "node --watch ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
