@@ -1,49 +1,64 @@
 import React, { useEffect, useRef, useState, type JSX } from 'react'
 import './App.css'
 
+// Tipizzazione delle Props e dei Componenti React nella sua operatività.
 interface CounterProps {
   Target: number,
   Label: string
 }
 
 const Counter : React.FC<CounterProps> = React.memo(({ Target, Label }) => {
-  const [isCount, setCount] = useState(0);
-  const CounterRef = useRef<HTMLDivElement>(null);
+  const [isCount, setCount] = useState<number>(0);
+   const CounterRef = useRef<HTMLDivElement>(null); // Riferimento del Contatore
+  const timeoutRef = useRef<number | null>(null); // Intervallo in Riferimento
 
-  function CounterIncrement() {
-    const limit  = Target;
-    const increment = limit / 100;
-    setTimeout(() => {
-        setCount((prev) => {
-        if (prev < increment) {
-          return prev + 1
+  const CounterIncrement = () => {
+    const increment = Target / 100;
+
+    timeoutRef.current = window.setTimeout(() => {
+      setCount((prev) => {
+        const next = prev + increment; // Step ad ogni intervallo
+        // console.log(next)
+        if (next < Target) {
+          return next;
         } else {
-          clearTimeout(isCount);
-          return prev
+          return Target;
         }
-      })
-    }, 500)
-  }
+      });
+    }, 2);
+  };
 
-  useEffect(() => { CounterIncrement() }, [isCount])
+  useEffect(() => {
+    if (isCount < Target) {
+      CounterIncrement();
+    }
+
+    // CleanUp del Componente evitando Intervalli durante lo Scollegamento.
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isCount, Target]);
 
   return(<>
    <div className="counter">
-        <div className="number" ref={CounterRef}>{isCount}</div>
+        <div className="number" data-target={Target} ref={CounterRef}>{Math.ceil(isCount)}</div>
         <div className="label">{Label}</div>
       </div>
   </>)
 
 })
 
+// Tipizzazzione JSX
 function App(): JSX.Element {
 
   return (
     <>
     <div className="counter-container">
-      <Counter Target={1500} Label={"Utenti"} />
-      <Counter Target={320} Label={"Download"} />
-      <Counter Target={85} Label={"Recensioni"} />
+      <Counter Target={12} Label={"Utenti"} />
+      <Counter Target={50} Label={"Download"} />
+      <Counter Target={15} Label={"Recensioni"} />
     </div>
     </>
   )
