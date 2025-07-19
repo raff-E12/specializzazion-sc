@@ -9,7 +9,7 @@ import { Actress } from "./types/types"
 
 const url_fetching: string = "http://localhost:3333/actresses";
 
-// Ritorno del Valore Booleano
+// Serve a Trattare il Seguente oggetto ottenuto come una corrispondenza all'oggetto creato tipizzato
 function isActress(date: unknown): date is Actress{
     return (
        typeof date === "object" && date !== null &&
@@ -32,7 +32,7 @@ async function getActress(id:number): Promise<Actress | null> {
     try {
         const fetchingData = await fetch(`${url_fetching}/${id}`);
         const data: unknown = await fetchingData.json();
-        if (!isActress(data)) {
+        if (!isActress(data)) {  
             throw new Error("Formato non valido");
         }
         return data
@@ -44,12 +44,7 @@ async function getActress(id:number): Promise<Actress | null> {
     }
 }
 
-// Milestone-5
-// Crea una funzione getActressesAll che riceve un array di numeri (gli id delle attrici).
-// Per ogni id nell’array, usa la funzione getActress che hai creato nella Milestone 3 per recuperare l’attrice corrispondente.
-// L'obiettivo è ottenere una lista di risultati in parallelo, quindi dovrai usare Promise.all.
-// La funzione deve restituire un array contenente elementi di tipo Actress oppure null (se l’attrice non è stata trovata).
-
+// il Generics "<Actress[]>" specifica uno stato di non definito, prima di usarlo se non specificato altrimenti darà any.
 async function getActressesAll(): Promise<Actress[]> {
     try {
         const response = await fetch(url_fetching);
