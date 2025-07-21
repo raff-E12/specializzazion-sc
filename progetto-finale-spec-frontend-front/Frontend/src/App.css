@@ -1,0 +1,49 @@
+
+/***** CSS WebPage Indication *****/ 
+
+.filters {
+  position: sticky;
+  top: 72px;
+  z-index: 1020;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-grid .card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.card-grid .card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+.card-grid .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comparator-box {
+  width: 300px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1050;
+  border: 2px dashed #0d6efd;
+}
+
+#favoritesBtn {
+  position: relative;
+}
+
+#favoritesCount {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 0.75rem;
+}
+
+/***** End CSS WebPage Indication *****/
