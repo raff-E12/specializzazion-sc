@@ -29,8 +29,6 @@ export default function DatailCardMedia() {
         tags, 
         source } = isFind;
 
-  console.log(tags)
-
   return(<>
    <div class="container py-5 mt-5">
     <h1 class="mb-3">{title}</h1>

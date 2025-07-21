@@ -45,9 +45,7 @@ export default function DetailCardVactions() {
         <strong>Agenzia:</strong> {agency}
       </div>
 
-      <p><strong>Descrizione:</strong><br/>
-        {description}
-      </p>
+      <p><strong>Descrizione:</strong><br/>{description}</p>
 
       <div class="mt-4 d-flex gap-3">
         <button class="btn btn-outline-warning"><i class="bi bi-star-fill"></i> Aggiungi ai preferiti</button>

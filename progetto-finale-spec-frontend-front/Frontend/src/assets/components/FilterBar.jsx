@@ -1,22 +1,33 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
+import debounce from "debounce"
 
-export default function FilterBar() {
+function FilterBar({isSearch, setSearch, isCategory, setCategory, isSort, setSort, TextPlace}) {
+
+  const DebounceFunction = (e) => {
+    return setSearch(e.target.value)
+  };
+
+  const DebounceUse = useMemo(() => debounce(DebounceFunction, 200), [isSearch])
+
   return (<>
   <section className="filters my-4 p-4">
         <div className="row g-2 align-items-center">
           <div className="col-md-4">
-            <input type="text" className="form-control" id="searchInput" placeholder="🔍 Cerca per titolo..." />
+            <input type="text" className="form-control" id="searchInput" placeholder={TextPlace} onChange={DebounceFunction}/>
           </div>
           <div className="col-md-3">
-            <select className="form-select" id="categoryFilter">
+            <select className="form-select" id="categoryFilter" value={isCategory} onChange={e => setCategory(e.target.value)}>
               <option value="">Tutte le categorie</option>
-              <option value="Multimedia">Multimedia</option>
-              <option value="Informatica">Informatica</option>
-              <option value="Viaggi">Viaggi</option>
+              <option value="Programmazione">Programmazione</option>
+              <option value="Audio">Audio</option>
+              <option value="Video">Video</option>
+              <option value="Image">Immagini</option>
+              <option value="Document">Documenti</option>
+              <option value="Turismo">Turismo</option>
             </select>
           </div>
           <div className="col-md-3">
-            <select className="form-select" id="sortSelect">
+            <select className="form-select" id="sortSelect" value={isSort} onChange={e => setSort(e.target.value)}>
               <option value="">Ordina per</option>
               <option value="title-asc">Titolo A-Z</option>
               <option value="title-desc">Titolo Z-A</option>
@@ -28,3 +39,5 @@ export default function FilterBar() {
   </section>
   </>)
 }
+
+export default React.memo(FilterBar)

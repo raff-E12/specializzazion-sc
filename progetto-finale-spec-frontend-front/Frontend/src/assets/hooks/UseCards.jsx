@@ -33,40 +33,37 @@ export default function UseCards() {
       try {
         let fetchingData = null;
         let data = null;
-        switch (isTarget) {
-          case "Viaggi":
-          fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
-          data = fetchingData.data;
-          if (data.success) setFind(data.viaggi);
-          break;
+        if (window.location.pathname !== "/") {
+          switch (isTarget) {
+            case "Viaggi":
+              if (isTarget === "") return setFind([])
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
+              data = fetchingData.data;
+              if (data.success) setFind(data.viaggi);
+            break;
 
-          case "Informatica":
-          fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
-          data = fetchingData.data;
-          if (data.success) setFind(data.informatica);
-          break;
+            case "Informatica":
+              if (isTarget === "") return setFind([])
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
+              data = fetchingData.data;
+              if (data.success) setFind(data.informatica);
+            break;
 
-          case "Multimedia":
-          fetchingData = await axios.get(`${import.meta.env.VITE_URL_MULTIMEDIA}/${isID}`);
-          data = fetchingData.data;
-          if (data.success) setFind(data.multimedia);
-          break;
+            case "Multimedia":
+              if (isTarget === "") return setFind([])
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_MULTIMEDIA}/${isID}`);
+              data = fetchingData.data;
+              if (data.success) setFind(data.multimedia);
+            break;
 
-          case "":
-            setFind([]);
-            isID(0);
-            fetchingData = null;
-            data = null;
-          break;
-
-          default:
-            setFind([]);
-            isID(0);
-            fetchingData = null;
-            data = null;
-          break;
+            default:
+              setFind([]);
+              isID(0);
+              fetchingData = null;
+              data = null;
+            break;
         }
-        
+        }     
       } catch (error) {
         if (error.status === 404) {
           setFind([]);

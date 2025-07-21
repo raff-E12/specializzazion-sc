@@ -20,33 +20,29 @@ export default function DetailCardInfo() {
     setID(IdNumber)
   }, [isTarget, isID])
 
-  // const { title, 
-  //       category, 
-  //       destination, 
-  //       description, 
-  //       travelType,
-  //       bestSeason, 
-  //       durationInDays, 
-  //       agency } = isFind;
-
-  console.log(isFind)
+  const { title, 
+        category, 
+        description, 
+        difficulty,
+        language, 
+        technology, 
+        resourceType,
+        author } = isFind;
 
   return(<>
   <div class="container py-5 mt-5">
-    <h1 class="mb-3">MacBook Pro M2</h1>
-    <p class="text-muted">Categoria: Informatica</p>
+    <h1 class="mb-3">{title}</h1>
+    <p class="text-muted">Categoria: {category}</p>
 
     <div class="mb-4">
-      <strong>Difficoltà:</strong> Avanzato<br/>
-      <strong>Linguaggio:</strong> TypeScript<br/>
-      <strong>Tecnologia:</strong> React, Node.js<br/>
-      <strong>Tipo risorsa:</strong> Progetto completo<br/>
-      <strong>Autore:</strong> Mario Rossi
+      <strong>Difficoltà:</strong> {difficulty}<br/>
+      <strong>Linguaggio:</strong> {language}<br/>
+      <strong>Tecnologia:</strong> {technology === undefined ? "Vuoto" : [...technology].join(", ")}<br/>
+      <strong>Tipo risorsa:</strong> {resourceType}<br/>
+      <strong>Autore:</strong> {author}
     </div>
 
-    <p><strong>Descrizione:</strong><br/>
-      Applicazione React avanzata per la gestione dei task, integrata con API REST e sistema di autenticazione.
-    </p>
+    <p><strong>Descrizione:</strong><br/>{description}</p>
 
     <div class="mt-4 d-flex gap-3">
       <button class="btn btn-outline-warning"><i class="bi bi-star-fill"></i> Aggiungi ai preferiti</button>
