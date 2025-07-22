@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { NavLink, useParams } from 'react-router';
 import { ExportContextCards } from '../context/ContextCards';
 
@@ -15,7 +15,7 @@ export default function DetailCardInfo() {
       setTarget
   } = ExportContextCards();
 
-  const SetFindVaction = useMemo(() => {
+  const SetFindVaction = useEffect(() => {
     setTarget("Informatica");
     setID(IdNumber)
   }, [isTarget, isID])
@@ -30,11 +30,11 @@ export default function DetailCardInfo() {
         author } = isFind;
 
   return(<>
-  <div class="container py-5 mt-5">
-    <h1 class="mb-3">{title}</h1>
-    <p class="text-muted">Categoria: {category}</p>
+  <div className="container py-5 mt-5">
+    <h1 className="mb-3">{title}</h1>
+    <p className="text-muted">Categoria: {category}</p>
 
-    <div class="mb-4">
+    <div className="mb-4">
       <strong>Difficoltà:</strong> {difficulty}<br/>
       <strong>Linguaggio:</strong> {language}<br/>
       <strong>Tecnologia:</strong> {technology === undefined ? "Vuoto" : [...technology].join(", ")}<br/>
@@ -44,10 +44,10 @@ export default function DetailCardInfo() {
 
     <p><strong>Descrizione:</strong><br/>{description}</p>
 
-    <div class="mt-4 d-flex gap-3">
-      <button class="btn btn-outline-warning"><i class="bi bi-star-fill"></i> Aggiungi ai preferiti</button>
-      <button class="btn btn-outline-secondary"><i class="bi bi-people-fill"></i> Aggiungi al comparatore</button>
-      <NavLink className={"btn btn-secondary ms-auto"} to={"/"}><i class="bi bi-arrow-left-square-fill"></i> Torna alla lista</NavLink>
+    <div className="mt-4 d-flex gap-3">
+      <button className="btn btn-outline-warning"><i className="bi bi-star-fill"></i> Aggiungi ai preferiti</button>
+      <button className="btn btn-outline-secondary"><i className="bi bi-people-fill"></i> Aggiungi al comparatore</button>
+      <NavLink className={"btn btn-secondary ms-auto"} to={"/"}><i className="bi bi-arrow-left-square-fill"></i> Torna alla lista</NavLink>
     </div>
   </div>
   </>)

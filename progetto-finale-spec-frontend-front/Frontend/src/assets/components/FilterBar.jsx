@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import debounce from "debounce"
 
-function FilterBar({isSearch, setSearch, isCategory, setCategory, isSort, setSort, TextPlace}) {
+function FilterBar({isSearch, setSearch, isCategory, setCategory, setSort, SortRef, TextPlace}) {
 
   const DebounceFunction = (e) => {
     return setSearch(e.target.value)
@@ -27,8 +27,8 @@ function FilterBar({isSearch, setSearch, isCategory, setCategory, isSort, setSor
             </select>
           </div>
           <div className="col-md-3">
-            <select className="form-select" id="sortSelect" value={isSort} onChange={e => setSort(e.target.value)}>
-              <option value="">Ordina per</option>
+            <select className="form-select" id="sortSelect" ref={SortRef} onChange={e => setSort(e.target.value)}>
+              <option value="">Per Sezioni</option>
               <option value="title-asc">Titolo A-Z</option>
               <option value="title-desc">Titolo Z-A</option>
               <option value="category-asc">Categoria A-Z</option>

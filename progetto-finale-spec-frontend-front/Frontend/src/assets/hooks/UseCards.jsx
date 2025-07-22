@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import axios from "axios"
+import UsePromise from './UsePromise';
 
 export default function UseCards() {
    const [isInformatic, setInformtic] = useState([]);
    const [isMultimedia, setMeltimedia] = useState([]);
    const [isVactions, setVacations] = useState([]);
+   const [isLoading, setLoading] = useState(false);
+   const [setURL, setActive, isResult, isActive] = UsePromise(); 
 
    const [isID, setID] = useState(0);
    const [isFind, setFind] = useState([]);
    const [isTarget, setTarget] = useState("");
-  
-    async function AllCards() {
+
+  async function AllCards() {
       try {
         const informatica_url = import.meta.env.VITE_URL_INFORMATICA;
         const multimedia_url = import.meta.env.VITE_URL_MULTIMEDIA;
         const viaggi_url = import.meta.env.VITE_URL_VIAGGI;
-        const response_1 = await axios.get(informatica_url);
-        const response_2 = await axios.get(multimedia_url);
-        const response_3 = await axios.get(viaggi_url);
-        const data_1 = await response_1.data;
-        const data_2 = await response_2.data;
-        const data_3 = await response_3.data;
-        setInformtic(data_1);
-        setMeltimedia(data_2);
-        setVacations(data_3);
+        setURL([informatica_url, multimedia_url, viaggi_url]);
+        setActive(true);
+        const [ informatica, multimedia, viaggi ] = isResult;
+        if (informatica === undefined && multimedia === undefined && viaggi === undefined) {
+          setLoading(true);
+        } else {
+          setLoading(false);
+          setInformtic(informatica);
+          setVacations(viaggi);
+          setMeltimedia(multimedia);
+        }
       } catch (error) {
         throw new Error(error.message);
       }
@@ -58,7 +63,7 @@ export default function UseCards() {
 
             default:
               setFind([]);
-              isID(0);
+              setID(0);
               fetchingData = null;
               data = null;
             break;
@@ -67,7 +72,7 @@ export default function UseCards() {
       } catch (error) {
         if (error.status === 404) {
           setFind([]);
-          isID(0);
+          setID(0);
           throw new Error("Card Non Trovata");
         }
         throw new Error(error.message);
@@ -75,7 +80,7 @@ export default function UseCards() {
     }
 
     useEffect(() => { FindElementsLists() },[isTarget, isID])
-    useEffect(() => { AllCards() },[])
+    useMemo(() => { AllCards() },[isActive])
 
     return{
       isInformatic,
@@ -89,6 +94,7 @@ export default function UseCards() {
       isFind,
       setFind, 
       isTarget,
-      setTarget
+      setTarget,
+      isLoading,
     }
 }

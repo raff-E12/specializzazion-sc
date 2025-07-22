@@ -4,7 +4,7 @@ import { NavLink } from 'react-router';
 import { ExportContextCards } from '../context/ContextCards'
 import ResultList from '../pages/ResultList';
 
-function Cards({isSearch, setSearch, isCategory, setCategory, isSort, setSort}) {
+export default function FilteredCards({isLoading}) {
 
   const {
     isInformatic,
@@ -15,12 +15,12 @@ function Cards({isSearch, setSearch, isCategory, setCategory, isSort, setSort}) 
     setVacations } = ExportContextCards();
 
   return (<>
-  {isInformatic && <div className='container-fluid d-flex flex-column p-3'>
+  {isInformatic && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Informatica</h2>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1'>
           {isInformatic.map((element, index) => (
             <div className='col' key={index}>
-              <div className='card h-100 shadow-sm'>
+              <div className='card h-100 shadow-sm fade-in'>
                 <div className='card-body d-flex flex-column justify-content-between'>
                   <div>
                     <h5 className='card-title'>{element.title}</h5>
@@ -45,12 +45,12 @@ function Cards({isSearch, setSearch, isCategory, setCategory, isSort, setSort}) 
       </div>
     }
 
-    {isMultimedia && <div className='container-fluid d-flex flex-column p-3'>
+    {isMultimedia && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Multimediale</h2>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1'>
           {isMultimedia.map((element, index) => (
             <div className='col' key={index}>
-              <div className='card h-100 shadow-sm'>
+              <div className='card h-100 shadow-sm fade-in'>
                 <div className='card-body d-flex flex-column justify-content-between'>
                   <div>
                     <h5 className='card-title'>{element.title}</h5>
@@ -75,12 +75,12 @@ function Cards({isSearch, setSearch, isCategory, setCategory, isSort, setSort}) 
       </div>
     }
 
-    {isVactions && <div className='container-fluid d-flex flex-column p-3'>
+    {isVactions && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Viaggi</h2>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1'>
           {isVactions.map((element, index) => (
             <div className='col' key={index}>
-              <div className='card h-100 shadow-sm'>
+              <div className='card h-100 shadow-sm fade-in'>
                 <div className='card-body d-flex flex-column justify-content-between'>
                   <div>
                     <h5 className='card-title'>{element.title}</h5>
@@ -106,5 +106,3 @@ function Cards({isSearch, setSearch, isCategory, setCategory, isSort, setSort}) 
     }
   </>)
 }
-
-export default React.memo(Cards)
