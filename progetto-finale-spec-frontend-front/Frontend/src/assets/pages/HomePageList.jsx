@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import FilterBar from "../components/FilterBar"
 import FilteredCards from "../components/FilterCards"
-import { ExportContextCards } from '../context/ContextCards'
+import { ExportContextGlobal } from '../context/ContextGlobal'
 import ResultList from './ResultList'
 import AllCards from '../components/AllCards'
+import ComparatorBox from '../components/ComparatorBox'
+import NavBar from '../components/NavBar'
 
 export default function HomePageList() {
   const [isSearch, setSearch] = useState("");
@@ -20,7 +22,7 @@ export default function HomePageList() {
       setMeltimedia,
       isVactions,
       setVacations,
-      isLoading } = ExportContextCards();
+      isLoading } = ExportContextGlobal();
 
   const SearchTitleCard = useMemo(() => {
     let interval = null;
@@ -85,24 +87,26 @@ export default function HomePageList() {
   }, [isSort])
 
   return (<>
-    <main className="container mt-5 pt-4">
-
-        <FilterBar 
-        isSearch={isSearch} 
-        setSearch={setSearch} 
-        isCategory={isCategory} 
-        setCategory={setCategory}
-        isSort={isSort}
-        setSort={setSort}
-        SortRef={SortRef}
-        TextPlace={"Cerca Per Titolo.."}
-        />
+    <NavBar />
+      <main className="container mt-5 pt-4">
         
-        <section className="card-grid" id="recordList">
-         {isSearch !== "" || isCategory !== "" && isSort === "" ? <ResultList isFilter={isFilter} setFilter={setFilter} isDisabled={isDisabled}/> :
-          isSort !== "" && isSearch === "" && isCategory === "" ? <AllCards isFilter={isFilter}/> : <FilteredCards isLoading={isLoading} />}
-        </section>
+          <FilterBar 
+          isSearch={isSearch} 
+          setSearch={setSearch} 
+          isCategory={isCategory} 
+          setCategory={setCategory}
+          isSort={isSort}
+          setSort={setSort}
+          SortRef={SortRef}
+          TextPlace={"Cerca Per Titolo.."}
+          />
+          
+          <section className="card-grid" id="recordList">
+          {isSearch !== "" || isCategory !== "" && isSort === "" ? <ResultList isFilter={isFilter} setFilter={setFilter} isDisabled={isDisabled}/> :
+            isSort !== "" && isSearch === "" && isCategory === "" ? <AllCards isFilter={isFilter}/> : <FilteredCards isLoading={isLoading} />}
+          </section>
 
-    </main>
+          <ComparatorBox />
+      </main>
   </>)
 }

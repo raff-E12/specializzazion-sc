@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { NavLink, useParams } from 'react-router'
-import { ExportContextCards } from '../context/ContextCards';
+import { ExportContextGlobal } from '../context/ContextGlobal';
 
 export default function DetailCardVactions() {
   const { id } = useParams();
@@ -13,7 +13,7 @@ export default function DetailCardVactions() {
       setFind, 
       isTarget,
       setTarget
-  } = ExportContextCards();
+  } = ExportContextGlobal();
 
   const SetFindVaction = useEffect(() => {
     setTarget("Viaggi");

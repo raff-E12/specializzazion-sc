@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from "axios"
 import { NavLink } from 'react-router';
-import { ExportContextCards } from '../context/ContextCards'
-import ResultList from '../pages/ResultList';
+import { ExportContextGlobal } from '../context/ContextGlobal'
 
 export default function FilteredCards({isLoading}) {
 
@@ -12,7 +11,8 @@ export default function FilteredCards({isLoading}) {
     isMultimedia,
     setMeltimedia,
     isVactions,
-    setVacations } = ExportContextCards();
+    setVacations,
+    handleSelection } = ExportContextGlobal();
 
   return (<>
   {isInformatic && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
@@ -32,7 +32,7 @@ export default function FilteredCards({isLoading}) {
                       <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti'>
                         <i className='bi bi-star-fill'></i>
                       </button>
-                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore'>
+                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("informatica", element.id)}>
                         <i className='bi bi-people-fill'></i>
                       </button>
                     </div>
@@ -62,7 +62,7 @@ export default function FilteredCards({isLoading}) {
                       <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti'>
                         <i className='bi bi-star-fill'></i>
                       </button>
-                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore'>
+                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("multimedia", element.id)}>
                         <i className='bi bi-people-fill'></i>
                       </button>
                     </div>
@@ -92,7 +92,7 @@ export default function FilteredCards({isLoading}) {
                       <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti'>
                         <i className='bi bi-star-fill'></i>
                       </button>
-                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore'>
+                      <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("viaggi", element.id)}>
                         <i className='bi bi-people-fill'></i>
                       </button>
                     </div>
