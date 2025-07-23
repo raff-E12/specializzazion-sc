@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import { ExportContextGlobal } from '../context/ContextGlobal'
 
 export default function AllCards({isFilter}) {
+
+  const { handleSelection } = ExportContextGlobal() 
 
   return (<>
   <div className="col">
@@ -26,8 +29,15 @@ export default function AllCards({isFilter}) {
                     }
 
                     <div className="d-flex gap-2">
+                        {
+                            String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("informatica", element.id)}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "audio" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "video" &&  <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "image" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "turismo" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore" onClick={() => handleSelection("viaggi", element.id)}><i className='bi bi-people-fill'></i></button>
+                        }
                         <button className="btn btn-sm btn-outline-warning favorite-btn" data-id="1" title="Aggiungi ai preferiti"><i className='bi bi-star-fill'></i></button>
-                        <button className="btn btn-sm btn-outline-secondary compare-btn" data-id="1" title="Aggiungi al comparatore"><i className='bi bi-people-fill'></i></button>
                     </div>
                 </div>
             </div>

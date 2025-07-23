@@ -2,9 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react'
 
 export default function UseCompator() {
-    const [isMultimedia, setMultimediaID] = useState(0);
-    const [isVactions, setVacationsID] = useState(0);
-    const [isInformatic, setInformticID] = useState(0);
+    const [isActive, setActive] = useState(false);
     const [isComparator, setCompartor] = useState([]);
     const [isSelection, setSelection] = useState([]);
 
@@ -71,9 +69,15 @@ export default function UseCompator() {
         }
     }
 
-    console.log(isComparator)
+    function TrashAllElement() {
+        setCompartor([])
+        setSelection([])
+        setActive(false)
+        return 
+    }
 
     useMemo(() => { FinderCardSelection() },[isSelection])
+    useMemo(() => { TrashAllElement() }, [isActive])
 
-    return { isSelection, setSelection, isComparator, handleSelection, EliminateItemsDefinitive }
+    return { isSelection, setSelection, isComparator, handleSelection, EliminateItemsDefinitive, setActive }
 }

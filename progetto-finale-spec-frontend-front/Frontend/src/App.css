@@ -127,4 +127,12 @@
     border: none;
   }
 
+  .empty-box {
+  border: 2px dashed #ced4da;
+  border-radius: 1rem;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+
 /***** End CSS WebPage Indication *****/
