@@ -48,7 +48,7 @@ export default function HomePageList() {
   }, [isSearch, isCategory])
 
   const SortListFilter = useMemo(() => {
-     const UnionListCard = [...isMultimedia];
+     const UnionListCard = [...isInformatic, ...isMultimedia, ...isVactions];
      let filterSort = null;
      switch (isSort) {
       case "title-asc":

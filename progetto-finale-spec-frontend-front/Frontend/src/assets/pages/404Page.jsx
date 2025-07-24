@@ -4,7 +4,7 @@ import { NavLink } from 'react-router'
 export default function NotFoundPage() {
   return (
     <div className='not-found-page'>
-        <div class="error-box">
+        <div className="error-box">
             <div className="emoji mb-3"><i className="bi bi-sign-do-not-enter-fill"></i></div>
             <h1 className="display-5">404 - Pagina non trovata</h1>
             <p className="text-muted">La pagina che stai cercando non esiste o è stata spostata.</p>

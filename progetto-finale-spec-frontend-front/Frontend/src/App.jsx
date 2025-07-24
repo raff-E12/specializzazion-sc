@@ -26,8 +26,8 @@ function App() {
           </Route>
 
           <Route path="/items" element={<DashBoard />}>
-            {/* <Route path='informatica/:id' element={<DetailCardInfo />} />
-            <Route path='viaggi/:id' element={<DetailCardVactions />} /> */}
+            <Route path='informatica/:id' element={<DetailCardInfo />} />
+            <Route path='viaggi/:id' element={<DetailCardVactions />} />
             <Route path='media/:id' element={<DetailCardMedia />} />
           </Route>
       
