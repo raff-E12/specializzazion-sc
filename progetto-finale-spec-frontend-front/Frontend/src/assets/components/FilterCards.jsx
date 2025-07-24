@@ -17,7 +17,7 @@ export default function FilteredCards({isLoading}) {
     isSelected } = ExportContextGlobal();
 
   return (<>
-  {/* {isInformatic && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
+  {isInformatic && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Informatica</h2>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1'>
           {isInformatic.map((element, index) => (
@@ -45,7 +45,7 @@ export default function FilteredCards({isLoading}) {
           ))}
         </div>
       </div>
-    } */}
+    }
 
     {isMultimedia && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Multimediale</h2>
@@ -77,7 +77,7 @@ export default function FilteredCards({isLoading}) {
       </div>
     }
 
-    {/* {isVactions && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
+    {isVactions && !isLoading && <div className='container-fluid d-flex flex-column p-3'>
         <h2>Viaggi</h2>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1'>
           {isVactions.map((element, index) => (
@@ -105,6 +105,6 @@ export default function FilteredCards({isLoading}) {
           ))}
         </div>
       </div>
-    } */}
+    }
   </>)
 }

@@ -45,19 +45,19 @@ export default function UseCards() {
         if (window.location.pathname !== "/") {
           switch (isTarget) {
 
-            // case "Viaggi":
-            //   if (isTarget === "") return setFind([])
-            //   fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
-            //   data = fetchingData.data;
-            //   if (data.success) setFind(data.viaggi);
-            // break;
+            case "Viaggi":
+              if (isTarget === "") return setFind([])
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
+              data = fetchingData.data;
+              if (data.success) setFind(data.viaggi);
+            break;
 
-            // case "Informatica":
-            //   if (isTarget === "") return setFind([])
-            //   fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
-            //   data = fetchingData.data;
-            //   if (data.success) setFind(data.informatica);
-            // break;
+            case "Informatica":
+              if (isTarget === "") return setFind([])
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
+              data = fetchingData.data;
+              if (data.success) setFind(data.informatica);
+            break;
 
             case "Multimedia":
               if (isTarget === "") return setFind([])
@@ -86,7 +86,7 @@ export default function UseCards() {
 
     function FavoriteCardsAll(){
        if (isSelected.id === null) return
-          const UnionCards = [...isMultimedia];
+          const UnionCards = [...isInformatic, ...isMultimedia, ...isVactions];
 
           const FinderList = UnionCards.find(items => items.id === isSelected.id && items.category === isSelected.type);
 
@@ -97,14 +97,23 @@ export default function UseCards() {
             MemoryFav.current = [...MemoryFav.current, FinderList];
           } 
 
+          sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current));
           setFavorites([...MemoryFav.current]);  
     }
 
     function EliminateFavoriteCards(id, category) {
       const FavoritesRemove = isFavorites.filter(items => !(items.id === id && items.category === category)); // Restituisce una condizione.
       MemoryFav.current = [...FavoritesRemove];
+      sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current))
       setFavorites(FavoritesRemove);
     }
+
+    useEffect(() => {
+       const getSessionList = JSON.parse(sessionStorage.getItem("Preferiti"));
+      //  console.log(getSessionList)
+       MemoryFav.current = [...getSessionList];
+       setFavorites([...MemoryFav.current]);
+    }, [])
 
     useEffect(() => { FindElementsLists() },[isTarget, isID]);
     useMemo(() => { AllCards() },[isActive]);

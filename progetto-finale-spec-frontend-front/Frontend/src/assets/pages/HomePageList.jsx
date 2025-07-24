@@ -104,8 +104,7 @@ export default function HomePageList() {
           {isSearch !== "" || isCategory !== "" && isSort === "" ? <ResultList isFilter={isFilter} setFilter={setFilter} isDisabled={isDisabled}/> :
             isSort !== "" && isSearch === "" && isCategory === "" ? <AllCards isFilter={isFilter}/> : <FilteredCards isLoading={isLoading} />}
           </section>
-
-          <ComparatorBox />
+          
       </main>
   </>)
 }

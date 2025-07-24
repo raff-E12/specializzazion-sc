@@ -29,6 +29,7 @@ export default function AllCards({isFilter}) {
                     }
 
                     <div className="d-flex gap-2">
+                        
                         {
                             String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("informatica", element.id)}><i className='bi bi-people-fill'></i></button> ||
                             String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||

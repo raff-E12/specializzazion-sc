@@ -29,17 +29,17 @@ export default function UseCompator() {
         let ListURL = isSelection.map((items, index) => {
             let BaseURL = null;
             switch (items.type) {
-                // case "informatica":
-                //   BaseURL = import.meta.env.VITE_URL_INFORMATICA;
-                // break;
+                case "informatica":
+                  BaseURL = import.meta.env.VITE_URL_INFORMATICA;
+                break;
 
                 case "multimedia":
                   BaseURL = import.meta.env.VITE_URL_MULTIMEDIA;
                 break
 
-                // case "viaggi":
-                //   BaseURL = import.meta.env.VITE_URL_VIAGGI;
-                // break
+                case "viaggi":
+                  BaseURL = import.meta.env.VITE_URL_VIAGGI;
+                break
             }
 
             return { type: items.type, url: `${BaseURL}/${items.id}` };
