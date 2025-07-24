@@ -85,17 +85,24 @@ export default function UseCards() {
     }
 
     function FavoriteCardsAll(){
-       const UnionCards = [...isMultimedia];
-       if (isSelected.id !== null) {
-          let FinderList = UnionCards.find(items => items.id === isSelected.id && items.category === isSelected.type);
-          MemoryFav.current.push(FinderList)
-          const FilterClone = Array.from(new Map(MemoryFav.current.map((element) => [element.id, element])).values());
-          setFavorites(FilterClone);
-       }
+       if (isSelected.id === null) return
+          const UnionCards = [...isMultimedia];
+
+          const FinderList = UnionCards.find(items => items.id === isSelected.id && items.category === isSelected.type);
+
+          if (!FinderList) return 
+          const AlReadyExist = MemoryFav.current.some(items => items.id === isSelected.id && items.category === isSelected.type)
+
+          if (!AlReadyExist) {
+            MemoryFav.current = [...MemoryFav.current, FinderList];
+          } 
+
+          setFavorites([...MemoryFav.current]);  
     }
 
     function EliminateFavoriteCards(id, category) {
-      const FavoritesRemove = isFavorites.filter(items => items.id !== id && items.category !== category);
+      const FavoritesRemove = isFavorites.filter(items => !(items.id === id && items.category === category)); // Restituisce una condizione.
+      MemoryFav.current = [...FavoritesRemove];
       setFavorites(FavoritesRemove);
     }
 
