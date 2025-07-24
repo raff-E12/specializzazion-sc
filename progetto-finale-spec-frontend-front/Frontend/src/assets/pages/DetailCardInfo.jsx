@@ -13,7 +13,9 @@ export default function DetailCardInfo() {
       setFind, 
       isTarget,
       setTarget,
-      handleSelection
+      handleSelection,
+      setSelected, 
+      isSelected
   } = ExportContextGlobal();
 
   const SetFindVaction = useEffect(() => {
@@ -47,7 +49,7 @@ export default function DetailCardInfo() {
     <p><strong>Descrizione:</strong><br/>{description}</p>
 
     <div className="mt-4 d-flex gap-3">
-      <button className="btn btn-outline-warning"><i className="bi bi-star-fill"></i> Aggiungi ai preferiti</button>
+      <button className="btn btn-outline-warning" onClick={() => setSelected({ type: category, id: IdNumber })}><i className="bi bi-star-fill"></i> Aggiungi ai preferiti</button>
       <button className="btn btn-outline-secondary"  onClick={() => handleSelection("informatica", IdNumber)}><i className="bi bi-people-fill"></i> Aggiungi al comparatore</button>
       <NavLink className={"btn btn-secondary ms-auto"} to={"/"}><i className="bi bi-arrow-left-square-fill"></i> Torna alla lista</NavLink>
     </div>

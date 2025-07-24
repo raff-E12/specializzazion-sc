@@ -128,11 +128,49 @@
   }
 
   .empty-box {
-  border: 2px dashed #ced4da;
-  border-radius: 1rem;
-  background-color: #f8f9fa;
-  color: #495057;
-}
+    border: 2px dashed #ced4da;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+ }
+
+  .empty-fav {
+    border: 2px dashed #ced4da;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .card-title {
+    font-weight: 600;
+  }
+
+  .not-found-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f8f9fa;
+    text-align: center;
+  }
+
+  .error-box {
+    max-width: 500px;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
+  }
+
+  .emoji {
+    font-size: 4rem;
+  }
+
+  .btn-home {
+    margin-top: 1.5rem;
+  }
 
 
 /***** End CSS WebPage Indication *****/

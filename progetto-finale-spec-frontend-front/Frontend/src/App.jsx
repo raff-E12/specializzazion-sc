@@ -9,19 +9,26 @@ import DetailCardMedia from './assets/pages/DetailCardMedia'
 import ContextCards from './assets/context/ContextGlobal'
 import ComparePage from './assets/pages/ComparePage'
 import DashBoard from './assets/layout/DashBoard'
+import FavoritePage from './assets/pages/FavoritePage'
+import NotFoundPage from './assets/pages/404Page'
 
 function App() {
   return (
     <>
     <ContextCards>
         <Routes>
-          <Route index element={<HomePageList />}/>
-          <Route path='/compare-items' element={<ComparePage />}/>
+         
+          <Route element={<DashBoard/>}>
+            <Route path={"*"} element={<NotFoundPage />}/>
+            <Route index element={<HomePageList />}/>
+            <Route path='/compare-items' element={<ComparePage />}/>
+            <Route  path='/favorites' element={<FavoritePage />}/>
+          </Route>
 
-          <Route element={<DashBoard />}>
-            <Route path='/informatica/:id' element={<DetailCardInfo />} />
-            <Route path='/viaggi/:id' element={<DetailCardVactions />} />
-            <Route path='/media/:id' element={<DetailCardMedia />} />
+          <Route path="/items" element={<DashBoard />}>
+            {/* <Route path='informatica/:id' element={<DetailCardInfo />} />
+            <Route path='viaggi/:id' element={<DetailCardVactions />} /> */}
+            <Route path='media/:id' element={<DetailCardMedia />} />
           </Route>
       
         </Routes>

@@ -22,12 +22,12 @@ export default function ResultList({isFilter, setFilter, isDisabled}) {
                     <h5 className="card-title">{element.title}</h5>
                     <p className="card-subtitle text-muted">{element.category}</p>
                     {
-                     String(element.category).toLowerCase() === "programmazione" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/informatica/:${element.id}`}>Dettagli</NavLink> ||
-                     String(element.category).toLowerCase() === "document" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/media/:${element.id}`}>Dettagli</NavLink> ||
-                     String(element.category).toLowerCase() === "audio" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/media/:${element.id}`}>Dettagli</NavLink> ||
-                     String(element.category).toLowerCase() === "video" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/media/:${element.id}`}>Dettagli</NavLink> ||
-                     String(element.category).toLowerCase() === "image" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/media/:${element.id}`}>Dettagli</NavLink> ||
-                     String(element.category).toLowerCase() === "turismo" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/viaggi/:${element.id}`}>Dettagli</NavLink>
+                     String(element.category).toLowerCase() === "programmazione" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/informatica/:${element.id}`}>Dettagli</NavLink> ||
+                     String(element.category).toLowerCase() === "document" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/media/:${element.id}`}>Dettagli</NavLink> ||
+                     String(element.category).toLowerCase() === "audio" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/media/:${element.id}`}>Dettagli</NavLink> ||
+                     String(element.category).toLowerCase() === "video" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/media/:${element.id}`}>Dettagli</NavLink> ||
+                     String(element.category).toLowerCase() === "image" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/media/:${element.id}`}>Dettagli</NavLink> ||
+                     String(element.category).toLowerCase() === "turismo" && <NavLink className={"btn btn-outline-primary btn-sm mt-3"} to={`/items/viaggi/:${element.id}`}>Dettagli</NavLink>
                     }
                 </div>
                 </div>

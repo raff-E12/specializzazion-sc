@@ -18,12 +18,12 @@ function FilterBar({isSearch, setSearch, isCategory, setCategory, setSort, SortR
           <div className="col-md-3">
             <select className="form-select" id="categoryFilter" value={isCategory} onChange={e => setCategory(e.target.value)}>
               <option value="">Tutte le categorie</option>
-              <option value="Programmazione">Programmazione</option>
+              {/* <option value="Programmazione">Programmazione</option> */}
               <option value="Audio">Audio</option>
               <option value="Video">Video</option>
               <option value="Image">Immagini</option>
               <option value="Document">Documenti</option>
-              <option value="Turismo">Turismo</option>
+              {/* <option value="Turismo">Turismo</option> */}
             </select>
           </div>
           <div className="col-md-3">

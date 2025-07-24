@@ -28,7 +28,7 @@ export default function HomePageList() {
     let interval = null;
     if (isSearch !== "" || isCategory !== "" && SortRef.current !== null) {
       interval = setTimeout(() => { setDisabled(true) }, 1200);
-      const UnionListCard = Array.from([...isInformatic, ...isMultimedia, ...isVactions], (element) => { return { id: element.id, title: element.title, category: element.category} });
+      const UnionListCard = Array.from([...isMultimedia], (element) => { return { id: element.id, title: element.title, category: element.category} });
       const FilterInformatic = [...UnionListCard].filter((element) => {
         return String(element.title).toLowerCase().includes(isSearch.toLowerCase()) &&
         String(element.category).toLowerCase().includes(isCategory.toLowerCase())
@@ -48,7 +48,7 @@ export default function HomePageList() {
   }, [isSearch, isCategory])
 
   const SortListFilter = useMemo(() => {
-     const UnionListCard = [...isInformatic, ...isMultimedia, ...isVactions];
+     const UnionListCard = [...isMultimedia];
      let filterSort = null;
      switch (isSort) {
       case "title-asc":
@@ -87,7 +87,6 @@ export default function HomePageList() {
   }, [isSort])
 
   return (<>
-    <NavBar />
       <main className="container mt-5 pt-4">
         
           <FilterBar 

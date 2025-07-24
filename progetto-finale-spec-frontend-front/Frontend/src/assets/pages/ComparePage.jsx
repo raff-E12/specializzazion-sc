@@ -8,7 +8,6 @@ export default function ComparePage() {
    const { isComparator, setActive } = ExportContextGlobal();
 
   return (<>
-    <NavBar />
     <div className="container py-5 mt-5">
         <h2 className="mb-4">🔍 Confronto Risorse</h2>
         <div className="row g-4">

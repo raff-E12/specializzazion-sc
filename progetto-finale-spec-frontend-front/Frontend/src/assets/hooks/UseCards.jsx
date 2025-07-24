@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { use, useEffect, useMemo, useRef, useState } from 'react'
 import axios from "axios"
 import UsePromise from './UsePromise';
 
@@ -12,6 +12,10 @@ export default function UseCards() {
    const [isID, setID] = useState(0);
    const [isFind, setFind] = useState([]);
    const [isTarget, setTarget] = useState("");
+
+   const [isFavorites, setFavorites] = useState([]);
+   const [isSelected, setSelected] = useState({type: null, id: null});
+   const MemoryFav = useRef([]);
 
   async function AllCards() {
       try {
@@ -40,19 +44,20 @@ export default function UseCards() {
         let data = null;
         if (window.location.pathname !== "/") {
           switch (isTarget) {
-            case "Viaggi":
-              if (isTarget === "") return setFind([])
-              fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
-              data = fetchingData.data;
-              if (data.success) setFind(data.viaggi);
-            break;
 
-            case "Informatica":
-              if (isTarget === "") return setFind([])
-              fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
-              data = fetchingData.data;
-              if (data.success) setFind(data.informatica);
-            break;
+            // case "Viaggi":
+            //   if (isTarget === "") return setFind([])
+            //   fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
+            //   data = fetchingData.data;
+            //   if (data.success) setFind(data.viaggi);
+            // break;
+
+            // case "Informatica":
+            //   if (isTarget === "") return setFind([])
+            //   fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
+            //   data = fetchingData.data;
+            //   if (data.success) setFind(data.informatica);
+            // break;
 
             case "Multimedia":
               if (isTarget === "") return setFind([])
@@ -79,8 +84,24 @@ export default function UseCards() {
       }
     }
 
-    useEffect(() => { FindElementsLists() },[isTarget, isID])
-    useMemo(() => { AllCards() },[isActive])
+    function FavoriteCardsAll(){
+       const UnionCards = [...isMultimedia];
+       if (isSelected.id !== null) {
+          let FinderList = UnionCards.find(items => items.id === isSelected.id && items.category === isSelected.type);
+          MemoryFav.current.push(FinderList)
+          const FilterClone = Array.from(new Map(MemoryFav.current.map((element) => [element.id, element])).values());
+          setFavorites(FilterClone);
+       }
+    }
+
+    function EliminateFavoriteCards(id, category) {
+      const FavoritesRemove = isFavorites.filter(items => items.id !== id && items.category !== category);
+      setFavorites(FavoritesRemove);
+    }
+
+    useEffect(() => { FindElementsLists() },[isTarget, isID]);
+    useMemo(() => { AllCards() },[isActive]);
+    useMemo(() => { FavoriteCardsAll() }, [isSelected])
 
     return{
       isInformatic,
@@ -96,5 +117,10 @@ export default function UseCards() {
       isTarget,
       setTarget,
       isLoading,
+      setSelected,
+      isSelected,
+      isFavorites,
+      setFavorites,
+      EliminateFavoriteCards
     }
 }
