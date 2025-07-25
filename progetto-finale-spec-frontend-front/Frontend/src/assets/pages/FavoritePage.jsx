@@ -4,7 +4,7 @@ import { ExportContextGlobal } from '../context/ContextGlobal'
 
 export default function FavoritePage() {
 
-  const { isFavorites, setFavorites, EliminateFavoriteCards } = ExportContextGlobal()
+  const { isFavorites, EliminateFavoriteCards } = ExportContextGlobal()
 
   return (<>
     <div className="container py-5 mt-5">

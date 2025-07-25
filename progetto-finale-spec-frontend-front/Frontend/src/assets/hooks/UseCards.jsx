@@ -1,21 +1,26 @@
-import React, { use, useEffect, useMemo, useRef, useState } from 'react'
+import React, { use, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import axios from "axios"
 import UsePromise from './UsePromise';
+import CardReducer from '../reducer/CardReducer';
 
 export default function UseCards() {
-   const [isInformatic, setInformtic] = useState([]);
-   const [isMultimedia, setMeltimedia] = useState([]);
-   const [isVactions, setVacations] = useState([]);
-   const [isLoading, setLoading] = useState(false);
+  
    const [setURL, setActive, isResult, isActive] = UsePromise(); 
-
-   const [isID, setID] = useState(0);
-   const [isFind, setFind] = useState([]);
-   const [isTarget, setTarget] = useState("");
-
-   const [isFavorites, setFavorites] = useState([]);
-   const [isSelected, setSelected] = useState({type: null, id: null});
    const MemoryFav = useRef([]);
+
+   const InitialCardsState = {
+      isInformatic: [],
+      isMultimedia: [],
+      isVactions: [],
+      isLoading: false,
+      isID: 0,
+      isFind: [],
+      isTarget: [],
+      isFavorites: [],
+      isSelected: { type: null, id: null }
+   }
+
+   const [StateCards, dispatch] = useReducer(CardReducer, InitialCardsState);
 
   async function AllCards() {
       try {
@@ -26,12 +31,9 @@ export default function UseCards() {
         setActive(true);
         const [ informatica, multimedia, viaggi ] = isResult;
         if (informatica === undefined && multimedia === undefined && viaggi === undefined) {
-          setLoading(true);
+          dispatch({ type: "SET_LOADING", payload: true });
         } else {
-          setLoading(false);
-          setInformtic(informatica);
-          setVacations(viaggi);
-          setMeltimedia(multimedia);
+          dispatch({ type: "CARD_SETS", payload: { informatica: informatica, viaggi: viaggi, multimedia: multimedia }});
         }
       } catch (error) {
         throw new Error(error.message);
@@ -43,32 +45,31 @@ export default function UseCards() {
         let fetchingData = null;
         let data = null;
         if (window.location.pathname !== "/") {
-          switch (isTarget) {
+          switch (StateCards.isTarget) {
 
             case "Viaggi":
-              if (isTarget === "") return setFind([])
-              fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${isID}`);
+              if (StateCards.isTarget === "") return dispatch({ type: "RESET_FINDER"})
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_VIAGGI}/${StateCards.isID}`);
               data = fetchingData.data;
-              if (data.success) setFind(data.viaggi);
+              if (data.success) dispatch({ type: "SET_VIAGGI", payload: data.viaggi });
             break;
 
             case "Informatica":
-              if (isTarget === "") return setFind([])
-              fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${isID}`);
+              if (StateCards.isTarget === "") return dispatch({ type: "RESET_FINDER"})
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_INFORMATICA}/${StateCards.isID}`);
               data = fetchingData.data;
-              if (data.success) setFind(data.informatica);
+              if (data.success) dispatch({ type: "SET_INFO", payload: data.informatica });
             break;
 
             case "Multimedia":
-              if (isTarget === "") return setFind([])
-              fetchingData = await axios.get(`${import.meta.env.VITE_URL_MULTIMEDIA}/${isID}`);
+              if (StateCards.isTarget === "") return dispatch({ type: "RESET_FINDER"})
+              fetchingData = await axios.get(`${import.meta.env.VITE_URL_MULTIMEDIA}/${StateCards.isID}`);
               data = fetchingData.data;
-              if (data.success) setFind(data.multimedia);
+              if (data.success) dispatch({ type: "SET_MULTI", payload: data.multimedia })
             break;
 
             default:
-              setFind([]);
-              setID(0);
+              dispatch({ type: "RESET_DEFAULT" })
               fetchingData = null;
               data = null;
             break;
@@ -76,8 +77,7 @@ export default function UseCards() {
         }     
       } catch (error) {
         if (error.status === 404) {
-          setFind([]);
-          setID(0);
+          dispatch({ type: "RESET_DEFAULT" })
           throw new Error("Card Non Trovata");
         }
         throw new Error(error.message);
@@ -85,58 +85,46 @@ export default function UseCards() {
     }
 
     function FavoriteCardsAll(){
-       if (isSelected.id === null) return
-          const UnionCards = [...isInformatic, ...isMultimedia, ...isVactions];
+       if (StateCards.isSelected.id === null) return
+          const UnionCards = [...StateCards.isInformatic, ...StateCards.isMultimedia, ...StateCards.isVactions];
 
-          const FinderList = UnionCards.find(items => items.id === isSelected.id && items.category === isSelected.type);
+          const FinderList = UnionCards.find(items => items.id === StateCards.isSelected.id && items.category === StateCards.isSelected.type);
 
           if (!FinderList) return 
-          const AlReadyExist = MemoryFav.current.some(items => items.id === isSelected.id && items.category === isSelected.type)
+          const AlReadyExist = MemoryFav.current.some(items => items.id === StateCards.isSelected.id && items.category === StateCards.isSelected.type)
 
           if (!AlReadyExist) {
             MemoryFav.current = [...MemoryFav.current, FinderList];
           } 
 
           sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current));
-          setFavorites([...MemoryFav.current]);  
+          dispatch({ type: "SET_FAVORITES", payload: [...MemoryFav.current] })  
     }
 
     function EliminateFavoriteCards(id, category) {
-      const FavoritesRemove = isFavorites.filter(items => !(items.id === id && items.category === category)); // Restituisce una condizione.
+      const FavoritesRemove = StateCards.isFavorites.filter(items => !(items.id === id && items.category === category)); // Restituisce una condizione.
       MemoryFav.current = [...FavoritesRemove];
       sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current))
-      setFavorites(FavoritesRemove);
+      dispatch({ type: "SET_ELIMINATE_TASK", payload: FavoritesRemove })
     }
 
     useEffect(() => {
        const getSessionList = JSON.parse(sessionStorage.getItem("Preferiti"));
-      //  console.log(getSessionList)
+      if (!getSessionList) return
        MemoryFav.current = [...getSessionList];
-       setFavorites([...MemoryFav.current]);
+       dispatch({ type: "RECOVERY_TASKS", payload: [...MemoryFav.current]})
     }, [])
 
-    useEffect(() => { FindElementsLists() },[isTarget, isID]);
+    useEffect(() => { FindElementsLists() },[StateCards.isTarget, StateCards.isID]);
     useMemo(() => { AllCards() },[isActive]);
-    useMemo(() => { FavoriteCardsAll() }, [isSelected])
+    useMemo(() => { FavoriteCardsAll() }, [StateCards.isSelected])
 
     return{
-      isInformatic,
-      setInformtic,
-      isMultimedia,
-      setMeltimedia,
-      isVactions,
-      setVacations,
-      isID,
-      setID,
-      isFind,
-      setFind, 
-      isTarget,
-      setTarget,
-      isLoading,
-      setSelected,
-      isSelected,
-      isFavorites,
-      setFavorites,
+      ...StateCards,
+      dispatch,
+      setID: (id) => dispatch({ type: "SET_ID", payload: id }), 
+      setTarget: (target) => dispatch({ type: "SET_TARGET", payload: target }),
+      setSelected: (category, elementID) => dispatch({ type: "SET_SELECT", types: category, id: elementID}),
       EliminateFavoriteCards
     }
 }

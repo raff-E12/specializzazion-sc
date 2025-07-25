@@ -31,7 +31,7 @@ export default function FilteredCards({isLoading}) {
                   <div className='mt-auto d-flex justify-content-between align-items-center'>
                     <NavLink className='btn btn-outline-primary btn-sm' to={`/items/informatica/${element.id}`}>Dettagli</NavLink>
                     <div className='d-flex gap-2'>
-                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected({ type: element.category, id: element.id })}>
+                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected(element.category, element.id)}>
                         <i className='bi bi-star-fill'></i>
                       </button>
                       <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("informatica", element.id)}>
@@ -61,7 +61,7 @@ export default function FilteredCards({isLoading}) {
                   <div className='mt-auto d-flex justify-content-between align-items-center'>
                     <NavLink className='btn btn-outline-primary btn-sm' to={`/items/media/${element.id}`}>Dettagli</NavLink>
                     <div className='d-flex gap-2'>
-                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected({ type: element.category, id: element.id})}>
+                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected(element.category, element.id)}>
                         <i className='bi bi-star-fill'></i>
                       </button>
                       <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("multimedia", element.id)}>
@@ -91,7 +91,7 @@ export default function FilteredCards({isLoading}) {
                   <div className='mt-auto d-flex justify-content-between align-items-center'>
                     <NavLink className='btn btn-outline-primary btn-sm' to={`/items/viaggi/${element.id}`}>Dettagli</NavLink>
                     <div className='d-flex gap-2'>
-                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected({ type: element.category, id: element.id})}>
+                      <button className='btn btn-sm btn-outline-warning favorite-btn' data-id={element.id} title='Aggiungi ai preferiti' onClick={() => setSelected(element.category, element.id)}>
                         <i className='bi bi-star-fill'></i>
                       </button>
                       <button className='btn btn-sm btn-outline-secondary compare-btn' data-id={element.id} title='Aggiungi al comparatore' onClick={() => handleSelection("viaggi", element.id)}>

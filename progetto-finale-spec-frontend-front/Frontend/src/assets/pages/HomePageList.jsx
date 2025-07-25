@@ -31,7 +31,10 @@ export default function HomePageList() {
            setDisabled,
            isList,
            SortRef,
-           setList } = UseFilter();
+           setList,
+           isActive,
+           setAllCardsCategory,
+           isAllCardsCategory } = UseFilter();
 
   useEffect(() => { setList([...isInformatic, ...isMultimedia, ...isVactions]) },[isSearch, isCategory, isSort]);
   
@@ -46,12 +49,15 @@ export default function HomePageList() {
           isSort={isSort}
           setSort={setSort}
           SortRef={SortRef}
+          isActive={isActive}
+          isAllCardsSets={isAllCardsCategory}
+          setAllCardsCategory={setAllCardsCategory}
           TextPlace={"Cerca Per Titolo.."}
           />
           
           <section className="card-grid" id="recordList">
           {isSearch !== "" || isCategory !== "" && isSort === "" ? <ResultList isFilter={isFilter} setFilter={setFilter} isDisabled={isDisabled}/> :
-            isSort !== "" && isSearch === "" && isCategory === "" ? <AllCards isFilter={isFilter}/> : <FilteredCards isLoading={isLoading} />}
+            isSort !== "" && isCategory === "" &&  isSearch === "" ? <AllCards isFilter={isFilter}/> : <FilteredCards isLoading={isLoading} />}
           </section>
           
       </main>

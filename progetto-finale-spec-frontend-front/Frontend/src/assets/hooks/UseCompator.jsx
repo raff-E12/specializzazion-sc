@@ -78,5 +78,10 @@ export default function UseCompator() {
     useMemo(() => { FinderCardSelection() },[isSelection])
     useMemo(() => { TrashAllElement() }, [isActive])
 
-    return { isSelection, setSelection, isComparator, handleSelection, EliminateItemsDefinitive, setActive }
+    return { isSelection, 
+             setSelection, 
+             isComparator, 
+             handleSelection, 
+             EliminateItemsDefinitive, 
+             setActive }
 }

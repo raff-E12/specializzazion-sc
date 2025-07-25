@@ -1,87 +1,101 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useReducer, useRef, useState } from 'react'
+import FilterReducer from '../reducer/FilterReducer';
 
 export default function UseFilter() {
-  const [isSearch, setSearch] = useState("");
-  const [isCategory, setCategory] = useState("");
-  const [isSort, setSort] = useState("");
-  const [isFilter, setFilter] = useState([]);
-  const [isDisabled, setDisabled] = useState(false);
+
+  const initialFilterState = {
+    isSearch: "",
+    isCategory: "",
+    isFilter: [],
+    isSort: "",
+    isDisabled: false,
+    isActive: false,
+    isAllCardsCategory: "",
+    isList: []
+  }
+
+  const [StateFilter, dispatch] = useReducer(FilterReducer, initialFilterState);
   const SortRef = useRef(null);
-  const [isList, setList] = useState([]);
 
   const SearchTitleCard = useMemo(() => {
     let interval = null;
-    if (isSearch !== "" || isCategory !== "" && SortRef.current !== null) {
-      interval = setTimeout(() => { setDisabled(true) }, 1200);
-      const UnionListCard = Array.from(isList, (element) => { return { id: element.id, title: element.title, category: element.category} });
+    if (StateFilter.isSearch !== "" || StateFilter.isCategory !== "" && SortRef.current !== null) {
+      interval = setTimeout(() => { dispatch({ type: "SET_DISABLED", payload: true }) }, 1200);
+
+      const UnionListCard = Array.from(StateFilter.isList, (element) => { return { id: element.id, title: element.title, category: element.category} });
       const FilterInformatic = [...UnionListCard].filter((element) => {
-        return String(element.title).toLowerCase().includes(isSearch.toLowerCase()) &&
-        String(element.category).toLowerCase().includes(isCategory.toLowerCase())
+        return String(element.title).toLowerCase().includes(StateFilter.isSearch.toLowerCase()) &&
+        String(element.category).toLowerCase().includes(StateFilter.isCategory.toLowerCase())
       });
+      
       const conditionFilter = FilterInformatic.length !== 0 ? FilterInformatic : [];
-      setFilter(conditionFilter)
-      setSort("");
+      dispatch({ type: "SET_CONDITION_SEARCH", payload: conditionFilter })
       SortRef.current.value = "";
       SortRef.current.disabled = "disabled";
     } 
 
-    if (isCategory === "" && isSearch === "" && SortRef.current !== null) {
+    if (StateFilter.isCategory === "" && StateFilter.isSearch === "" && SortRef.current !== null) {
         SortRef.current.disabled = "";
-        setFilter([]);
+        dispatch({ type: "SET_FILTER" })
     }
-    return setDisabled(false)
-  }, [isSearch, isCategory])
+    return dispatch({ type: "SET_DISABLED", payload: false })
+  }, [StateFilter.isSearch, StateFilter.isCategory])
 
   const SortListFilter = useMemo(() => {
-     const UnionListCard = [...isList];
+     const UnionListCard = [...StateFilter.isList];
      let filterSort = null;
-     switch (isSort) {
+     switch (StateFilter.isSort) {
       case "title-asc":
-        setCategory("")
-        setSearch("")
+        dispatch({ type: "SET_ACTIVE", payload: true })
         filterSort = UnionListCard.sort((a, b) => String(a.title).localeCompare(String(b.title)));
-        setFilter(filterSort);
+        dispatch({ type: "SET_SORT", payload: filterSort })
       break;
 
       case "title-desc":
-        setCategory("")
-        setSearch("")
+        dispatch({ type: "SET_ACTIVE", payload: true })
         filterSort = UnionListCard.sort((a, b) => String(b.title).localeCompare(String(a.title)));
-        setFilter(filterSort);
+        dispatch({ type: "SET_SORT", payload: filterSort })
       break;
 
       case "category-asc":
-        setCategory("")
-        setSearch("")
+        dispatch({ type: "SET_ACTIVE", payload: true })
         filterSort = UnionListCard.sort((a, b) => String(a.category).localeCompare(String(b.category)));
-        setFilter(filterSort);
+        dispatch({ type: "SET_SORT", payload: filterSort })
       break;
 
       case "category-desc":
-        setCategory("")
-        setSearch("")
+        dispatch({ type: "SET_ACTIVE", payload: true })
         filterSort = UnionListCard.sort((a, b) => String(b.category).localeCompare(String(a.category)));
-        setFilter(filterSort);
+        dispatch({ type: "SET_SORT", payload: filterSort })
       break;
      
       case "":
       filterSort = null;
-      setFilter([])
+      dispatch({ type: "SET_ACTIVE", payload: false })
+      dispatch({ type: "SET_FILTER" })
       break;
      }
-  }, [isSort])
+  }, [StateFilter.isSort])
 
-  return { isSearch, 
-           setSearch, 
-           isCategory, 
-           setCategory, 
-           isSort, 
-           setSort, 
-           isFilter, 
-           setFilter,
-           isDisabled,
-           setDisabled,
-           setList,
-           isList,
+  
+  const CategoryCardList = useMemo(() => {
+    if (StateFilter.isSort !== "" && StateFilter.isActive) {
+        const CategoryList = [...StateFilter.isList].filter((element) => { 
+        return String(element.category).toLowerCase().includes(StateFilter.isAllCardsCategory.toLowerCase())
+      })
+
+      const conditionFilter = CategoryList.length !== 0 ? CategoryList : StateFilter.isList;
+      return dispatch({ type:"SET_FILTER_LIST", payload: conditionFilter })
+    }
+  }, [StateFilter.isAllCardsCategory])
+
+  return { ...StateFilter,
+           setSearch: (search) => dispatch({ type: "SET_SEARCH", payload: search }), 
+           setCategory: (category) => dispatch({ type: "SET_CATEGORY", payload: category }), 
+           setSort: (sort) => dispatch({ type: "SET_VALUES_SORT", payload: sort }),  
+           setFilter: (filter) => dispatch({ type: "SET_FILTER_LIST", payload: filter }),
+           setDisabled: (disabled) => dispatch({ type: "SET_DISABLED", payload: disabled }),
+           setList: (list) => dispatch({ type: "SET_LISTS", payload: list}),
+           setAllCardsCategory: (category) => dispatch({ type: "ALL_CARDS_CATEGORY", payload: category }),
            SortRef }
 }
