@@ -1,0 +1,35 @@
+
+/***** WebPage CSS Style *****/ 
+
+ body{
+    background-color: white;
+    padding: 10px;
+ }
+
+ #root{
+   padding: 14px;
+   height: auto;
+   max-height: 190vh;
+ }
+
+ .op-sc {
+   width: 600px;
+   height: auto;
+   max-height: 290px;
+   border: 2px solid red;
+   border-radius: 12px;
+   align-items: center;
+   padding: 20px;
+   justify-content: flex-start;
+   flex-direction: column;
+ }
+
+ #number-inp{
+  width: 150px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+ }
+
+/***** End WebPage CSS Style *****/
+

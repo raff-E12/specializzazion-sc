@@ -1,0 +1,86 @@
+
+/***** CSS WebPage Reset *****/ 
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Impostazioni di base per html e body */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+  background-color: #fff;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Evita effetti indesiderati su immagini e form */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Rimuove gli stili di default */
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Tabelle coerenti */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Scroll più gradevole */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Riduce le animazioni per utenti che lo preferiscono */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/***** End CSS WebPage Reset *****/
