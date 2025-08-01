@@ -1,0 +1,176 @@
+
+/***** CSS WebPage Indication *****/ 
+
+.filters {
+  position: sticky;
+  top: 72px;
+  z-index: 1020;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-grid .card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.card-grid .card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+.card-grid .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comparator-box {
+  width: 300px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1050;
+  border: 2px dashed #0d6efd;
+}
+
+#favoritesBtn {
+  position: relative;
+}
+
+#favoritesCount {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 0.75rem;
+}
+
+  .skeleton {
+    background: linear-gradient(-90deg, #e0e0e0 0%, #f5f5f5 50%, #e0e0e0 100%);
+    background-size: 400% 400%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+      0% {
+        background-position: 100% 0;
+      }
+      100% {
+        background-position: -100% 0;
+      }
+  }
+
+  .skeleton-card {
+    height: 150px;
+    border-radius: 0.75rem;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .compare-card {
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .compare-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .compare-label {
+    font-weight: 500;
+    color: #6c757d;
+    min-width: 130px;
+  }
+
+  .compare-value {
+    font-weight: 400;
+  }
+
+  .compare-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dashed #dee2e6;
+    padding-bottom: 0.5rem;
+  }
+
+  .compare-row:last-child {
+    border: none;
+  }
+
+  .empty-box {
+    border: 2px dashed #ced4da;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+ }
+
+  .empty-fav {
+    border: 2px dashed #ced4da;
+    border-radius: 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .card-title {
+    font-weight: 600;
+  }
+
+  .not-found-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f8f9fa;
+    text-align: center;
+  }
+
+  .error-box {
+    max-width: 500px;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.1);
+  }
+
+  .emoji {
+    font-size: 4rem;
+  }
+
+  .btn-home {
+    margin-top: 1.5rem;
+  }
+
+
+/***** End CSS WebPage Indication *****/
