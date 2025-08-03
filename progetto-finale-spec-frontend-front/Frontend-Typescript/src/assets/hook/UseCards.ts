@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useReducer, useRef } from 'react'
 import UsePromise from './UsePromise';
 import CardReducer from '../reducer/CardReducer';
 import axios, { Axios, AxiosError } from 'axios';
-import type { Informatica, InitialCardsState, Multimedia, Viaggi } from '../types/TypesPrincipalCards';
+import type { CombinationList, Informatica, InitialCardsState, Multimedia, Selectiontypes, Viaggi } from '../types/TypesPrincipalCards';
 
 export default function UseCards() {
     const [setList, setActive, isResult, isActive] = UsePromise(); 
-    const MemoryFav = useRef([]);
+    const MemoryFav = useRef<Selectiontypes[]>([]);
 
     type ListExtraction = [ Informatica[], Multimedia[], Viaggi[] ];
     
@@ -32,7 +32,7 @@ export default function UseCards() {
             setList([informatica_url, multimedia_url, viaggi_url]);
             setActive(true);
             if (typeof isResult === 'object') {
-              // Dichiarazione di variabile per "ListExtraction" - Casting
+              // Dichiarazione di variabile per "ListExtraction" - in Casting
               const [ informatica, multimedia, viaggi ] = isResult as ListExtraction;
 
               if (informatica === undefined && multimedia === undefined && viaggi === undefined) {
@@ -91,16 +91,52 @@ export default function UseCards() {
         }
       }
     }
+
+  function FavoriteCardsAll(){
+       if (StateCards.isSelected.id === null) return
+          const UnionCards = [...StateCards.isInformatic, ...StateCards.isMultimedia, ...StateCards.isVactions];
+
+          const FinderList = UnionCards.find(items => items.id === StateCards.isSelected.id && items.category === StateCards.isSelected.type);
+
+          if (!FinderList) return 
+          const AlReadyExist = MemoryFav.current.some(items => items.id === StateCards.isSelected.id && items.category === StateCards.isSelected.type)
+
+          if (!AlReadyExist) {
+            MemoryFav.current = [...MemoryFav.current, FinderList];
+          } 
+
+          sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current));
+          dispatch({ type: "SET_FAVORITES", payload: [...MemoryFav.current] })  
+    }
+
+    function EliminateFavoriteCards(id: number, category: string) {
+      const FavoritesRemove = StateCards.isFavorites.filter(items => !(items.id === id && items.category === category)); // Restituisce una condizione.
+      MemoryFav.current = [...FavoritesRemove];
+      sessionStorage.setItem("Preferiti", JSON.stringify(MemoryFav.current))
+      dispatch({ type: "SET_ELIMINATE_TASK", payload: FavoritesRemove })
+    }
+
+    useEffect(() => {
+       // Forzamento di tipizazzione di un valore di stringa non definito
+       const getSessionList = JSON.parse(sessionStorage.getItem("Preferiti") as string);
+      if (!getSessionList) return
+       MemoryFav.current = [...getSessionList];
+       dispatch({ type: "RECOVERY_TASKS", payload: [...MemoryFav.current]})
+    }, [])
+
+    console.log(MemoryFav)
+
     
-    useMemo(() => { AllCards() },[isActive]);
     useEffect(() => { FindElementsLists() },[StateCards.isTarget, StateCards.isID]);
+    useMemo(() => { AllCards() },[isActive]);
+    useMemo(() => { FavoriteCardsAll() }, [StateCards.isSelected])
     
-    console.log(StateCards)
       return{
           ...StateCards,
           dispatch,
           setID: (id: number) => dispatch({ type: "SET_ID", payload: id }), 
           setTarget: (target: string) => dispatch({ type: "SET_TARGET", payload: target }),
-          setSelected: (category: string, elementID: number) => dispatch({ type: "SET_SELECT", types: category, id: elementID})
+          setSelected: (category: string, elementID: number) => dispatch({ type: "SET_SELECT", types: category, id: elementID}),
+          EliminateFavoriteCards
       }
 }

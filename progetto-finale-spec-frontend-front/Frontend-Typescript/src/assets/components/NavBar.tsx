@@ -1,10 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router'
 import { ExportContextGlobal } from '../context/ContextGlobal'
+import type { ExportContextGlobalObj } from '../types/TypesPrincipalCards';
 
 export default function NavBar() {
 
-  const { isFavorites, setFavorites } = ExportContextGlobal();
+  const { isFavorites } = ExportContextGlobal() as ExportContextGlobalObj;
     
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

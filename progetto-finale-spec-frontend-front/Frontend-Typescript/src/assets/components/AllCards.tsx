@@ -1,9 +1,14 @@
 import React from 'react'
 import { ExportContextGlobal } from '../context/ContextGlobal'
+import type { CombinationList, ExportContextGlobalObj } from '../types/TypesPrincipalCards';
+import { NavLink } from 'react-router';
+import type { CombanationListItems } from '../types/TypesFilterData';
 
-export default function AllCards({isFilter}) {
+type PropsTypes = { isFilter: CombanationListItems[] }
 
-  const { handleSelection, setSelected, isSelected } = ExportContextGlobal(); 
+export default function AllCards({isFilter}: PropsTypes) {
+
+  const { setSelected, handleSelection } = ExportContextGlobal() as ExportContextGlobalObj; 
 
   return (<>
   <div className="col">
@@ -30,21 +35,21 @@ export default function AllCards({isFilter}) {
                     <div className="d-flex gap-2">
                         
                         {
-                            String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("informatica", element.id)}><i className='bi bi-people-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "audio" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "video" &&  <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "image" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", element.id)}><i className='bi bi-people-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "turismo" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("viaggi", element.id)}><i className='bi bi-people-fill'></i></button>
+                            String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("informatica", Number(element.id))}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", Number(element.id))}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "audio" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", Number(element.id))}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "video" &&  <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", Number(element.id))}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "image" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("multimedia", Number(element.id))}><i className='bi bi-people-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "turismo" && <button className="btn btn-sm btn-outline-secondary compare-btn" data-id={element.id} title="Aggiungi al comparatore" onClick={() => handleSelection("viaggi", Number(element.id))}><i className='bi bi-people-fill'></i></button>
                         }
 
                         {
-                            String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "audio" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "video" &&  <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "image" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button> ||
-                            String(element.category).toLowerCase() === "turismo" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected(element.category, element.id)}><i className='bi bi-star-fill'></i></button>
+                            String(element.category).toLowerCase() === "programmazione" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "document" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "audio" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "video" &&  <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "image" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button> ||
+                            String(element.category).toLowerCase() === "turismo" && <button className="btn btn-sm btn-outline-warning favorite-btn" data-id={element.id} title="Aggiungi ai preferiti" onClick={() => setSelected?.(element.category, Number(element.id))}><i className='bi bi-star-fill'></i></button>
                         }
                     </div>
                 </div>

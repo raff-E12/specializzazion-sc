@@ -1,10 +1,11 @@
 import React from 'react'
 import { ExportContextGlobal } from '../context/ContextGlobal';
 import { NavLink } from 'react-router';
+import type { ExportContextGlobalObj } from '../types/TypesPrincipalCards';
 
 export default function ComparatorBox() {
 
-  const { isComparator, setCompartor, EliminateItemsDefinitive } = ExportContextGlobal();
+  const { isComparator, EliminateItemsDefinitive } = ExportContextGlobal() as ExportContextGlobalObj;
 
   return (<>
    <div className="comparator-box position-fixed bottom-0 end-0 m-4 p-3 bg-white shadow rounded">

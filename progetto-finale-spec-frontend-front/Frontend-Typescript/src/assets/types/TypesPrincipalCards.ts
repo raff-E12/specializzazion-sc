@@ -1,11 +1,11 @@
 import React, { type Dispatch } from 'react'
 
-type  Multimedia = {
+type Multimedia = {
     id: number,
     createdAt: string,
     updatedAt: string,
     title: string,
-    category: "document" | "audio" | "video" | "image" | "",
+    category: "document" | "audio" | "video" | "image" | "" | null,
     description?: string,
     format?: "audio" | "document" | "audio" | "video" | "image",
     url?: string,
@@ -76,7 +76,10 @@ type ExportContextGlobalObj = { isInformatic: Informatica[],
 isMultimedia: Multimedia[], isVactions: Viaggi[], 
 isLoading?: boolean, setSelected?: (category: string | null, id: number) => void, 
 isID?: number, setID?: (id: number) => number, isFind?: CombinationList, isTarget?: string, 
-setTarget?: (target: string) => string };
+setTarget?: (target: string) => string, handleSelection: (type: string, id: number) => void
+isComparator: Selectiontypes[], EliminateItemsDefinitive: (id: number) => void,
+setActive: (id: boolean) => React.Dispatch<React.SetStateAction<typeof id>>,
+EliminateFavoriteCards: (id: number | null, category: string | null) => void, isFavorites: Selectiontypes[] };
 
 export type { InitialCardsState, 
               Informatica, 

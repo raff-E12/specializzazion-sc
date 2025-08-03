@@ -16,6 +16,7 @@ export default function DetailCardInfo() {
       isTarget,
       setTarget,
       setSelected, 
+      handleSelection
   } = ExportContextGlobal() as ExportContextGlobalObj;
 
   const SetFindVaction = useEffect(() => {

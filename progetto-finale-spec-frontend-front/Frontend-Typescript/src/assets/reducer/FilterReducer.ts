@@ -1,6 +1,7 @@
 import React from 'react'
+import type { initialFilterState, ActionDataFilter } from '../types/TypesFilterData'
 
-export default function FilterReducer(state, action) {
+export default function FilterReducer(state: initialFilterState, action: ActionDataFilter) {
     switch (action.type) {
         case "SET_DISABLED":
         return { ...state, isDisabled: action.payload }

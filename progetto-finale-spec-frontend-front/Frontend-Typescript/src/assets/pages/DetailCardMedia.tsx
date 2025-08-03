@@ -15,7 +15,8 @@ export default function DatailCardMedia() {
       isFind,
       isTarget,
       setTarget,
-      setSelected, 
+      setSelected,
+      handleSelection
   } = ExportContextGlobal() as ExportContextGlobalObj;
 
   const SetFindVaction = useEffect(() => {

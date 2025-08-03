@@ -7,6 +7,8 @@ import NotFoundPage from './assets/pages/NotFoundPage'
 import DetailCardInfo from './assets/pages/DetailCardInfo'
 import DatailCardMedia from './assets/pages/DetailCardMedia'
 import DetailCardVactions from './assets/pages/DetailCardVactions'
+import ComparePage from './assets/pages/ComparePage'
+import FavoritePage from './assets/pages/FavoritePage'
 
 function App() {
 
@@ -18,8 +20,8 @@ function App() {
          <Route element={<DashBoard/>}>
             <Route path={"*"} element={<NotFoundPage />}/>
             <Route index element={<HomePageList />}/>
-            {/* <Route path='/compare-items' element={<ComparePage />}/>
-            <Route  path='/favorites' element={<FavoritePage />}/> */}
+            <Route path='/compare-items' element={<ComparePage />}/>
+            <Route  path='/favorites' element={<FavoritePage />}/>
           </Route>
         
           <Route path="/items" element={<DashBoard />}>

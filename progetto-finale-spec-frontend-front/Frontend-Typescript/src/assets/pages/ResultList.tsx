@@ -1,7 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import type { CombinationList } from '../types/TypesPrincipalCards'
+import type { CombanationListItems } from '../types/TypesFilterData'
 
-export default function ResultList({isFilter, setFilter, isDisabled}) {
+type PropsTypes = { isFilter: CombanationListItems[], isDisabled: boolean}
+
+export default function ResultList({isFilter, isDisabled}: PropsTypes) {
 
   return (<>
   <div className="container py-5">

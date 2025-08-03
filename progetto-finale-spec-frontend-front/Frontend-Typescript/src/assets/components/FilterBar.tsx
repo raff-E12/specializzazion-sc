@@ -1,8 +1,23 @@
 import React, { useMemo } from 'react'
+import debounce from "debounce"
 
-function FilterBar({isSearch, setSearch, isCategory, setCategory, setSort, SortRef, TextPlace, isActive, isAllCardsSets, setAllCardsCategory}) {
+type PropsTypes = { 
+   isSearch: string,
+   setSearch: (search: string) => void,
+   isCategory: string,
+   setCategory: (category: string) => void,
+   setSort: (sort: string) => void,
+   SortRef: React.RefObject<HTMLSelectElement | null>, // Presa di Rifermento del Elemento HTML
+   TextPlace: string,
+   isActive: boolean,
+   isAllCardsSets: string,
+   setAllCardsCategory: (category: string) => void
+}
 
-  const DebounceFunction = (e) => {
+function FilterBar({isSearch, setSearch, isCategory, setCategory, setSort, SortRef, TextPlace, isActive, isAllCardsSets, setAllCardsCategory}: PropsTypes) {
+
+  // Tipizzazione di un evento nel HTML
+  const DebounceFunction = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setSearch(e.target.value)
   };
 

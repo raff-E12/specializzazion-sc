@@ -1,21 +1,36 @@
+import axios from 'axios';
 import React, { useMemo, useState } from 'react'
+import type { CombinationList, Informatica, Multimedia, Selectiontypes, Viaggi } from '../types/TypesPrincipalCards';
+
+type SelectionMap = { type: string, id: number };
+type PromisesCallBack = { status: "fulfilled" | "rejected" | "pending", 
+                          value: { 
+                            success: boolean, 
+                            informatica?: Informatica, 
+                            multimedia?: Multimedia, 
+                            viaggi?: Viaggi 
+                          }};
+
+type KeyCategory = "informatica" | "viaggi" | "multimedia";
 
 export default function UseCompator() {
-    const [isActive, setActive] = useState(false);
-        const [isComparator, setCompartor] = useState([]);
-        const [isSelection, setSelection] = useState([]);
+    const [isActive, setActive] = useState<boolean>(false);
+    const [isComparator, setCompartor] = useState<CombinationList[]>([]);
+    const [isSelection, setSelection] = useState<SelectionMap[]>([]);
     
-       async function PromisesFetiching(url){
+       async function PromisesFetiching(url: string): Promise<unknown> {
          try {
           const response = await axios.get(url);
           const data = response.data;
           return data
          } catch (error) {
-           throw new Error(error.message);
+           if (error instanceof Error) {
+              throw new Error(error.message);
+           }
          }
        }
     
-       function handleSelection(type, id) {
+       function handleSelection(type: string, id: number): void {
          if (isSelection.length < 2) {
             setSelection(prev => [...prev, { type, id }])
             return
@@ -24,8 +39,8 @@ export default function UseCompator() {
          window.alert("Puoi Solo Confrontare Due Elementi");
        }
     
-        async function FinderCardSelection() {
-            let ListURL = isSelection.map((items, index) => {
+        async function FinderCardSelection(): Promise<void> {
+            let ListURL = isSelection.map((items) => {
                 let BaseURL = null;
                 switch (items.type) {
                     case "informatica":
@@ -45,21 +60,26 @@ export default function UseCompator() {
             });
             
             const Requests = ListURL.map(obj => PromisesFetiching(obj.url));
-            const PromisesResult = await Promise.allSettled(Requests);
-            const objectRequest = PromisesResult.map((items, index) => {
-                if (items.status === "fulfilled") {
-                    const resIndex = ListURL[index].type;
-                    return items.value[resIndex] || {};
-                } else {
-                    return {}
-                }
-            })
-    
-            // const conditionImplement = objectRequest.some(items => Object.keys(items).length > 0);
-            setCompartor(objectRequest)
+            const PromisesResult: PromisesCallBack[] | unknown[] = await Promise.allSettled(Requests);
+
+            if (Array.isArray(PromisesResult)) {
+              // Utilizzo del Casting Locale con "PromisesCallback" sottoforma di lista
+              const objectRequest = (PromisesResult as PromisesCallBack[]).map((items, index) => {
+                    if (items.status === "fulfilled") {
+                      // Tipizzazione delle Chiavi Valide senza essere sprovisto di chiavi casuali 
+                      const resIndex: KeyCategory = ListURL[index].type as KeyCategory;
+                          return items.value[resIndex] || {};
+                      } else {
+                          return {}
+                      }
+              });
+
+              setCompartor(objectRequest as CombinationList[])
+            }
+
         }
     
-        function EliminateItemsDefinitive(id) {
+        function EliminateItemsDefinitive(id: number): void {
             const FinderAlready = isSelection.find(items => items.id === id);
             if (FinderAlready) {
                 setSelection(list => list.filter(items => items.id !== id))
