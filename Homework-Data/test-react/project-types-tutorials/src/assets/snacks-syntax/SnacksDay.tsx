@@ -100,6 +100,8 @@ export default function SnacksDay() {
        function UpdateUsersJobs(users: User, update: Partial<Omit<User, Property>>){
          return { ...users, ...update }
        }
+
+      const presentazionUser = UpdateUsersJobs(Persona_2, { Jobs: "Insegnante di Biologia" });
     
        // Snack-6
        function ReturnWords<T>(value: T): T | undefined {
@@ -117,7 +119,6 @@ export default function SnacksDay() {
        const name = ReturnWords<string | undefined>("Chiara");
        const [isWords, setWords] = useState("");
        useMemo(() => { setWords(`${name} mangia la Mela insieme a Giovanni.`) }, [])
-       const presentazionUser = UpdateUsersJobs(Persona_2, { Jobs: "Insegnante di Biologia" });
     
       // Snack-7
        type fruit = "apple" | "orange" | "bananna";
