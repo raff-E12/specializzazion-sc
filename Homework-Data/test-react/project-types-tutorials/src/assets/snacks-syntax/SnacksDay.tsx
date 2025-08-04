@@ -128,7 +128,7 @@ export default function SnacksDay() {
           }
        }
     
-       // Per ogni chiave del del oggetto creato diventa immutabile.
+       // Per ogni chiave del oggetto creato diventa immutabile.
        type ReadProp<T> = {
           readonly [K in keyof T]: { name: K }
        }
